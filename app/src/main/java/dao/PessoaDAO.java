@@ -31,17 +31,6 @@ public class PessoaDAO {
         db.close();
     }
 
-//    // Adding new shop
-//public void addShop(Shop shop) {
-//    SQLiteDatabase db = this.getWritableDatabase();
-//    ContentValues values = new ContentValues();
-//    values.put(KEY_NAME, shop.getName()); // Shop Name
-//    values.put(KEY_SH_ADDR, shop.getAddress()); // Shop Phone Number
-//// Inserting Row
-//    db.insert(TABLE_SHOPS, null, values);
-//    db.close(); // Closing database connection
-}
-
     public void deletar(){
 
     }
