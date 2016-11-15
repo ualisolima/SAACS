@@ -19,8 +19,8 @@ public class SignupActivity extends AppCompatActivity {
 
     @Bind(R.id.input_name)
     EditText _nameText;
-    @Bind(R.id.input_address)
-    EditText _addressText;
+    @Bind(R.id.input_susnumber)
+    EditText _susText;
     @Bind(R.id.input_email)
     EditText _emailText;
     @Bind(R.id.input_mobile)
@@ -76,7 +76,7 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.show();
 
         String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
+        String susNumber = _susText.getText().toString();
         String email = _emailText.getText().toString();
         String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -113,7 +113,7 @@ public class SignupActivity extends AppCompatActivity {
         boolean valid = true;
 
         String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
+        String susNumber = _susText.getText().toString();
         String email = _emailText.getText().toString();
         String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -126,11 +126,11 @@ public class SignupActivity extends AppCompatActivity {
             _nameText.setError(null);
         }
 
-        if (address.isEmpty()) {
-            _addressText.setError("Enter Valid Address");
+        if (susNumber.isEmpty()) {
+            _susText.setError("Enter Valid Address");
             valid = false;
         } else {
-            _addressText.setError(null);
+            _susText.setError(null);
         }
 
 
