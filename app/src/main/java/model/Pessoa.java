@@ -10,7 +10,7 @@ public class Pessoa {
     // Identificação
     private String nome;
     private long NumSUS;
-    private Date dataNascimento;
+    private String dataNascimento;
     private long NumSUSResponsavel;
     private char sexo;
     private String nacionalidade;
@@ -50,11 +50,11 @@ public class Pessoa {
         NumSUS = numSUS;
     }
 
-    public Date getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
