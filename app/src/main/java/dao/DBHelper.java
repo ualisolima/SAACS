@@ -29,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+//        sqLiteDatabase.execSQL(DB_CREATE_PESSOA);
     }
 
     @Override
