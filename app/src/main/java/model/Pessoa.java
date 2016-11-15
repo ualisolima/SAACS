@@ -7,6 +7,7 @@ import java.util.Date;
  */
 
 public class Pessoa {
+    // Identificação
     private String nome;
     private long NumSUS;
     private Date dataNascimento;
@@ -16,6 +17,18 @@ public class Pessoa {
     private String cidadeUFNatal;
     private String telefone;
     private String email;
+
+    // Informações Sociodemográficas:
+    private boolean responsavelFamiliar;
+    private String relacaoParentRF;
+    private String profissao;
+    private String Escolaridade;
+    private String situacaoMercado;
+    private boolean deficiencia;
+    private String qualDeficiencia;
+
+    // Situação de Saúde Geral
+    private SituacaoSaude saude;
 
 
 

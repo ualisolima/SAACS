@@ -27,6 +27,7 @@ public class SituacaoSaude {
     private boolean internacao;
     private String motivoInternacao;
     private boolean problemaMental;
+    private boolean tratamento;
     private int nivelSaude;
     private String plantasMedicinais;
 
