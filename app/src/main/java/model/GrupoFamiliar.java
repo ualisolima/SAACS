@@ -1,11 +1,25 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * Created by pc on 15/11/16.
  */
 
 public class GrupoFamiliar {
 
+    private long id;
+    ArrayList<Pessoa> pessoas;
+    ArrayList<String> contatos;
+    private String endereco;
+    private String localizacao;
+    private String condsMoradia;
+    private String tipoDomicilio;
+    private boolean energiaEletrica;
+    private boolean saneamentoBasico;
+    private String destLixo;
+    private boolean temAnimais;
+    private String animais;
 
 
 }

@@ -6,6 +6,7 @@ package model;
 
 public class SituacaoSaude {
 
+    private long id;
     private boolean gestante;
     private String nivelPeso;
     private boolean fumante;
