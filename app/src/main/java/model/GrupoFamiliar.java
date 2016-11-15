@@ -21,6 +21,101 @@ public class GrupoFamiliar {
     private boolean temAnimais;
     private String animais;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public ArrayList<Pessoa> getPessoas() {
+        return pessoas;
+    }
+
+    public void setPessoas(ArrayList<Pessoa> pessoas) {
+        this.pessoas = pessoas;
+    }
+
+    public ArrayList<String> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(ArrayList<String> contatos) {
+        this.contatos = contatos;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(String localizacao) {
+        this.localizacao = localizacao;
+    }
+
+    public String getCondsMoradia() {
+        return condsMoradia;
+    }
+
+    public void setCondsMoradia(String condsMoradia) {
+        this.condsMoradia = condsMoradia;
+    }
+
+    public String getTipoDomicilio() {
+        return tipoDomicilio;
+    }
+
+    public void setTipoDomicilio(String tipoDomicilio) {
+        this.tipoDomicilio = tipoDomicilio;
+    }
+
+    public boolean isEnergiaEletrica() {
+        return energiaEletrica;
+    }
+
+    public void setEnergiaEletrica(boolean energiaEletrica) {
+        this.energiaEletrica = energiaEletrica;
+    }
+
+    public boolean isSaneamentoBasico() {
+        return saneamentoBasico;
+    }
+
+    public void setSaneamentoBasico(boolean saneamentoBasico) {
+        this.saneamentoBasico = saneamentoBasico;
+    }
+
+    public String getDestLixo() {
+        return destLixo;
+    }
+
+    public void setDestLixo(String destLixo) {
+        this.destLixo = destLixo;
+    }
+
+    public boolean isTemAnimais() {
+        return temAnimais;
+    }
+
+    public void setTemAnimais(boolean temAnimais) {
+        this.temAnimais = temAnimais;
+    }
+
+    public String getAnimais() {
+        return animais;
+    }
+
+    public void setAnimais(String animais) {
+        this.animais = animais;
+    }
 
 }
 

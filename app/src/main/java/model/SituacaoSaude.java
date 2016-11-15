@@ -32,6 +32,205 @@ public class SituacaoSaude {
     private int nivelSaude;
     private String plantasMedicinais;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public boolean isGestante() {
+        return gestante;
+    }
+
+    public void setGestante(boolean gestante) {
+        this.gestante = gestante;
+    }
+
+    public String getNivelPeso() {
+        return nivelPeso;
+    }
+
+    public void setNivelPeso(String nivelPeso) {
+        this.nivelPeso = nivelPeso;
+    }
+
+    public boolean isFumante() {
+        return fumante;
+    }
+
+    public void setFumante(boolean fumante) {
+        this.fumante = fumante;
+    }
+
+    public boolean isAlcool() {
+        return alcool;
+    }
+
+    public void setAlcool(boolean alcool) {
+        this.alcool = alcool;
+    }
+
+    public boolean isDrogas() {
+        return drogas;
+    }
+
+    public void setDrogas(boolean drogas) {
+        this.drogas = drogas;
+    }
+
+    public boolean isHipertenso() {
+        return hipertenso;
+    }
+
+    public void setHipertenso(boolean hipertenso) {
+        this.hipertenso = hipertenso;
+    }
+
+    public boolean isDiabete() {
+        return diabete;
+    }
+
+    public void setDiabete(boolean diabete) {
+        this.diabete = diabete;
+    }
+
+    public boolean isAVC_Derrame() {
+        return AVC_Derrame;
+    }
+
+    public void setAVC_Derrame(boolean AVC_Derrame) {
+        this.AVC_Derrame = AVC_Derrame;
+    }
+
+    public boolean isInfarto() {
+        return infarto;
+    }
+
+    public void setInfarto(boolean infarto) {
+        this.infarto = infarto;
+    }
+
+    public boolean isDoencaCardiaca() {
+        return doencaCardiaca;
+    }
+
+    public void setDoencaCardiaca(boolean doencaCardiaca) {
+        this.doencaCardiaca = doencaCardiaca;
+    }
+
+    public String getQualDoencaCardiaca() {
+        return QualDoencaCardiaca;
+    }
+
+    public void setQualDoencaCardiaca(String qualDoencaCardiaca) {
+        QualDoencaCardiaca = qualDoencaCardiaca;
+    }
+
+    public boolean isProblemaRins() {
+        return problemaRins;
+    }
+
+    public void setProblemaRins(boolean problemaRins) {
+        this.problemaRins = problemaRins;
+    }
+
+    public String getQualProblemaRins() {
+        return QualProblemaRins;
+    }
+
+    public void setQualProblemaRins(String qualProblemaRins) {
+        QualProblemaRins = qualProblemaRins;
+    }
+
+    public boolean isProblemaRespiratorios() {
+        return problemaRespiratorios;
+    }
+
+    public void setProblemaRespiratorios(boolean problemaRespiratorios) {
+        this.problemaRespiratorios = problemaRespiratorios;
+    }
+
+    public String getQualProblemaRespiratorios() {
+        return QualProblemaRespiratorios;
+    }
+
+    public void setQualProblemaRespiratorios(String qualProblemaRespiratorios) {
+        QualProblemaRespiratorios = qualProblemaRespiratorios;
+    }
+
+    public boolean isHanseniase() {
+        return hanseniase;
+    }
+
+    public void setHanseniase(boolean hanseniase) {
+        this.hanseniase = hanseniase;
+    }
+
+    public boolean isTuberculose() {
+        return tuberculose;
+    }
+
+    public void setTuberculose(boolean tuberculose) {
+        this.tuberculose = tuberculose;
+    }
+
+    public boolean isCancer() {
+        return cancer;
+    }
+
+    public void setCancer(boolean cancer) {
+        this.cancer = cancer;
+    }
+
+    public boolean isInternacao() {
+        return internacao;
+    }
+
+    public void setInternacao(boolean internacao) {
+        this.internacao = internacao;
+    }
+
+    public String getMotivoInternacao() {
+        return motivoInternacao;
+    }
+
+    public void setMotivoInternacao(String motivoInternacao) {
+        this.motivoInternacao = motivoInternacao;
+    }
+
+    public boolean isProblemaMental() {
+        return problemaMental;
+    }
+
+    public void setProblemaMental(boolean problemaMental) {
+        this.problemaMental = problemaMental;
+    }
+
+    public boolean isTratamento() {
+        return tratamento;
+    }
+
+    public void setTratamento(boolean tratamento) {
+        this.tratamento = tratamento;
+    }
+
+    public int getNivelSaude() {
+        return nivelSaude;
+    }
+
+    public void setNivelSaude(int nivelSaude) {
+        this.nivelSaude = nivelSaude;
+    }
+
+    public String getPlantasMedicinais() {
+        return plantasMedicinais;
+    }
+
+    public void setPlantasMedicinais(String plantasMedicinais) {
+        this.plantasMedicinais = plantasMedicinais;
+    }
 }
 
 //
