@@ -30,6 +30,11 @@ public class Pessoa {
     // Situação de Saúde Geral
     private SituacaoSaude saude;
 
+    public Pessoa() {
+        responsavel = new Pessoa();
+        saude = new SituacaoSaude();
+    }
+
     public String getNome() {
         return nome;
     }

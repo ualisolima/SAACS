@@ -21,6 +21,11 @@ public class GrupoFamiliar {
     private boolean temAnimais;
     private String animais;
 
+    public GrupoFamiliar() {
+        pessoas = new ArrayList<Pessoa>();
+        contatos = new ArrayList<String>();
+    }
+
     public long getId() {
         return id;
     }
