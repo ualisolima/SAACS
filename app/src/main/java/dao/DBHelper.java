@@ -13,6 +13,16 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "saacs.db";
     private static final int DB_VERSION = 1;
 
+    // criar tabelas
+    private static final String DB_CREATE_PESSOA =
+            "create table pessoa ( );";
+
+    private static final String DB_CREATE_SSAUDE =
+            "create table ssaude ( );";
+
+    private static final String DB_CREATE_GFAMILIAR =
+            "create table gfamiliar ( );";
+
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
