@@ -11,7 +11,7 @@ public class Pessoa {
     private String nome;
     private long NumSUS;
     private Date dataNascimento;
-    private Pessoa responsavel;
+    private long NumSUSResponsavel;
     private char sexo;
     private String nacionalidade;
     private String cidadeUFNatal;
@@ -31,7 +31,6 @@ public class Pessoa {
     private SituacaoSaude saude;
 
     public Pessoa() {
-        responsavel = new Pessoa();
         saude = new SituacaoSaude();
     }
 
@@ -59,12 +58,12 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-    public Pessoa getResponsavel() {
-        return responsavel;
+    public long getNumSUSResponsavel() {
+        return NumSUSResponsavel;
     }
 
-    public void setResponsavel(Pessoa responsavel) {
-        this.responsavel = responsavel;
+    public void setNumSUSResponsavel(long numSUSResponsavel) {
+        NumSUSResponsavel = numSUSResponsavel;
     }
 
     public char getSexo() {
