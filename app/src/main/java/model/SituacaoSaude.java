@@ -20,8 +20,8 @@ public class SituacaoSaude {
     private String qualDoencaCardiaca;
     private boolean problemaRins;
     private String qualProblemaRins;
-    private boolean problemaRespiratorios;
-    private String qualProblemaRespiratorios;
+    private boolean problemaRespiratorio;
+    private String qualProblemaRespiratorio;
     private boolean hanseniase;
     private boolean tuberculose;
     private boolean cancer;
@@ -145,15 +145,15 @@ public class SituacaoSaude {
     }
 
     public boolean isProblemaRespiratorios() {
-        return problemaRespiratorios;
+        return problemaRespiratorio;
     }
 
     public void setProblemaRespiratorios(boolean problemaRespiratorios) {
-        this.problemaRespiratorios = problemaRespiratorios;
+        this.problemaRespiratorio = problemaRespiratorios;
     }
 
     public String getQualProblemaRespiratorios() {
-        return qualProblemaRespiratorios;
+        return qualProblemaRespiratorio;
     }
 
     public void setQualProblemaRespiratorios(String qualProblemaRespiratorios) {
