@@ -138,6 +138,32 @@ public class PessoaDAO {
 
     public void atualizar(Pessoa pessoa){
 
+        db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("numSUS", pessoa.getNumSUS());
+        values.put("nome", pessoa.getNome());
+        values.put("dataNascimento", pessoa.getDataNascimento());
+        values.put("numSUSResponsavel", pessoa.getNumSUSResponsavel());
+        values.put("sexo", pessoa.getSexo());
+        values.put("nacionalidade", pessoa.getNacionalidade());
+        values.put("cidadeUFNatal", pessoa.getCidadeUFNatal());
+        values.put("telefone", pessoa.getTelefone());
+        values.put("email", pessoa.getEmail());
+        values.put("responsavelFamiliar", pessoa.isResponsavelFamiliar());
+        values.put("relacaoParentRF", pessoa.getRelacaoParentRF());
+        values.put("profissao", pessoa.getProfissao());
+        values.put("escolaridade", pessoa.getEscolaridade());
+        values.put("situacaoMercado", pessoa.getSituacaoMercado());
+        values.put("deficiencia", pessoa.isDeficiencia());
+        values.put("qualDeficiencia", pessoa.getQualDeficiencia());
+        values.put("id_saude", pessoa.getSaude().getId());
+
+        db.update("pessoa", values, "numSUS = ?", new String[]{String.valueOf(pessoa.getNumSUS())});
+
+        db.close();
+
     }
 
 }
