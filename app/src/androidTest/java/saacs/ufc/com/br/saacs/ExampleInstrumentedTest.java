@@ -1,4 +1,4 @@
-package saacs.ufc.com.br.saacs;
+package saacs.ufc.com.br.saacs2;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("saacs.ufc.com.br.saacs", appContext.getPackageName());
+        assertEquals("saacs.ufc.com.br.saacs2", appContext.getPackageName());
     }
 }
