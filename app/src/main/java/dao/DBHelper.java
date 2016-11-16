@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     "    deficiencia integer default 0," +
                     "    qualDeficiencia text," +
                     "    id_saude big int not null," +
-                    "    FOREIGN KEY(id_saude) REFERENCES situacao_saude(id_situacao)" +
+                    "    FOREIGN KEY(id_saude) REFERENCES situacao_saude(id_situacao) ON DELETE RESTRICT ON UPDATE CASCADE" +
                     ");";
 
     private static final String DB_CREATE_SITUACAO_SAUDE =

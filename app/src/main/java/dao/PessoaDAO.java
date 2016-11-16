@@ -53,10 +53,6 @@ public class PessoaDAO {
         db.close();
     }
 
-    public void deletar( long numSUS){
-
-    }
-
     public List<Pessoa> buscarTodos(){
 
         List<Pessoa> pessoas = new ArrayList<Pessoa>();
@@ -126,8 +122,17 @@ public class PessoaDAO {
 
         db.close();
 
+        // fazer uma função para gerar a lista? return toList(cursor)
 
         return pessoas;
+
+    }
+
+    public void deletar( long numSUS){
+
+        db = dbHelper.getWritableDatabase();
+        db.delete("pessoa", "numSUS = ?", new String[]{String.valueOf(numSUS)});
+        db.close();
 
     }
 
