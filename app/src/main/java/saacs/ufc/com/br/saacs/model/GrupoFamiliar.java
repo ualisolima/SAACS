@@ -1,4 +1,4 @@
-package model;
+package saacs.ufc.com.br.saacs.model;
 
 import java.util.ArrayList;
 

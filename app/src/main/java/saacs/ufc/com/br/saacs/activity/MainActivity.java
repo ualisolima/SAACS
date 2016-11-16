@@ -1,4 +1,4 @@
-package saacs.ufc.com.br.saacs;
+package saacs.ufc.com.br.saacs.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

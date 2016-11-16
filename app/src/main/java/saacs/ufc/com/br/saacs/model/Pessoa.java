@@ -1,6 +1,4 @@
-package model;
-
-import java.util.Date;
+package saacs.ufc.com.br.saacs.model;
 
 /**
  * Created by pc on 15/11/16.

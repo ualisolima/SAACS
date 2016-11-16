@@ -1,4 +1,4 @@
-package dao;
+package saacs.ufc.com.br.saacs.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

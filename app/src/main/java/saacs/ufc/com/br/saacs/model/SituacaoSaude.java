@@ -1,4 +1,4 @@
-package model;
+package saacs.ufc.com.br.saacs.model;
 
 /**
  * Created by pc on 15/11/16.

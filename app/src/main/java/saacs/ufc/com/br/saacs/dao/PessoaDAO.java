@@ -1,16 +1,15 @@
-package dao;
+package saacs.ufc.com.br.saacs.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Pessoa;
-import model.SituacaoSaude;
+import saacs.ufc.com.br.saacs.model.Pessoa;
+import saacs.ufc.com.br.saacs.model.SituacaoSaude;
 
 /**
  * Created by pc on 15/11/16.
