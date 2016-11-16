@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class GrupoFamiliar {
 
     private long id;
-    ArrayList<Pessoa> pessoas;
-    ArrayList<String> contatos;
+    private ArrayList<Pessoa> pessoas;
+    private String contato;
     private String endereco;
     private String localizacao;
     private String condsMoradia;
@@ -23,7 +23,6 @@ public class GrupoFamiliar {
 
     public GrupoFamiliar() {
         pessoas = new ArrayList<Pessoa>();
-        contatos = new ArrayList<String>();
     }
 
     public long getId() {
@@ -42,12 +41,12 @@ public class GrupoFamiliar {
         this.pessoas = pessoas;
     }
 
-    public ArrayList<String> getContatos() {
-        return contatos;
+    public String getContatos() {
+        return contato;
     }
 
-    public void setContatos(ArrayList<String> contatos) {
-        this.contatos = contatos;
+    public void setContatos(String contato) {
+        this.contato = contato;
     }
 
     public String getEndereco() {

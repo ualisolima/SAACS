@@ -11,8 +11,8 @@ public class Pessoa {
     private String nome;
     private long NumSUS;
     private String dataNascimento;
-    private long NumSUSResponsavel;
-    private char sexo;
+    private long numSUSResponsavel;
+    private String sexo;
     private String nacionalidade;
     private String cidadeUFNatal;
     private String telefone;
@@ -22,7 +22,7 @@ public class Pessoa {
     private boolean responsavelFamiliar;
     private String relacaoParentRF;
     private String profissao;
-    private String Escolaridade;
+    private String escolaridade;
     private String situacaoMercado;
     private boolean deficiencia;
     private String qualDeficiencia;
@@ -59,18 +59,18 @@ public class Pessoa {
     }
 
     public long getNumSUSResponsavel() {
-        return NumSUSResponsavel;
+        return numSUSResponsavel;
     }
 
     public void setNumSUSResponsavel(long numSUSResponsavel) {
-        NumSUSResponsavel = numSUSResponsavel;
+        numSUSResponsavel = numSUSResponsavel;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
@@ -131,11 +131,11 @@ public class Pessoa {
     }
 
     public String getEscolaridade() {
-        return Escolaridade;
+        return escolaridade;
     }
 
     public void setEscolaridade(String escolaridade) {
-        Escolaridade = escolaridade;
+        escolaridade = escolaridade;
     }
 
     public String getSituacaoMercado() {

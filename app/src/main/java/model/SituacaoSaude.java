@@ -17,11 +17,11 @@ public class SituacaoSaude {
     private boolean AVC_Derrame;
     private boolean infarto;
     private boolean doencaCardiaca;
-    private String QualDoencaCardiaca;
+    private String qualDoencaCardiaca;
     private boolean problemaRins;
-    private String QualProblemaRins;
+    private String qualProblemaRins;
     private boolean problemaRespiratorios;
-    private String QualProblemaRespiratorios;
+    private String qualProblemaRespiratorios;
     private boolean hanseniase;
     private boolean tuberculose;
     private boolean cancer;
@@ -121,11 +121,11 @@ public class SituacaoSaude {
     }
 
     public String getQualDoencaCardiaca() {
-        return QualDoencaCardiaca;
+        return qualDoencaCardiaca;
     }
 
     public void setQualDoencaCardiaca(String qualDoencaCardiaca) {
-        QualDoencaCardiaca = qualDoencaCardiaca;
+        qualDoencaCardiaca = qualDoencaCardiaca;
     }
 
     public boolean isProblemaRins() {
@@ -137,11 +137,11 @@ public class SituacaoSaude {
     }
 
     public String getQualProblemaRins() {
-        return QualProblemaRins;
+        return qualProblemaRins;
     }
 
     public void setQualProblemaRins(String qualProblemaRins) {
-        QualProblemaRins = qualProblemaRins;
+        qualProblemaRins = qualProblemaRins;
     }
 
     public boolean isProblemaRespiratorios() {
@@ -153,11 +153,11 @@ public class SituacaoSaude {
     }
 
     public String getQualProblemaRespiratorios() {
-        return QualProblemaRespiratorios;
+        return qualProblemaRespiratorios;
     }
 
     public void setQualProblemaRespiratorios(String qualProblemaRespiratorios) {
-        QualProblemaRespiratorios = qualProblemaRespiratorios;
+        qualProblemaRespiratorios = qualProblemaRespiratorios;
     }
 
     public boolean isHanseniase() {
