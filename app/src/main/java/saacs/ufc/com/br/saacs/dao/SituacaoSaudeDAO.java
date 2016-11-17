@@ -68,6 +68,10 @@ public class SituacaoSaudeDAO {
 
     public void deletar(long idSaude){
 
+        db = dbHelper.getWritableDatabase();
+        db.delete("situacao_saude", "id_situacao = ?", new String[]{String.valueOf(idSaude)});
+        db.close();
+
     }
 
     public void alterar(SituacaoSaude saude){
