@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/numSUSText"
+        android:hint="Numero SUS" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/passwordText"
+        android:hint="Senha" />
+
+    <Button
+        android:text="Entrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginButton" />
+
+    <Button
+        android:text="Recuperar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recuperarButton" />
+
+    <TextView
+        android:text="Não possui conta? Crie um aqui"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signUpTextView" />
+</LinearLayout>
