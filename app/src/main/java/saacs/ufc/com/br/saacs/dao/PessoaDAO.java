@@ -19,8 +19,10 @@ public class PessoaDAO {
 
     private SQLiteDatabase db;
     private DBHelper dbHelper;
+    private Context context;
 
     public PessoaDAO (Context context){
+        this.context = context;
         dbHelper = new DBHelper(context);
     }
 
@@ -57,8 +59,7 @@ public class PessoaDAO {
         List<Pessoa> pessoas = new ArrayList<Pessoa>();
         String query = "SELECT * FROM pessoa";
 
-        SituacaoSaude saude  = new SituacaoSaude();
-        Cursor cSaude;
+        SituacaoSaudeDAO saudeDAO  = new SituacaoSaudeDAO(this.context);
 
         db = dbHelper.getWritableDatabase();
 
@@ -84,34 +85,7 @@ public class PessoaDAO {
                 p.setDeficiencia(cursor.getInt(cursor.getColumnIndex("deficiencia")) == 1);
                 p.setQualDeficiencia(cursor.getString(cursor.getColumnIndex("qualDeficiencia")));
 
-                cSaude = db.rawQuery("SELECT * FROM situacao_saude WHERE id_situacao = "+
-                        cursor.getLong(cursor.getColumnIndex("id_saude")) ,null);
-                if(cSaude.moveToFirst()){
-                    saude.setId(cSaude.getLong(0));
-                    saude.setGestante(cSaude.getInt(1) == 1);
-                    saude.setNivelPeso(cSaude.getString(2));
-                    saude.setFumante(cSaude.getInt(3) == 1);
-                    saude.setAlcool(cSaude.getInt(4) == 1);
-                    saude.setDrogas(cSaude.getInt(5) == 1);
-                    saude.setHipertenso(cSaude.getInt(6) == 1);
-                    saude.setDiabete(cSaude.getInt(7) == 1);
-                    saude.setAVC_Derrame(cSaude.getInt(8) == 1);
-                    saude.setInfarto(cSaude.getInt(9) == 1);
-                    saude.setDoencaCardiaca(cSaude.getInt(10) == 1);
-                    saude.setProblemaRins(cSaude.getInt(11) == 1);
-                    saude.setQualProblemaRins(cSaude.getString(12));
-                    saude.setProblemaRespiratorios(cSaude.getInt(13) == 1);
-                    saude.setQualProblemaRespiratorios(cSaude.getString(14));
-                    saude.setHanseniase(cSaude.getInt(15) == 1);
-                    saude.setTuberculose(cSaude.getInt(16) == 1);
-                    saude.setCancer(cSaude.getInt(17) == 1);
-                    saude.setInternacao(cSaude.getInt(18) == 1);
-                    saude.setMotivoInternacao(cSaude.getString(19));
-                    saude.setProblemaMental(cSaude.getInt(20) == 1);
-                    saude.setTratamento(cSaude.getInt(21) == 1);
-                    saude.setNivelSaude(cSaude.getInt(22));
-                    saude.setPlantasMedicinais(cSaude.getString(23));
-                }
+                SituacaoSaude saude = saudeDAO.buscar(cursor.getLong(cursor.getColumnIndex("id_saude")));
 
                 p.setSaude(saude);
 
@@ -122,7 +96,6 @@ public class PessoaDAO {
         db.close();
 
         // fazer uma função para gerar a lista? return toList(cursor)
-
         return pessoas;
 
     }
