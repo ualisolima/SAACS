@@ -72,13 +72,13 @@ public class DBHelper extends SQLiteOpenHelper {
                     "endereco text,"+
                     "contato text not null,"+
                     "localizacao text not null,"+
-                    "condsMoradia text not null,"+
-                    "tipoDomicilio text not null,"+
+                    "condsMoradia text ,"+
+                    "tipoDomicilio text ,"+
                     "energiaEletrica integer default 0," + //bool?
                     "saneamentoBasico integer default 0,"+ //bool?
-                    "destLixo text not null,"+
+                    "destLixo text ,"+
                     "temAnimais integer default 0,"+ //bool?
-                    "animais text not null,"+
+                    "animais text,"+
                     "FOREIGN KEY(id) REFERENCES pessoa(numSUS)," +
                     "FOREIGN KEY (id_agente)  REFERENCES acs(susNumber)"+
                     ");";
@@ -88,8 +88,8 @@ public class DBHelper extends SQLiteOpenHelper {
             "create tabel if note exists acs (" +
                     "susNumber bigint," +
                     "password text not null," +
-                    "nome text not null," +
-                    "FOREIGN KEY(susNumber) REFERENCES TB_GRUPO_FAMILIAR(id_agente)" +
+                    "nome text not null" +
+                    //"FOREIGN KEY(susNumber) REFERENCES TB_GRUPO_FAMILIAR(id_agente)" +
             "); ";
 
 
