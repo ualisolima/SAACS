@@ -14,7 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
 
     // criar tabelas
-    private static final String DB_CREATE_PESSOA =
+    private static final String TB_CREATE_PESSOA =
             "create table if not exists pessoa (" +
                     "    numSUS big int not null primaty key," +
                     "    nome text not null," +
@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     "    FOREIGN KEY(id_saude) REFERENCES situacao_saude(id_situacao) ON DELETE RESTRICT ON UPDATE CASCADE" +
                     ");";
 
-    private static final String DB_CREATE_SITUACAO_SAUDE =
+    private static final String TB_CREATE_SITUACAO_SAUDE =
             "create table if not exists situacao_saude (" +
                     "    id_situacao big int not null primaty key," +
                     "    gestante integer default 0," +
@@ -66,28 +66,22 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     //////////////////////****grupo familiar****/////////////
-    private static final String TB_GRUPO_FAMILIAR =
-
-            "create table if not exists grupo_familiar("+
+    private static final String TB_CREATE_GRUPO_FAMILIAR =
+            "create table if not exists grupo_familiar ("+
                     "id big int not null primary key," +
-                    "id_agente int not null"+
-                    "endereco text"+
-                    "contato text not null"+
-                    "localizacao text not null"+
-                    "condsMoradia text not null"+
-                    "tipoDomicilio text not null"+
-                    "energiaEletrica text not null" + //bool?
-                    "saneamentoBasico text not null"+ //bool?
-                    "destLixo text not null"+
-                    "temAnimais text not null"+ //bool?
-                    "animais text not null"+
+                    "id_agente int not null,"+
+                    "endereco text,"+
+                    "contato text not null,"+
+                    "localizacao text not null,"+
+                    "condsMoradia text not null,"+
+                    "tipoDomicilio text not null,"+
+                    "energiaEletrica integer default 0," + //bool?
+                    "saneamentoBasico integer default 0,"+ //bool?
+                    "destLixo text not null,"+
+                    "temAnimais integer default 0,"+ //bool?
+                    "animais text not null,"+
                     "FOREIGN KEY(id) REFERENCES pessoa(numSUS)"+
                     ");";
-
-///////////////////////////////////////////////////////////////////////
-
-    private static final String DB_CREATE_GRUPO_FAMILIAR =
-            "create table grupo_familiar ( );";
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -95,9 +89,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(DB_CREATE_SITUACAO_SAUDE);
-        sqLiteDatabase.execSQL(DB_CREATE_PESSOA);
-//        sqLiteDatabase.execSQL(DB_CREATE_GRUPO_FAMILIAR);
+        sqLiteDatabase.execSQL(TB_CREATE_SITUACAO_SAUDE);
+        sqLiteDatabase.execSQL(TB_CREATE_PESSOA);
+        sqLiteDatabase.execSQL(TB_CREATE_GRUPO_FAMILIAR);
     }
 
     @Override
@@ -105,7 +99,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // on upgrade drop older tables
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS pessoa");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS situacao_saude");
-//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS grupo_familiar");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS grupo_familiar");
         // create new tables
         onCreate(sqLiteDatabase);
     }
