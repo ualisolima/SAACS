@@ -105,4 +105,31 @@ public class DBHelper extends SQLiteOpenHelper {
         // create new tables
         onCreate(sqLiteDatabase);
     }
+
+    private static final String TB_GRUPO_FAMILIAR =
+
+            "create table if not exists grupo_familiar("+
+                    "id big int not null primary key," +
+                    "id_agente int not null"+
+                    "endereco text"+
+                    "contato text not null"+
+                    "localizacao text not null"+
+                    "condsMoradia text not null"+
+                    "tipoDomicilio text not null"+
+                    "energiaEletrica text not null" + //bool?
+                    "saneamentoBasico text not null"+ //bool?
+                    "destLixo text not null"+
+                    "temAnimais text not null"+ //bool?
+                    "animais text not null"+
+                    "FOREIGN KEY(id) REFERENCES pessoa(numSUS)"+
+                    ");";
+
+
+    ///////////////////////////////////////////////////////////////////////
+    private static final String Acs="susNumber bigint" +
+            "password text not null" +
+            "nome text not null" +
+            "FOREIGN KEY(susNumber) REFERENCES TB_GRUPO_FAMILIAR(id_agente) ";
+
+
 }
