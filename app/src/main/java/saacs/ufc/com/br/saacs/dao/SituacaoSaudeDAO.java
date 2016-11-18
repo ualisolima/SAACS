@@ -22,6 +22,9 @@ public class SituacaoSaudeDAO {
     }
 
     public void inserir(SituacaoSaude saude){
+        db = dbHelper.getWritableDatabase();
+
+        db.close();
 
     }
 
