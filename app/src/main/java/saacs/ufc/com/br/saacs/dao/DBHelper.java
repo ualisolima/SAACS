@@ -65,7 +65,6 @@ public class DBHelper extends SQLiteOpenHelper {
                     ");";
 
 
-    //////////////////////****grupo familiar****/////////////
     private static final String TB_CREATE_GRUPO_FAMILIAR =
             "create table if not exists grupo_familiar ("+
                     "id big int not null primary key," +
@@ -80,8 +79,21 @@ public class DBHelper extends SQLiteOpenHelper {
                     "destLixo text not null,"+
                     "temAnimais integer default 0,"+ //bool?
                     "animais text not null,"+
-                    "FOREIGN KEY(id) REFERENCES pessoa(numSUS)"+
+                    "FOREIGN KEY(id) REFERENCES pessoa(numSUS)," +
+                    "FOREIGN KEY (id_agente)  REFERENCES acs(susNumber)"+
                     ");";
+
+
+    private static final String TB_CREATE_ACS=
+            "create tabel if note exists acs (" +
+                    "susNumber bigint," +
+                    "password text not null," +
+                    "nome text not null," +
+                    "FOREIGN KEY(susNumber) REFERENCES TB_GRUPO_FAMILIAR(id_agente)" +
+            "); ";
+
+
+
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -103,13 +115,5 @@ public class DBHelper extends SQLiteOpenHelper {
         // create new tables
         onCreate(sqLiteDatabase);
     }
-
-
-    ///////////////////////////////////////////////////////////////////////
-    private static final String Acs="susNumber bigint" +
-            "password text not null" +
-            "nome text not null" +
-            "FOREIGN KEY(susNumber) REFERENCES TB_GRUPO_FAMILIAR(id_agente) ";
-
 
 }
