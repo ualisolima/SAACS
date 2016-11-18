@@ -1,6 +1,5 @@
 package saacs.ufc.com.br.saacs.activity;
 
-import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.EditText;
 import android.widget.TextView;
 
 import saacs.ufc.com.br.saacs.R;
+import saacs.ufc.com.br.saacs.model.GrupoFamiliar;
 
 public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
 
@@ -38,10 +39,22 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    private GrupoFamiliar grupoFamiliar;
+
+    public GrupoFamiliar getGrupoFamiliar() {
+        return grupoFamiliar;
+    }
+
+    public void setGrupoFamiliar(GrupoFamiliar grupoFamiliar) {
+        this.grupoFamiliar = grupoFamiliar;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_grupo_familiar);
+
+        grupoFamiliar = new GrupoFamiliar();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,8 +66,6 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +110,7 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private GrupoFamiliar grupoFamiliar;
 
         public PlaceholderFragment() {
         }
@@ -118,7 +130,23 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            CadastroGrupoFamiliarActivity cadastroGrupoFamiliarActivity = (CadastroGrupoFamiliarActivity) getActivity();
+            grupoFamiliar = cadastroGrupoFamiliarActivity.getGrupoFamiliar();
             View rootView = inflater.inflate(R.layout.fragment_cadastro_grupo_familiar, container, false);
+            EditText tipoLogradouroText = (EditText)rootView.findViewById(R.id.tipoLogradouroText);
+            EditText logradouroText = (EditText)rootView.findViewById(R.id.logradouroText);
+            EditText numeroCasaText = (EditText)rootView.findViewById(R.id.numeroCasaText);
+            EditText cepText = (EditText)rootView.findViewById(R.id.cepText);
+            EditText municipioText = (EditText)rootView.findViewById(R.id.municipioText);
+            EditText phoneText = (EditText) rootView.findViewById(R.id.phoneText);
+            EditText ufText = (EditText)rootView.findViewById(R.id.ufText);
+            tipoLogradouroText.setText(grupoFamiliar.getEndereco());
+            logradouroText.setText(grupoFamiliar.getEndereco());
+            numeroCasaText.setText(grupoFamiliar.getEndereco());
+            cepText.setText(grupoFamiliar.getEndereco());
+            municipioText.setText(grupoFamiliar.getEndereco());
+            phoneText.setText(grupoFamiliar.getEndereco());
+            ufText.setText(grupoFamiliar.getEndereco());
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
