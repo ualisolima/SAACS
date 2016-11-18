@@ -66,19 +66,23 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     //////////////////////****grupo familiar****/////////////
-    private static final String TB_GRUPO_FAMILIAR = "Grupo_Familiar";
-    /////////////////////////////////////////////////////////////
-    private static final String id = "id";
-    private static final String endereco ="endereco";
-    private static final String contato ="contato";
-    private static final String localizacao = "localizacao";
-    private static final String condsMoradia="condsMoradia";
-    private static final String tipoDomicilio = "tipoDomicilio";
-    private static final String energiaEletrica = "energiaEletrica";
-    private static final String saneamentoBasico = "saneamentoBasico";
-    private static final String destLixo = "destLixo";
-    private static final String temAnimais = "temAnimais";
-    private static final String animais = "animais";
+    private static final String TB_GRUPO_FAMILIAR =
+
+            "create table if not exists grupo_familiar("+
+                    "id big int not null primary key," +
+                    "id_agente int not null"+
+                    "endereco text"+
+                    "contato text not null"+
+                    "localizacao text not null"+
+                    "condsMoradia text not null"+
+                    "tipoDomicilio text not null"+
+                    "energiaEletrica text not null" + //bool?
+                    "saneamentoBasico text not null"+ //bool?
+                    "destLixo text not null"+
+                    "temAnimais text not null"+ //bool?
+                    "animais text not null"+
+                    "FOREIGN KEY(id) REFERENCES pessoa(numSUS)"+
+                    ");";
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -105,24 +109,6 @@ public class DBHelper extends SQLiteOpenHelper {
         // create new tables
         onCreate(sqLiteDatabase);
     }
-
-    private static final String TB_GRUPO_FAMILIAR =
-
-            "create table if not exists grupo_familiar("+
-                    "id big int not null primary key," +
-                    "id_agente int not null"+
-                    "endereco text"+
-                    "contato text not null"+
-                    "localizacao text not null"+
-                    "condsMoradia text not null"+
-                    "tipoDomicilio text not null"+
-                    "energiaEletrica text not null" + //bool?
-                    "saneamentoBasico text not null"+ //bool?
-                    "destLixo text not null"+
-                    "temAnimais text not null"+ //bool?
-                    "animais text not null"+
-                    "FOREIGN KEY(id) REFERENCES pessoa(numSUS)"+
-                    ");";
 
 
     ///////////////////////////////////////////////////////////////////////
