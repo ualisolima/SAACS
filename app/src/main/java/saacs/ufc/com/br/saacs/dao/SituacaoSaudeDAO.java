@@ -79,6 +79,10 @@ public class SituacaoSaudeDAO {
 
     public void alterar(SituacaoSaude saude){
 
+        db = dbHelper.getWritableDatabase();
+
+        db.close();
+
     }
 
 }
