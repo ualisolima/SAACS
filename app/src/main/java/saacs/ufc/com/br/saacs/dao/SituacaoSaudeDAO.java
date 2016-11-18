@@ -113,6 +113,35 @@ public class SituacaoSaudeDAO {
 
         db = dbHelper.getWritableDatabase();
 
+        ContentValues values =  new ContentValues();
+
+        values.put("id_situacao", saude.getId());
+        values.put("gestante", saude.isGestante());
+        values.put("nivelPeso", saude.getNivelPeso());
+        values.put("fumante", saude.isFumante());
+        values.put("alcool", saude.isAlcool());
+        values.put("drogas", saude.isDrogas());
+        values.put("hipertenso", saude.isHipertenso());
+        values.put("diabetes", saude.isDiabete());
+        values.put("AVC_Derrame", saude.isAVC_Derrame());
+        values.put("infarto", saude.isInfarto());
+        values.put("doencaCardiaca", saude.isDoencaCardiaca());
+        values.put("problemaRins", saude.isProblemaRins());
+        values.put("qualProblemaRins", saude.getQualProblemaRins());
+        values.put("problemaRespiratorio", saude.isProblemaRespiratorios());
+        values.put("qualProblemaRespiratorio", saude.getQualProblemaRespiratorios());
+        values.put("hanseniase", saude.isHanseniase());
+        values.put("tuberculose", saude.isTuberculose());
+        values.put("cancer", saude.isCancer());
+        values.put("internacao", saude.isInternacao());
+        values.put("motivoInternacao", saude.getMotivoInternacao());
+        values.put("problemaMental", saude.isProblemaMental());
+        values.put("tratamento", saude.isTratamento());
+        values.put("nivelSaude", saude.getNivelSaude());
+        values.put("plantasMedicinais", saude.getPlantasMedicinais());
+
+        db.update("situacao_saude", values, "id_situacao = ?", new String[]{String.valueOf(saude.getId())});
+
         db.close();
 
     }
