@@ -104,6 +104,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TB_CREATE_SITUACAO_SAUDE);
         sqLiteDatabase.execSQL(TB_CREATE_PESSOA);
         sqLiteDatabase.execSQL(TB_CREATE_GRUPO_FAMILIAR);
+        sqLiteDatabase.execSQL(TB_CREATE_ACS);
     }
 
     @Override
@@ -112,6 +113,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS pessoa");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS situacao_saude");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS grupo_familiar");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS acs");
         // create new tables
         onCreate(sqLiteDatabase);
     }
