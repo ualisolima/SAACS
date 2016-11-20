@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="saacs.ufc.com.br.saacs.activity.CadastroGrupoFamiliarActivity$PlaceholderFragment2">
+
+    <TextView
+        android:id="@+id/section_label2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/tipoLogradouroText"
+        android:inputType="textPostalAddress"
+        android:hint="Tipo do Logradouro"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@+id/tipoLogradouroText"
+        android:layout_toRightOf="@+id/section_label"
+        android:id="@+id/logradouroText"
+        android:inputType="textPostalAddress"
+        android:hint="Nome do Logradouro"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:layout_below="@+id/numeroCasaText"
+        android:layout_alignRight="@+id/numeroCasaText"
+        android:layout_alignEnd="@+id/numeroCasaText"
+        android:id="@+id/bairroText"
+        android:hint="Bairro" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@+id/bairroText"
+        android:layout_alignRight="@+id/bairroText"
+        android:layout_alignEnd="@+id/bairroText"
+        android:id="@+id/cepText"
+        android:inputType="textPostalAddress"
+        android:hint="CEP" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/phoneText"
+        android:hint="Telefone"
+        android:layout_below="@+id/cepText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/numeroCasaText"
+        android:hint="Número da casa"
+        android:layout_below="@+id/logradouroText"
+        android:layout_toRightOf="@+id/section_label"
+        android:layout_toEndOf="@+id/section_label" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/phoneText"
+        android:layout_toRightOf="@+id/section_label"
+        android:layout_toEndOf="@+id/section_label"
+        android:id="@+id/municipioText"
+        android:hint="Município" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/municipioText"
+        android:layout_alignRight="@+id/municipioText"
+        android:layout_alignEnd="@+id/municipioText"
+        android:id="@+id/ufText"
+        android:hint="UF" />
+
+</RelativeLayout>

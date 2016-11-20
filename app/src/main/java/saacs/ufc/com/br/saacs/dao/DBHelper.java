@@ -16,7 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // criar tabelas
     private static final String TB_CREATE_PESSOA =
             "create table if not exists pessoa (" +
-                    "    numSUS big int not null primaty key," +
+                    "    numSUS big int not null primary key," +
                     "    nome text not null," +
                     "    dataNascimento text not null," +
                     "    numSUSResponsavel big int not null," +
@@ -38,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String TB_CREATE_SITUACAO_SAUDE =
             "create table if not exists situacao_saude (" +
-                    "    id_situacao big int not null primaty key," +
+                    "    id_situacao big int not null primary key," +
                     "    gestante integer default 0," +
                     "    nivelPeso text," +
                     "    fumante integer default 0," +
@@ -69,7 +69,14 @@ public class DBHelper extends SQLiteOpenHelper {
             "create table if not exists grupo_familiar ("+
                     "id big int not null primary key," +
                     "id_agente int not null,"+
-                    "endereco text,"+
+                    "tipoLogradouro text,"+
+                    "logradouro text,"+
+                    "numeroCasa text,"+
+                    "municipio text,"+
+                    "uf text,"+
+                    "cep text,"+
+                    "phone text,"+
+                    "bairro text,"+
                     "contato text not null,"+
                     "localizacao text not null,"+
                     "condsMoradia text ,"+
@@ -85,11 +92,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     private static final String TB_CREATE_ACS=
-            "create tabel if note exists acs (" +
-                    "susNumber bigint," +
+            "create table if not exists acs (" +
+                    "susNumber bigint primary key," +
                     "password text not null," +
                     "nome text not null" +
-                    //"FOREIGN KEY(susNumber) REFERENCES TB_GRUPO_FAMILIAR(id_agente)" +
             "); ";
 
 

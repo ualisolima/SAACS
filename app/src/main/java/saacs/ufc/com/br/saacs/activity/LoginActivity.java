@@ -1,13 +1,18 @@
 package saacs.ufc.com.br.saacs.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.StringTokenizer;
 
 import saacs.ufc.com.br.saacs.R;
 import saacs.ufc.com.br.saacs.other.SessionManager;
@@ -63,6 +68,38 @@ public class LoginActivity extends AppCompatActivity{
                         }, 3000);
             }
         });
+
+        signUpTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivityForResult(i,100);
+                //finish();
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            if(requestCode==100){
+                System.out.println("AQUI 2");
+                //String susNumber = data.getStringExtra("susNumber");
+                if (sessionManager.isLoggedIn()){
+                    System.out.println("AQUI 3");
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    // Add new Flag to start new Activity
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                    onLoginSuccess();
+                }
+            }
+        }
+
     }
 
     @Override
@@ -72,7 +109,7 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     public void onLoginSuccess() {
-        loginButton.setEnabled(true);
+        loginButton.setEnabled(false);
         finish();
     }
 

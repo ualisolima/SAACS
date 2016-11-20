@@ -28,18 +28,20 @@ public class AcsDAO {
         dbHelper = new DBHelper(context);
     }
 
-    public void inserir(Acs agente){
+    public boolean inserir(Acs agente){
         db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
 
         values.put("susNumber", agente.getSusNumber());
-        values.put("passaword", agente.getPassword());
+        values.put("password", agente.getPassword());
         values.put("nome", agente.getNome());
-        db.insert("Acs", null, values);
-
+        long r = db.insert("Acs", null, values);
         db.close();
+        if (r > 0L)
+            return true;
+        return false;
     }
 
     public List<Acs> buscarTodos(){
@@ -54,6 +56,26 @@ public class AcsDAO {
         db = dbHelper.getWritableDatabase();
         db.delete("Acs", "susNumber = ?", new String[]{String.valueOf(numSUS)});
         db.close();
+    }
+
+
+    public Acs recuperar(String susNumber){
+        String QUERY = "SELECT * FROM Acs WHERE susNumber = "+susNumber+"";
+        db = dbHelper.getReadableDatabase();
+        Cursor c = db.rawQuery(QUERY, null);
+        ArrayList<Acs> acses = new ArrayList<>();
+        c.moveToFirst();
+        while(c.isAfterLast() && c.getCount() > 0){
+            Acs a = new Acs();
+            a.setNome(c.getString(c.getColumnIndex("nome")));
+            a.setPassword(c.getString(c.getColumnIndex("password")));
+            a.setSusNumber(c.getLong(c.getColumnIndex("susNumber")));
+            acses.add(a);
+            c.moveToNext();
+        }
+        if (acses.size() > 0)
+            return acses.get(0);
+        return null;
     }
 
     public void atualizar(Acs agente){

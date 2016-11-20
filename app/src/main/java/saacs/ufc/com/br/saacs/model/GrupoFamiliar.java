@@ -11,7 +11,15 @@ public class GrupoFamiliar {
     private long id;
     private ArrayList<Pessoa> pessoas;
     private String contato;
-    private String endereco;
+    //private String endereco;
+    private String tipoLogradouro;
+    private String logradouro;
+    private String numCasa;
+    private String cep;
+    private String municipio;
+    private String bairro;
+    private String uF;
+    private String phone;
     private String localizacao;
     private String condsMoradia;
     private String tipoDomicilio;
@@ -23,6 +31,78 @@ public class GrupoFamiliar {
 
     public GrupoFamiliar() {
         pessoas = new ArrayList<Pessoa>();
+    }
+
+    public String getContato() {
+        return contato;
+    }
+
+    public void setContato(String contato) {
+        this.contato = contato;
+    }
+
+    public String getTipoLogradouro() {
+        return tipoLogradouro;
+    }
+
+    public void setTipoLogradouro(String tipoLogradouro) {
+        this.tipoLogradouro = tipoLogradouro;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public String getNumCasa() {
+        return numCasa;
+    }
+
+    public void setNumCasa(String numCasa) {
+        this.numCasa = numCasa;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getuF() {
+        return uF;
+    }
+
+    public void setuF(String uF) {
+        this.uF = uF;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public long getId() {
@@ -49,13 +129,13 @@ public class GrupoFamiliar {
         this.contato = contato;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
+    //public String getEndereco() {
+   //     return endereco;
+   // }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
+   // public void setEndereco(String endereco) {
+   //     this.endereco = endereco;
+   // }
 
     public String getLocalizacao() {
         return localizacao;

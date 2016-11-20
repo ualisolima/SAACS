@@ -135,18 +135,20 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_cadastro_grupo_familiar, container, false);
             EditText tipoLogradouroText = (EditText)rootView.findViewById(R.id.tipoLogradouroText);
             EditText logradouroText = (EditText)rootView.findViewById(R.id.logradouroText);
+            EditText bairroText = (EditText)rootView.findViewById(R.id.bairroText);
             EditText numeroCasaText = (EditText)rootView.findViewById(R.id.numeroCasaText);
             EditText cepText = (EditText)rootView.findViewById(R.id.cepText);
             EditText municipioText = (EditText)rootView.findViewById(R.id.municipioText);
             EditText phoneText = (EditText) rootView.findViewById(R.id.phoneText);
             EditText ufText = (EditText)rootView.findViewById(R.id.ufText);
-            tipoLogradouroText.setText(grupoFamiliar.getEndereco());
-            logradouroText.setText(grupoFamiliar.getEndereco());
-            numeroCasaText.setText(grupoFamiliar.getEndereco());
-            cepText.setText(grupoFamiliar.getEndereco());
-            municipioText.setText(grupoFamiliar.getEndereco());
-            phoneText.setText(grupoFamiliar.getEndereco());
-            ufText.setText(grupoFamiliar.getEndereco());
+            tipoLogradouroText.setText(grupoFamiliar.getTipoLogradouro());
+            logradouroText.setText(grupoFamiliar.getLogradouro());
+            bairroText.setText(grupoFamiliar.getBairro());
+            numeroCasaText.setText(grupoFamiliar.getNumCasa());
+            cepText.setText(grupoFamiliar.getCep());
+            municipioText.setText(grupoFamiliar.getMunicipio());
+            phoneText.setText(grupoFamiliar.getPhone());
+            ufText.setText(grupoFamiliar.getuF());
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
@@ -157,6 +159,58 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
+
+    public static class PlaceholderFragment2 extends Fragment {
+        /**
+         * The fragment argument representing the section number for this
+         * fragment.
+         */
+        private static final String ARG_SECTION_NUMBER = "section_number";
+        private GrupoFamiliar grupoFamiliar;
+
+        public PlaceholderFragment2() {
+        }
+
+        /**
+         * Returns a new instance of this fragment for the given section
+         * number.
+         */
+        public static PlaceholderFragment newInstance(int sectionNumber) {
+            PlaceholderFragment fragment = new PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            CadastroGrupoFamiliarActivity cadastroGrupoFamiliarActivity = (CadastroGrupoFamiliarActivity) getActivity();
+            grupoFamiliar = cadastroGrupoFamiliarActivity.getGrupoFamiliar();
+            View rootView = inflater.inflate(R.layout.fragment_cadastro_grupo_familiar_2, container, false);
+            EditText tipoLogradouroText = (EditText)rootView.findViewById(R.id.tipoLogradouroText);
+            EditText logradouroText = (EditText)rootView.findViewById(R.id.logradouroText);
+            EditText bairroText = (EditText)rootView.findViewById(R.id.bairroText);
+            EditText numeroCasaText = (EditText)rootView.findViewById(R.id.numeroCasaText);
+            EditText cepText = (EditText)rootView.findViewById(R.id.cepText);
+            EditText municipioText = (EditText)rootView.findViewById(R.id.municipioText);
+            EditText phoneText = (EditText) rootView.findViewById(R.id.phoneText);
+            EditText ufText = (EditText)rootView.findViewById(R.id.ufText);
+            tipoLogradouroText.setText(grupoFamiliar.getTipoLogradouro());
+            logradouroText.setText(grupoFamiliar.getLogradouro());
+            bairroText.setText(grupoFamiliar.getBairro());
+            numeroCasaText.setText(grupoFamiliar.getNumCasa());
+            cepText.setText(grupoFamiliar.getCep());
+            municipioText.setText(grupoFamiliar.getMunicipio());
+            phoneText.setText(grupoFamiliar.getPhone());
+            ufText.setText(grupoFamiliar.getuF());
+            TextView textView = (TextView) rootView.findViewById(R.id.section_label2);
+            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            return rootView;
+        }
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
