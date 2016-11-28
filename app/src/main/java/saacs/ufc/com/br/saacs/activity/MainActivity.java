@@ -14,24 +14,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CalendarView;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import saacs.ufc.com.br.saacs.R;
 import saacs.ufc.com.br.saacs.other.SessionManager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-;
+
     SessionManager sessionManager;
+    CalendarView calendarView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        calendarView = (CalendarView)findViewById(R.id.calendarView);
         sessionManager = new SessionManager(MainActivity.this);
 
         sessionManager.checkLogin();
 
+        calendarView.setMinDate(calendarView.getDate());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
