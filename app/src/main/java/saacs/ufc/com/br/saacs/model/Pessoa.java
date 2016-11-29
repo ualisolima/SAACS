@@ -9,7 +9,7 @@ public class Pessoa {
     private String nome;
     private long NumSUS;
     private String dataNascimento;
-    private long numSUSResponsavel;
+//    private long numSUSResponsavel;
     private String sexo;
     private String nacionalidade;
     private String cidadeUFNatal;
@@ -56,13 +56,13 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-    public long getNumSUSResponsavel() {
-        return numSUSResponsavel;
-    }
+//    public long getNumSUSResponsavel() {
+//        return numSUSResponsavel;
+//    }
 
-    public void setNumSUSResponsavel(long numSUSResponsavel) {
-        numSUSResponsavel = numSUSResponsavel;
-    }
+//    public void setNumSUSResponsavel(long numSUSResponsavel) {
+//        numSUSResponsavel = numSUSResponsavel;
+//    }
 
     public String getSexo() {
         return sexo;

@@ -34,7 +34,7 @@ public class PessoaDAO {
         values.put("numSUS", pessoa.getNumSUS());
         values.put("nome", pessoa.getNome());
         values.put("dataNascimento", pessoa.getDataNascimento());
-        values.put("numSUSResponsavel", pessoa.getNumSUSResponsavel());
+        //values.put("numSUSResponsavel", pessoa.getNumSUSResponsavel());
         values.put("sexo", pessoa.getSexo());
         values.put("nacionalidade", pessoa.getNacionalidade());
         values.put("cidadeUFNatal", pessoa.getCidadeUFNatal());
@@ -61,7 +61,7 @@ public class PessoaDAO {
 
         SituacaoSaudeDAO saudeDAO  = new SituacaoSaudeDAO(this.context);
 
-        db = dbHelper.getWritableDatabase();
+        db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
@@ -70,7 +70,7 @@ public class PessoaDAO {
                 p.setNumSUS(cursor.getLong(cursor.getColumnIndex("numSUS")));
                 p.setNome(cursor.getString(cursor.getColumnIndex("nome")));
                 p.setDataNascimento(cursor.getString(cursor.getColumnIndex("dataNascimento")));
-                p.setNumSUSResponsavel(cursor.getLong(cursor.getColumnIndex("numSUSResponsavel")));
+                //p.setNumSUSResponsavel(cursor.getLong(cursor.getColumnIndex("numSUSResponsavel")));
                 p.setSexo(cursor.getString(cursor.getColumnIndex("sexo")));
                 p.setNacionalidade(cursor.getString(cursor.getColumnIndex("nacionalidade")));
                 p.setCidadeUFNatal(cursor.getString(cursor.getColumnIndex("cidadeUFNatal")));
@@ -100,6 +100,16 @@ public class PessoaDAO {
 
     }
 
+    public Pessoa recuperar(long idPessoa){
+        List<Pessoa> pessoas = buscarTodos();
+
+        for(Pessoa p : pessoas){
+            if (p.getNumSUS() == idPessoa )
+                return  p;
+        }
+        return null;
+    }
+
     public void deletar( long numSUS){
 
         db = dbHelper.getWritableDatabase();
@@ -117,7 +127,7 @@ public class PessoaDAO {
         values.put("numSUS", pessoa.getNumSUS());
         values.put("nome", pessoa.getNome());
         values.put("dataNascimento", pessoa.getDataNascimento());
-        values.put("numSUSResponsavel", pessoa.getNumSUSResponsavel());
+        //values.put("numSUSResponsavel", pessoa.getNumSUSResponsavel());
         values.put("sexo", pessoa.getSexo());
         values.put("nacionalidade", pessoa.getNacionalidade());
         values.put("cidadeUFNatal", pessoa.getCidadeUFNatal());

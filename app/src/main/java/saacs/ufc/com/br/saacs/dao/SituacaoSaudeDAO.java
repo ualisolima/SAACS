@@ -65,7 +65,7 @@ public class SituacaoSaudeDAO {
         SituacaoSaude saude = new SituacaoSaude();
         String query = "SELECT * FROM situacao_saude WHERE id_situacao = ";
 
-        db = dbHelper.getWritableDatabase();
+        db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(query+String.valueOf(idSaude), null);
 

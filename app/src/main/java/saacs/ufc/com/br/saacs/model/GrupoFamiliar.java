@@ -1,6 +1,7 @@
 package saacs.ufc.com.br.saacs.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by pc on 15/11/16.
@@ -10,7 +11,7 @@ public class GrupoFamiliar {
 
     private long id;
     private long id_agente;
-    private ArrayList<Pessoa> pessoas;
+    private List<Pessoa> pessoas;
     private String contato;
     //private String endereco;
     private String tipoLogradouro;
@@ -114,11 +115,11 @@ public class GrupoFamiliar {
         this.id = id;
     }
 
-    public ArrayList<Pessoa> getPessoas() {
+    public List<Pessoa> getPessoas() {
         return pessoas;
     }
 
-    public void setPessoas(ArrayList<Pessoa> pessoas) {
+    public void setPessoas(List<Pessoa> pessoas) {
         this.pessoas = pessoas;
     }
 

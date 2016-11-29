@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     "    numSUS big int not null primary key," +
                     "    nome text not null," +
                     "    dataNascimento text not null," +
-                    "    numSUSResponsavel big int not null," +
+                    //"    numSUSResponsavel big int not null," +
                     "    sexo text not null," +
                     "    nacionalidade text," +
                     "    cidadeUFNatal text," +
@@ -67,7 +67,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String TB_CREATE_GRUPO_FAMILIAR =
             "create table if not exists grupo_familiar ("+
-                    "id big int not null primary key," +
+                    "id_responsavel big int not null primary key," +
                     "id_agente int not null,"+
                     "tipoLogradouro text,"+
                     "logradouro text,"+
@@ -86,8 +86,17 @@ public class DBHelper extends SQLiteOpenHelper {
                     "destLixo text ,"+
                     "temAnimais integer default 0,"+ //bool?
                     "animais text,"+
-                    "FOREIGN KEY(id) REFERENCES pessoa(numSUS)," +
+                    "FOREIGN KEY(id_responsavel) REFERENCES pessoa(numSUS)," +
                     "FOREIGN KEY (id_agente)  REFERENCES acs(susNumber)"+
+                    ");";
+
+    private static final String TB_CREATE_GRUPO_FAMILIAR_PESSOA =
+            "create table if not exists grupo_familiar_pessoa ("+
+                    "id big int auto_increment not null primary key," +
+                    "id_grupo_familiar big int not null,"+
+                    "id_pessoa big int not null,"+
+                    "FOREIGN KEY(id_pessoa) REFERENCES pessoa(numSUS)," +
+                    "FOREIGN KEY (id_grupo_familiar)  REFERENCES grupo_familiar(id_responsavel)"+
                     ");";
 
 
@@ -110,6 +119,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TB_CREATE_SITUACAO_SAUDE);
         sqLiteDatabase.execSQL(TB_CREATE_PESSOA);
         sqLiteDatabase.execSQL(TB_CREATE_GRUPO_FAMILIAR);
+        sqLiteDatabase.execSQL(TB_CREATE_GRUPO_FAMILIAR_PESSOA);
         sqLiteDatabase.execSQL(TB_CREATE_ACS);
     }
 
@@ -119,6 +129,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS pessoa");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS situacao_saude");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS grupo_familiar");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS grupo_familiar_pessoa");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Acs");
         // create new tables
         onCreate(sqLiteDatabase);
