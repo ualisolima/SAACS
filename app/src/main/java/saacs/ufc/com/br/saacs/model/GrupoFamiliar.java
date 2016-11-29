@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class GrupoFamiliar {
 
     private long id;
+    private long id_agente;
     private ArrayList<Pessoa> pessoas;
     private String contato;
     //private String endereco;
@@ -136,6 +137,14 @@ public class GrupoFamiliar {
    // public void setEndereco(String endereco) {
    //     this.endereco = endereco;
    // }
+
+    public long getId_agente() {
+        return id_agente;
+    }
+
+    public void setId_agente(long id_agente) {
+        this.id_agente = id_agente;
+    }
 
     public String getLocalizacao() {
         return localizacao;
