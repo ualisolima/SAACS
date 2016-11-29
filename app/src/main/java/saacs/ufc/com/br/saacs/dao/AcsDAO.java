@@ -39,8 +39,11 @@ public class AcsDAO {
         values.put("nome", agente.getNome());
         long r = db.insert("Acs", null, values);
         db.close();
-        if (r > 0L)
+        if (r > 0L){
+
             return true;
+        }
+        System.out.println("retornou false");
         return false;
     }
 
@@ -65,7 +68,7 @@ public class AcsDAO {
         Cursor c = db.rawQuery(QUERY, null);
         ArrayList<Acs> acses = new ArrayList<>();
         c.moveToFirst();
-        while(c.isAfterLast() && c.getCount() > 0){
+        while((!c.isAfterLast()) && c.getCount() > 0){
             Acs a = new Acs();
             a.setNome(c.getString(c.getColumnIndex("nome")));
             a.setPassword(c.getString(c.getColumnIndex("password")));
@@ -73,6 +76,7 @@ public class AcsDAO {
             acses.add(a);
             c.moveToNext();
         }
+        System.out.println(acses.size());
         if (acses.size() > 0)
             return acses.get(0);
         return null;

@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.StringTokenizer;
 
 import saacs.ufc.com.br.saacs.R;
+import saacs.ufc.com.br.saacs.dao.AcsDAO;
+import saacs.ufc.com.br.saacs.model.Acs;
 import saacs.ufc.com.br.saacs.other.SessionManager;
 
 /**
@@ -45,7 +47,7 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 final String susNumber = numSUSText.getText().toString();
-                String password = passwordText.getText().toString();
+                final String password = passwordText.getText().toString();
                 if (!validade()){
                     onLoginFailed();
                     return;
@@ -59,10 +61,15 @@ public class LoginActivity extends AppCompatActivity{
                         new Runnable() {
                             public void run() {
                                 // On complete call either onLoginSuccess or onLoginFailed
-                                sessionManager.createLoginSession(susNumber);
-                                onLoginSuccess();
-
-                                // onLoginFailed();
+                                AcsDAO acsDAO = new AcsDAO(LoginActivity.this);
+                                Acs a = acsDAO.recuperar(susNumber);
+                                if ( a!= null && a.getPassword().equals(password)) {
+                                    sessionManager.createLoginSession(susNumber);
+                                    onLoginSuccess();
+                                } else {
+                                    numSUSText.setError("Numero SUS ou senha incorretos!");
+                                    onLoginFailed();
+                                }
                                 progressDialog.dismiss();
                             }
                         }, 3000);
@@ -89,12 +96,6 @@ public class LoginActivity extends AppCompatActivity{
                 //String susNumber = data.getStringExtra("susNumber");
                 if (sessionManager.isLoggedIn()){
                     System.out.println("AQUI 3");
-                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                    // Add new Flag to start new Activity
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(i);
                     onLoginSuccess();
                 }
             }
@@ -110,6 +111,12 @@ public class LoginActivity extends AppCompatActivity{
 
     public void onLoginSuccess() {
         loginButton.setEnabled(false);
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        // Add new Flag to start new Activity
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
         finish();
     }
 

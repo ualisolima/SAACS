@@ -92,7 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     private static final String TB_CREATE_ACS=
-            "create table if not exists acs (" +
+            "create table if not exists Acs (" +
                     "susNumber bigint primary key," +
                     "password text not null," +
                     "nome text not null" +
@@ -119,7 +119,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS pessoa");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS situacao_saude");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS grupo_familiar");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS acs");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS Acs");
         // create new tables
         onCreate(sqLiteDatabase);
     }
