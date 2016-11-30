@@ -29,18 +29,6 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_below="@+id/tipoLogradouroText"
-        android:layout_toRightOf="@+id/section_label"
-        android:id="@+id/logradouroText"
-        android:inputType="textPostalAddress"
-        android:hint="Nome do Logradouro"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
         android:ems="10"
         android:layout_below="@+id/numeroCasaText"
@@ -103,5 +91,16 @@
         android:layout_alignEnd="@+id/municipioText"
         android:id="@+id/ufText"
         android:hint="UF" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/logradouroText"
+        android:inputType="textPostalAddress"
+        android:hint="Nome do Logradouro"
+        android:layout_below="@+id/tipoLogradouroText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

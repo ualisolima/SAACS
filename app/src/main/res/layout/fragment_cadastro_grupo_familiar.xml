@@ -82,26 +82,38 @@
         android:layout_toRightOf="@+id/section_label"
         android:layout_toEndOf="@+id/section_label" />
 
-    <EditText
+    <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
+        android:id="@+id/ufText"
+        android:entries="@array/uf_arrays"
+        android:hint="UF"
         android:layout_below="@+id/phoneText"
-        android:layout_toRightOf="@+id/section_label"
-        android:layout_toEndOf="@+id/section_label"
-        android:id="@+id/municipioText"
-        android:hint="Município" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_below="@+id/municipioText"
-        android:layout_alignRight="@+id/municipioText"
-        android:layout_alignEnd="@+id/municipioText"
-        android:id="@+id/ufText"
-        android:hint="UF" />
+        android:id="@+id/municipioText"
+        android:hint="Município"
+        android:layout_below="@+id/ufText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:drawableTop="@drawable/ic_fast_forward_black_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="25dp"
+        android:id="@+id/button5"
+        android:text="Próximo" />
 
 </RelativeLayout>
