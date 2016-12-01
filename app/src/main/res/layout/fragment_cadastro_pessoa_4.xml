@@ -1,0 +1,164 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="saacs.ufc.com.br.saacs.activity.CadastroPessoaActivity$PlaceholderFragment">
+
+    <TextView
+        android:id="@+id/section_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/editText11"
+        android:hint="Profissão" />
+
+    <TextView
+        android:text="Escolaridade:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText11"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView10" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView10"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/radioGroupEscolaridade"
+        >
+
+        <RadioButton
+            android:text="Fundamental Incompleto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView10"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/radioButton38"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Ensino Fundamental"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioButton38"
+            android:layout_toRightOf="@+id/section_label"
+            android:layout_toEndOf="@+id/section_label"
+            android:id="@+id/radioButton39"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Ensino Médio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioButton39"
+            android:layout_toRightOf="@+id/section_label"
+            android:layout_toEndOf="@+id/section_label"
+            android:id="@+id/radioButton40"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Ensino Superior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioButton40"
+            android:layout_toRightOf="@+id/section_label"
+            android:layout_toEndOf="@+id/section_label"
+            android:id="@+id/radioButton41"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <TextView
+        android:text="Situação no mercado de trabalho:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroupEscolaridade"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView11" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView11"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/radioGroupTrabalho">
+
+        <RadioButton
+            android:text="Empregado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton42"
+            android:layout_below="@+id/textView11"
+            android:layout_toRightOf="@+id/section_label"
+            android:layout_toEndOf="@+id/section_label"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Autônomo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioButton42"
+            android:layout_toRightOf="@+id/section_label"
+            android:layout_toEndOf="@+id/section_label"
+            android:id="@+id/radioButton43"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Assalariado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioButton43"
+            android:layout_toRightOf="@+id/section_label"
+            android:layout_toEndOf="@+id/section_label"
+            android:id="@+id/radioButton44"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Desempregado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioButton44"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/radioButton45"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Aposentado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioButton45"
+            android:layout_toRightOf="@+id/section_label"
+            android:layout_toEndOf="@+id/section_label"
+            android:id="@+id/radioButton46"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Não trabalha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioButton46"
+            android:layout_toRightOf="@+id/section_label"
+            android:layout_toEndOf="@+id/section_label"
+            android:id="@+id/radioButton47"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+</RelativeLayout>

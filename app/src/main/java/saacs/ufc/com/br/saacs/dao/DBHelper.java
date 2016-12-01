@@ -77,7 +77,6 @@ public class DBHelper extends SQLiteOpenHelper {
                     "cep text,"+
                     "phone text,"+
                     "bairro text,"+
-                    "contato text not null,"+
                     "localizacao text not null,"+
                     "condsMoradia text ,"+
                     "tipoDomicilio text ,"+

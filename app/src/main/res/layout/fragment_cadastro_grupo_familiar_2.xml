@@ -13,94 +13,238 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <EditText
+    <RadioGroup
+        android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:layout_below="@+id/textView"
+        android:layout_toRightOf="@+id/section_label2"
+        android:layout_toEndOf="@+id/section_label2">
+
+        <RadioButton
+            android:text="Urbano"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView"
+            android:layout_toEndOf="@+id/textView"
+            android:id="@+id/radioButton" />
+
+        <RadioButton
+            android:text="Rural"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/radioButton"
+            android:layout_toRightOf="@+id/radioButton"
+            android:layout_toEndOf="@+id/radioButton"
+            android:id="@+id/radioButton2" />
+
+    </RadioGroup>
+
+    <TextView
+        android:text="Localização: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_toRightOf="@+id/section_label2"
+        android:layout_toEndOf="@+id/section_label2" />
+
+    <TextView
+        android:text="Condição Moradia: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup1"
+        android:layout_toRightOf="@+id/section_label2"
+        android:layout_toEndOf="@+id/section_label2"
+        android:id="@+id/textView6" />
+
+    <RadioGroup
+        android:id="@+id/radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+                android:text="Cedido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioButton6"
+                android:layout_below="@+id/radioButton3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+        <RadioButton
+                android:text="Ocupado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/radioButton6"
+                android:layout_alignLeft="@+id/radioButton4"
+                android:layout_alignStart="@+id/radioButton4"
+                android:id="@+id/radioButton7" />
+
+        <RadioButton
+                android:text="Outro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/radioButton7"
+                android:layout_alignLeft="@+id/radioButton5"
+                android:layout_alignStart="@+id/radioButton5"
+                android:id="@+id/radioButton8" />
+
+        <RadioButton
+            android:text="Própria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton3"
+            android:layout_below="@+id/radioGroup"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <RadioButton
+            android:text="Financiado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton4"
+            android:layout_below="@+id/radioGroup6"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1" />
+
+        <RadioButton
+                android:text="Alugado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            android:id="@+id/radioButton5"
+            android:layout_below="@+id/radioGroup6"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <TextView
+        android:text="Tipo de Domicílio:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView6"
+        android:layout_toRightOf="@+id/section_label2"
+        android:layout_toEndOf="@+id/section_label2"
+        android:layout_marginTop="194dp"
+        android:id="@+id/textView7" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup3"
+        android:orientation="horizontal"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:text="Casa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView7"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/radioButton9"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Apartamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioButton9"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/radioButton10"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Cômodo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioGroup3"
+            android:layout_alignRight="@+id/textView7"
+            android:layout_alignEnd="@+id/textView7"
+            android:id="@+id/radioButton12"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Outro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton13"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <TextView
+        android:text="Possui Energia Elétrica?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/tipoLogradouroText"
-        android:inputType="textPostalAddress"
-        android:hint="Tipo do Logradouro"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/textView8" />
 
-    <EditText
+    <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPostalAddress"
-        android:ems="10"
-        android:layout_below="@+id/numeroCasaText"
-        android:layout_alignRight="@+id/numeroCasaText"
-        android:layout_alignEnd="@+id/numeroCasaText"
-        android:id="@+id/bairroText"
-        android:hint="Bairro" />
+        android:layout_below="@+id/textView8"
+        android:layout_toRightOf="@+id/section_label2"
+        android:layout_toEndOf="@+id/section_label2"
+        android:orientation="horizontal"
+        android:id="@+id/radioGroup4">
 
-    <EditText
+        <RadioButton
+            android:text="Sim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton16"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Não"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton15"
+            android:layout_weight="1" />
+
+    </RadioGroup>
+
+    <TextView
+        android:text="Possui Saneamento Básico?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_below="@+id/bairroText"
-        android:layout_alignRight="@+id/bairroText"
-        android:layout_alignEnd="@+id/bairroText"
-        android:id="@+id/cepText"
-        android:inputType="textPostalAddress"
-        android:hint="CEP" />
+        android:id="@+id/textView13"
+        android:layout_below="@+id/radioGroup4"
+        android:layout_weight="1" />
 
-    <EditText
+    <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/phoneText"
-        android:hint="Telefone"
-        android:layout_below="@+id/cepText"
+        android:id="@+id/radioGroup5"
+        android:layout_below="@+id/textView13"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/numeroCasaText"
-        android:hint="Número da casa"
-        android:layout_below="@+id/logradouroText"
-        android:layout_toRightOf="@+id/section_label"
-        android:layout_toEndOf="@+id/section_label" />
+        <RadioButton
+            android:text="Sim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton18"
+            android:layout_weight="1" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/phoneText"
-        android:layout_toRightOf="@+id/section_label"
-        android:layout_toEndOf="@+id/section_label"
-        android:id="@+id/municipioText"
-        android:hint="Município" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/municipioText"
-        android:layout_alignRight="@+id/municipioText"
-        android:layout_alignEnd="@+id/municipioText"
-        android:id="@+id/ufText"
-        android:hint="UF" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/logradouroText"
-        android:inputType="textPostalAddress"
-        android:hint="Nome do Logradouro"
-        android:layout_below="@+id/tipoLogradouroText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <RadioButton
+            android:text="Não"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton17"
+            android:layout_weight="1" />
+    </RadioGroup>
 
 </RelativeLayout>

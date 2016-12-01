@@ -16,10 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CalendarView;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import saacs.ufc.com.br.saacs.R;
 import saacs.ufc.com.br.saacs.other.SessionManager;
 
@@ -101,7 +97,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_addGrupoFamiliar) {
-            // Handle the camera action
+            Intent i = new Intent(MainActivity.this,CadastroGrupoFamiliarActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_pesquisar) {
 
         } else if (id == R.id.nav_relatorios) {

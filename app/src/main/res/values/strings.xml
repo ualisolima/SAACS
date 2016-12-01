@@ -9,7 +9,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
     <string-array name="uf_arrays">
-        <item>Selecione</item>
+        <item>UF</item>
         <item>AC</item>
         <item>AL</item>
         <item>AP</item>
@@ -38,5 +38,7 @@
         <item>SE</item>
         <item>TO</item>
     </string-array>
+    <string name="title_activity_cadastro_pessoa">CadastroPessoaActivity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
