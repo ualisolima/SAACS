@@ -15,6 +15,7 @@ public class Pessoa {
     private String cidadeUFNatal;
     private String telefone;
     private String email;
+    private String etnia;
 
     // Informações Sociodemográficas:
     private boolean responsavelFamiliar;
@@ -30,6 +31,14 @@ public class Pessoa {
 
     public Pessoa() {
         saude = new SituacaoSaude();
+    }
+
+    public String getEtnia() {
+        return etnia;
+    }
+
+    public void setEtnia(String etnia) {
+        this.etnia = etnia;
     }
 
     public String getNome() {

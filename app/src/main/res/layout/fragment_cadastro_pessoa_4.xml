@@ -8,11 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="saacs.ufc.com.br.saacs.activity.CadastroPessoaActivity$PlaceholderFragment">
 
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,20 +16,20 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/editText11"
+        android:id="@+id/profissaoEditText"
         android:hint="Profissão" />
 
     <TextView
         android:text="Escolaridade:"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText11"
+        android:layout_below="@+id/profissaoEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/textView10" />
 
     <RadioGroup
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView10"
         android:layout_alignParentLeft="true"
@@ -49,7 +44,7 @@
             android:layout_below="@+id/textView10"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/radioButton38"
+            android:id="@+id/radioButtonEscolariadeIncompleto"
             android:layout_weight="1" />
 
         <RadioButton
@@ -57,9 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/radioButton38"
-            android:layout_toRightOf="@+id/section_label"
-            android:layout_toEndOf="@+id/section_label"
-            android:id="@+id/radioButton39"
+            android:id="@+id/radioButtonEscolariadeFundamental"
             android:layout_weight="1" />
 
         <RadioButton
@@ -67,9 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/radioButton39"
-            android:layout_toRightOf="@+id/section_label"
-            android:layout_toEndOf="@+id/section_label"
-            android:id="@+id/radioButton40"
+            android:id="@+id/radioButtonEscolariadeMedio"
             android:layout_weight="1" />
 
         <RadioButton
@@ -77,15 +68,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/radioButton40"
-            android:layout_toRightOf="@+id/section_label"
-            android:layout_toEndOf="@+id/section_label"
-            android:id="@+id/radioButton41"
+            android:id="@+id/radioButtonEscolariadeSuperior"
             android:layout_weight="1" />
     </RadioGroup>
 
     <TextView
         android:text="Situação no mercado de trabalho:"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/radioGroupEscolaridade"
         android:layout_alignParentLeft="true"
@@ -93,7 +82,7 @@
         android:id="@+id/textView11" />
 
     <RadioGroup
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView11"
         android:layout_alignParentLeft="true"
@@ -104,10 +93,8 @@
             android:text="Empregado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButton42"
+            android:id="@+id/radioButtonTrabalhoEmpregado"
             android:layout_below="@+id/textView11"
-            android:layout_toRightOf="@+id/section_label"
-            android:layout_toEndOf="@+id/section_label"
             android:layout_weight="1" />
 
         <RadioButton
@@ -115,9 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/radioButton42"
-            android:layout_toRightOf="@+id/section_label"
-            android:layout_toEndOf="@+id/section_label"
-            android:id="@+id/radioButton43"
+            android:id="@+id/radioButtonTrabalhoAutonomo"
             android:layout_weight="1" />
 
         <RadioButton
@@ -125,9 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/radioButton43"
-            android:layout_toRightOf="@+id/section_label"
-            android:layout_toEndOf="@+id/section_label"
-            android:id="@+id/radioButton44"
+            android:id="@+id/radioButtonTrabalhoAssalariado"
             android:layout_weight="1" />
 
         <RadioButton
@@ -137,7 +120,7 @@
             android:layout_below="@+id/radioButton44"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/radioButton45"
+            android:id="@+id/radioButtonTrabalhoDesempregado"
             android:layout_weight="1" />
 
         <RadioButton
@@ -145,9 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/radioButton45"
-            android:layout_toRightOf="@+id/section_label"
-            android:layout_toEndOf="@+id/section_label"
-            android:id="@+id/radioButton46"
+            android:id="@+id/radioButtonTrabalhoAposentado"
             android:layout_weight="1" />
 
         <RadioButton
@@ -155,9 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/radioButton46"
-            android:layout_toRightOf="@+id/section_label"
-            android:layout_toEndOf="@+id/section_label"
-            android:id="@+id/radioButton47"
+            android:id="@+id/radioButtonTrabalhoNao"
             android:layout_weight="1" />
     </RadioGroup>
 

@@ -33,7 +33,7 @@
         android:scrollbars="horizontal"
         android:numColumns="3"
         android:id="@+id/gridViewPessoa"
-        android:layout_height="600dp" />
+        android:layout_height="450dp" />
 
     <Button
         android:text="Finalizar"

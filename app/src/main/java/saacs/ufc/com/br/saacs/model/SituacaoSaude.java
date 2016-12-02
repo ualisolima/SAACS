@@ -29,8 +29,33 @@ public class SituacaoSaude {
     private String motivoInternacao;
     private boolean problemaMental;
     private boolean tratamento;
+    private boolean usaPlantas;
     private int nivelSaude;
     private String plantasMedicinais;
+
+    public boolean isUsaPlantas() {
+        return usaPlantas;
+    }
+
+    public boolean isProblemaRespiratorio() {
+        return problemaRespiratorio;
+    }
+
+    public void setProblemaRespiratorio(boolean problemaRespiratorio) {
+        this.problemaRespiratorio = problemaRespiratorio;
+    }
+
+    public String getQualProblemaRespiratorio() {
+        return qualProblemaRespiratorio;
+    }
+
+    public void setQualProblemaRespiratorio(String qualProblemaRespiratorio) {
+        this.qualProblemaRespiratorio = qualProblemaRespiratorio;
+    }
+
+    public void setUsaPlantas(boolean usaPlantas) {
+        this.usaPlantas = usaPlantas;
+    }
 
     public long getId() {
         return id;

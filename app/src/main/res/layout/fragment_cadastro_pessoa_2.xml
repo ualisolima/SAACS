@@ -8,11 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="saacs.ufc.com.br.saacs.activity.CadastroPessoaActivity$PlaceholderFragment">
 
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/section_label"
         android:layout_toEndOf="@+id/section_label"
-        android:id="@+id/editText4"
+        android:id="@+id/numeroNisEditText"
         android:hint="Numero do NIS" />
 
     <EditText
@@ -29,56 +24,56 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_below="@+id/editText4"
+        android:layout_below="@+id/numeroNisEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/editText5"
+        android:id="@+id/nomeDaMaeEditText"
         android:hint="Nome da Mãe" />
 
     <TextView
         android:text="Nacionalidade: "
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText5"
+        android:layout_below="@+id/nomeDaMaeEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/textView5" />
 
     <RadioGroup
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:orientation="horizontal"
-        android:id="@+id/radioGroupResponsavel">
+        android:id="@+id/radioGroupNacionalidade">
 
         <RadioButton
             android:text="Brasileiro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editText5"
+            android:layout_below="@+id/nomeDaMaeEditText"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/radioButton25"
+            android:id="@+id/radioButtonNacionalidadeBrasileiro"
             android:layout_weight="1" />
 
         <RadioButton
             android:text="Naturalizado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/radioButton25"
+            android:layout_below="@+id/radioButtonNacionalidadeBrasileiro"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/radioButton27"
+            android:id="@+id/radioButtonNacionalidadeNaturalizado"
             android:layout_weight="1" />
 
         <RadioButton
             android:text="Estrangeiro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButton29"
-            android:layout_below="@+id/radioButton27"
+            android:id="@+id/radioButtonNacionalidadeEstrangeiro"
+            android:layout_below="@+id/radioButtonNacionalidadeNaturalizado"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_weight="1" />
@@ -90,21 +85,22 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_below="@+id/radioGroupResponsavel"
+        android:layout_below="@+id/radioGroupNacionalidade"
         android:layout_toRightOf="@+id/section_label"
         android:layout_toEndOf="@+id/section_label"
-        android:id="@+id/editText6"
-        android:hint="País de Origem" />
+        android:id="@+id/paisDeOrigemEditText"
+        android:hint="País de Origem"
+        android:enabled="false" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/paisDeOrigemEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/editText7"
+        android:id="@+id/cidadeNatalEditText"
         android:hint="Cidade Natal" />
 
     <EditText
@@ -115,7 +111,8 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/section_label"
         android:layout_toEndOf="@+id/section_label"
-        android:id="@+id/editText8"
+        android:id="@+id/estadoEditText"
+        android:layout_below="@+id/cidadeNatalEditText"
         android:hint="Estado" />
 
     <EditText
@@ -123,21 +120,21 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:layout_below="@+id/editText8"
+        android:layout_below="@+id/estadoEditText"
         android:layout_toRightOf="@+id/section_label"
         android:layout_toEndOf="@+id/section_label"
-        android:id="@+id/editText9"
+        android:id="@+id/telefoneEditText"
         android:hint="Telefone" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:layout_below="@+id/editText9"
+        android:layout_below="@+id/telefoneEditText"
         android:layout_toRightOf="@+id/section_label"
         android:layout_toEndOf="@+id/section_label"
-        android:id="@+id/editText10"
+        android:id="@+id/emailEditText"
         android:hint="E-mail" />
 
 

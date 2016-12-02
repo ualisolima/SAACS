@@ -9,7 +9,7 @@
     tools:context="saacs.ufc.com.br.saacs.activity.CadastroPessoaActivity$PlaceholderFragment">
 
     <TextView
-        android:text="Possui alguma deficiência?"
+        android:text="Tem Diabetes?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/section_label"
@@ -20,7 +20,7 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/radioGroupDeficiencia"
+        android:id="@+id/radioGroupDiabetes"
         android:layout_below="@+id/textView12"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -30,86 +30,79 @@
             android:text="Sim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonDeficienciaSim"
+            android:id="@+id/radioButtonDiabetesSim"
             android:layout_weight="1" />
 
         <RadioButton
             android:text="Não"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonDeficienciaNao"
+            android:id="@+id/radioButtonDiabetesNao"
             android:layout_weight="1" />
     </RadioGroup>
 
     <TextView
-        android:text="Qual tipo de deficiência?"
+        android:text="Teve AVC ou derrame?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupDeficiencia"
+        android:layout_below="@+id/radioGroupDiabetes"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/textView15" />
 
-    <CheckBox
-        android:text="Auditiva"
+    <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/radioGroupAvc"
         android:layout_below="@+id/textView15"
-        android:id="@+id/checkBoxDeficienciaAuditiva"
-        android:enabled="false" />
-
-    <CheckBox
-        android:text="Visual"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBoxDeficienciaAuditiva"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/checkBoxDeficienciaVisual"
-        android:enabled="false" />
+        android:orientation="horizontal">
 
-    <CheckBox
-        android:text="Fisica"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBoxDeficienciaVisual"
-        android:layout_toRightOf="@+id/section_label"
-        android:layout_toEndOf="@+id/section_label"
-        android:id="@+id/checkBoxDeficienciaFisica"
-        android:enabled="false" />
+        <RadioButton
+            android:text="Sim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView15"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/radioButtonAvcSim"
+            android:layout_weight="1" />
 
-    <CheckBox
-        android:text="Intelectual"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBoxDeficienciaFisica"
-        android:id="@+id/checkBoxDeficienciaIntelectual"
-        android:enabled="false" />
+        <RadioButton
+            android:text="Não"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radioButton65"
+            android:layout_toRightOf="@+id/section_label"
+            android:layout_toEndOf="@+id/section_label"
+            android:id="@+id/radioButtonAvcNao"
+            android:layout_weight="1" />
+    </RadioGroup>
 
     <TextView
-        android:text="Está Gestante?"
+        android:text="Teve Infarto?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBoxDeficienciaIntelectual"
-        android:layout_toRightOf="@+id/section_label"
-        android:layout_toEndOf="@+id/section_label"
-        android:id="@+id/textView16" />
+        android:id="@+id/textView16"
+        android:layout_below="@+id/radioGroupAvc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/radioGroupGestante"
+        android:id="@+id/radioGroupInfarto"
         android:orientation="horizontal"
         android:layout_below="@+id/textView16"
-        android:layout_toRightOf="@+id/section_label"
-        android:layout_toEndOf="@+id/section_label">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RadioButton
             android:text="Sim"
-            android:enabled="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonGestanteSim"
+            android:id="@+id/radioButtonInfartoSim"
             android:layout_below="@+id/textView16"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -117,111 +110,130 @@
 
         <RadioButton
             android:text="Não"
-            android:enabled="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/radioButton50"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/radioButtonGestanteNao"
+            android:id="@+id/radioButtonInfartoNao"
             android:layout_weight="1" />
     </RadioGroup>
 
     <TextView
-        android:text="Sobre o peso, como você está?"
+        android:text="Teve Doença cardíaca?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupGestante"
-        android:layout_toRightOf="@+id/section_label"
-        android:layout_toEndOf="@+id/section_label"
-        android:id="@+id/textView17" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView17"
-        android:id="@+id/radioGroupPeso"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:text="Abaixo do Peso"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView17"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/radioButtonPesoAbaixo"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:text="Adequado"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/radioButton52"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/radioButtonPesoAdequado"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:text="Acima do Peso"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioButtonPesoAcima"
-            android:layout_below="@+id/radioButton53"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_weight="1" />
-    </RadioGroup>
-
-    <TextView
-        android:text="Fumante?"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupPeso"
+        android:id="@+id/textView17"
+        android:layout_below="@+id/radioGroupInfarto"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView18" />
+        android:layout_alignParentStart="true" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/radioGroupFumante"
-        android:layout_below="@+id/textView18"
-        android:layout_toRightOf="@+id/section_label"
-        android:layout_toEndOf="@+id/section_label"
-        android:orientation="horizontal">
+        android:id="@+id/radioGroupCardiaca"
+        android:orientation="horizontal"
+        android:layout_below="@+id/textView17"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RadioButton
             android:text="Sim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonFumanteSim"
+            android:layout_below="@+id/textView17"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/radioButtonCardiacaSim"
             android:layout_weight="1" />
 
         <RadioButton
             android:text="Não"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonFumanteNao"
+            android:layout_below="@+id/radioButton52"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/radioButtonCardiacaNao"
+            android:layout_weight="1" />
+
+    </RadioGroup>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/radioGroupCardiaca"
+        android:layout_toRightOf="@+id/section_label"
+        android:layout_toEndOf="@+id/section_label"
+        android:id="@+id/qualCardiacaEditText"
+        android:hint="Qual?"
+        android:enabled="false" />
+
+    <TextView
+        android:text="Teve problema nos rins?"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView18"
+        android:layout_below="@+id/qualCardiacaEditText"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroupRins"
+        android:orientation="horizontal"
+        android:layout_below="@+id/textView18"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:text="Sim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButtonRinsSim"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Não"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButtonRinsNao"
             android:layout_weight="1" />
     </RadioGroup>
 
-    <TextView
-        android:text="Faz uso de bebidas alcoolicas?"
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupFumante"
-        android:id="@+id/textView14" />
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/radioGroupRins"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/qualRinsEditText"
+        android:hint="Qual?"
+        android:enabled="false" />
+
+    <TextView
+        android:text="Tem problemas respiratórios?"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView14"
+        android:layout_below="@+id/qualRinsEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:id="@+id/radioGroupRespiratorio"
         android:layout_below="@+id/textView14"
         android:layout_toRightOf="@+id/section_label"
-        android:layout_toEndOf="@+id/section_label"
-        android:id="@+id/radioGroupBebidas">
+        android:layout_toEndOf="@+id/section_label">
 
         <RadioButton
             android:text="Sim"
@@ -230,14 +242,14 @@
             android:layout_below="@+id/textView14"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/radioButtonBebidasSim"
+            android:id="@+id/radioButtonRespiratorioSIm"
             android:layout_weight="1" />
 
         <RadioButton
             android:text="Não"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonBebidasNao"
+            android:id="@+id/radioButtonRespiratorioNao"
             android:layout_below="@+id/radioButton57"
             android:layout_toRightOf="@+id/section_label"
             android:layout_toEndOf="@+id/section_label"
@@ -245,18 +257,53 @@
     </RadioGroup>
 
     <TextView
-        android:text="Faz uso de alguma outra droga?"
+        android:text="Está com hanseníase?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupBebidas"
-        android:id="@+id/textView20" />
+        android:id="@+id/textView20"
+        android:layout_below="@+id/radioGroupRespiratorio"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/radioGroupDroga"
+        android:id="@+id/radioGroupHanseniase"
         android:orientation="horizontal"
         android:layout_below="@+id/textView20"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:text="Sim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButtonHanseniaseSim"
+            android:layout_weight="1" />
+
+        <RadioButton
+            android:text="Não"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButtonHanseniaseNao"
+            android:layout_weight="1" />
+    </RadioGroup>
+
+    <TextView
+        android:text="Está com tuberculose?"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView21"
+        android:layout_below="@+id/radioGroupHanseniase"
+        android:layout_toRightOf="@+id/section_label"
+        android:layout_toEndOf="@+id/section_label" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ragioGroupTuberculose"
+        android:orientation="horizontal"
+        android:layout_below="@+id/textView21"
         android:layout_toRightOf="@+id/section_label"
         android:layout_toEndOf="@+id/section_label">
 
@@ -264,48 +311,14 @@
             android:text="Sim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonDrogaSim"
+            android:id="@+id/radioButtonTuberculoseSim"
             android:layout_weight="1" />
 
         <RadioButton
             android:text="Não"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonDrogaNao"
-            android:layout_weight="1" />
-    </RadioGroup>
-
-    <TextView
-        android:text="Tem Hipertenção Arterial?"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupDroga"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView21" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ragioGroupHipertenção"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/section_label"
-        android:layout_toEndOf="@+id/section_label"
-        android:layout_below="@+id/textView21">
-
-        <RadioButton
-            android:text="Sim"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioButtonHipertensaoSim"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:text="Não"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioButtonHipertensaoNao"
+            android:id="@+id/radioButtonTuberculoseNao"
             android:layout_weight="1" />
     </RadioGroup>
 
