@@ -68,6 +68,31 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             selectPage(2);
             return false;
         }
+        if (pessoa.getProfissao() == null || pessoa.getEscolaridade() == null || pessoa.getSituacaoMercado() == null){
+            selectPage(3);
+            return false;
+        }
+        if (situacaoSaude.isDeficiencia() == null || situacaoSaude.getQualDeficiencia() == null || situacaoSaude.isGestante() == null ||
+                situacaoSaude.getNivelPeso() == null || situacaoSaude.isFumante() == null || situacaoSaude.isAlcool() == null ||
+                situacaoSaude.isDrogas() == null || situacaoSaude.isHipertenso()){
+            selectPage(4);
+            return false;
+        }
+        if (situacaoSaude.isDiabete() == null || situacaoSaude.isAVC_Derrame() == null || situacaoSaude.isInfarto() == null ||
+                situacaoSaude.isDoencaCardiaca() == null || situacaoSaude.getQualDoencaCardiaca() == null || situacaoSaude.isProblemaRins()== null ||
+                situacaoSaude.getQualProblemaRins() == null || situacaoSaude.isProblemaRespiratorio() == null || situacaoSaude.isHanseniase() == null ||
+                situacaoSaude.isTuberculose() == null){
+            selectPage(5);
+            return false;
+        }
+
+        if (situacaoSaude.isInternacao() == null || situacaoSaude.getMotivoInternacao() == null || situacaoSaude.isProblemaMental() == null ||
+                situacaoSaude.isTratamento() == null || situacaoSaude.getNivelSaude() == null || situacaoSaude.isUsaPlantas() == null ||
+                situacaoSaude.getPlantasMedicinais() == null){
+            selectPage(6);
+            return true;
+        }
+
 
         return true;
     }
