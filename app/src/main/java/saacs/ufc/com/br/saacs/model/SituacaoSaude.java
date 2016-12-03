@@ -1,10 +1,12 @@
 package saacs.ufc.com.br.saacs.model;
 
+import java.io.Serializable;
+
 /**
  * Created by pc on 15/11/16.
  */
 
-public class SituacaoSaude {
+public class SituacaoSaude implements Serializable{
 
     private Long id;
     private Boolean gestante;

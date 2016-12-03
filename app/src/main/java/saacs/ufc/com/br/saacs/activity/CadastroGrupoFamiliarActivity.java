@@ -36,6 +36,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import saacs.ufc.com.br.saacs.R;
 import saacs.ufc.com.br.saacs.model.GrupoFamiliar;
+import saacs.ufc.com.br.saacs.model.Pessoa;
+import saacs.ufc.com.br.saacs.model.SituacaoSaude;
 
 public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
 
@@ -293,10 +295,18 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent(getContext(), CadastroPessoaActivity.class);
-                    startActivity(i);
+                    startActivityForResult(i,999);
                 }
             });
             return rootView;
+        }
+
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if( requestCode == 999 ) {
+                Pessoa pessoa = (Pessoa) data.getExtras().get("pessoa");
+                SituacaoSaude situacaoSaude = (SituacaoSaude) data.getExtras().get("situacaoSaude");
+            }
         }
     }
 

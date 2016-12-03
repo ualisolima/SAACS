@@ -1,10 +1,12 @@
 package saacs.ufc.com.br.saacs.model;
 
+import java.io.Serializable;
+
 /**
  * Created by pc on 15/11/16.
  */
 
-public class Pessoa {
+public class Pessoa implements Serializable{
     // Identificação
     private String nome;
     private Long NumSUS;

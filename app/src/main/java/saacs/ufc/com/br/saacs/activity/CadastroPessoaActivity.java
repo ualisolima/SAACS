@@ -1,5 +1,6 @@
 package saacs.ufc.com.br.saacs.activity;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,6 +26,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import java.io.Serializable;
 
 import saacs.ufc.com.br.saacs.R;
 import saacs.ufc.com.br.saacs.model.Pessoa;
@@ -53,6 +56,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     public boolean validarAtributos(){
+        valide = true;
         if ( pessoa.getNome() == null || pessoa.getNumSUS() == null || pessoa.getDataNascimento() == null ||
                 pessoa.getSexo() == null || pessoa.getEtnia() == null){
             selectPage(0);
@@ -1151,9 +1155,14 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             addPessoa.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Pessoa p = new Pessoa();
-                    SituacaoSaude stSaude = new SituacaoSaude();
-
+                    if (cadastroPessoaActivity.validarAtributos()){
+                        cadastroPessoaActivity.pessoa.setSaude(cadastroPessoaActivity.situacaoSaude);
+                        Intent intent = new Intent();
+                        intent.putExtra("pessoa",  cadastroPessoaActivity.pessoa);
+                        intent.putExtra("situacaoSaude",  cadastroPessoaActivity.situacaoSaude);
+                        getActivity().setResult(999, intent);
+                        getActivity().finish();
+                    }
                 }
             });
             return rootView;
