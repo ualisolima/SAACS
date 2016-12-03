@@ -9,7 +9,7 @@ public class Pessoa {
     private String nome;
     private Long NumSUS;
     private String dataNascimento;
-//    private long numSUSResponsavel;
+//    private Long numSUSResponsavel;
     private String sexo;
     private String nacionalidade;
     private String telefone;
@@ -28,9 +28,6 @@ public class Pessoa {
     private String cidadeNatal;
     private String estado;
     private String situacaoMercado;
-    private Boolean deficiencia;
-    private String qualDeficiencia;
-
     // Situação de Saúde Geral
     private SituacaoSaude saude;
 
@@ -101,11 +98,11 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-//    public long getNumSUSResponsavel() {
+//    public Long getNumSUSResponsavel() {
 //        return numSUSResponsavel;
 //    }
 
-//    public void setNumSUSResponsavel(long numSUSResponsavel) {
+//    public void setNumSUSResponsavel(Long numSUSResponsavel) {
 //        numSUSResponsavel = numSUSResponsavel;
 //    }
 
@@ -187,22 +184,6 @@ public class Pessoa {
 
     public void setSituacaoMercado(String situacaoMercado) {
         this.situacaoMercado = situacaoMercado;
-    }
-
-    public boolean isDeficiencia() {
-        return deficiencia;
-    }
-
-    public void setDeficiencia(boolean deficiencia) {
-        this.deficiencia = deficiencia;
-    }
-
-    public String getQualDeficiencia() {
-        return qualDeficiencia;
-    }
-
-    public void setQualDeficiencia(String qualDeficiencia) {
-        this.qualDeficiencia = qualDeficiencia;
     }
 
     public SituacaoSaude getSaude() {
