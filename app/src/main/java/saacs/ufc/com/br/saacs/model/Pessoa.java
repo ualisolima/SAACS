@@ -7,7 +7,7 @@ package saacs.ufc.com.br.saacs.model;
 public class Pessoa {
     // Identificação
     private String nome;
-    private long NumSUS;
+    private Long NumSUS;
     private String dataNascimento;
 //    private long numSUSResponsavel;
     private String sexo;
@@ -20,7 +20,7 @@ public class Pessoa {
 
 
     // Informações Sociodemográficas:
-    private boolean responsavelFamiliar;
+    private Boolean responsavelFamiliar;
     private String relacaoParentRF;
     private String profissao;
     private String escolaridade;
@@ -28,7 +28,7 @@ public class Pessoa {
     private String cidadeNatal;
     private String estado;
     private String situacaoMercado;
-    private boolean deficiencia;
+    private Boolean deficiencia;
     private String qualDeficiencia;
 
     // Situação de Saúde Geral
@@ -85,11 +85,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public long getNumSUS() {
+    public Long getNumSUS() {
         return NumSUS;
     }
 
-    public void setNumSUS(long numSUS) {
+    public void setNumSUS(Long numSUS) {
         NumSUS = numSUS;
     }
 
@@ -149,11 +149,11 @@ public class Pessoa {
         this.email = email;
     }
 
-    public boolean isResponsavelFamiliar() {
+    public Boolean isResponsavelFamiliar() {
         return responsavelFamiliar;
     }
 
-    public void setResponsavelFamiliar(boolean responsavelFamiliar) {
+    public void setResponsavelFamiliar(Boolean responsavelFamiliar) {
         this.responsavelFamiliar = responsavelFamiliar;
     }
 
