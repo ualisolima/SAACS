@@ -41,11 +41,39 @@ import saacs.ufc.com.br.saacs.model.SituacaoSaude;
 
 public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
 
+    public GrupoFamiliar grupoFamiliar;
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     private ViewPager mViewPager;
-
     private GoogleApiClient client;
+
+    public boolean validarAtributos(){
+
+        if (grupoFamiliar.getTipoLogradouro() == null || grupoFamiliar.getLogradouro() == null ||
+                grupoFamiliar.getNumCasa() == null || grupoFamiliar.getBairro() == null ||
+                grupoFamiliar.getCep() == null || grupoFamiliar.getPhone() == null ||
+                grupoFamiliar.getuF() == null || grupoFamiliar.getMunicipio() == null){
+            selectPage(0);
+            return  false;
+        }
+        if (grupoFamiliar.getLocalizacao() == null || grupoFamiliar.getCondsMoradia() == null ||
+                grupoFamiliar.getTipoDomicilio() == null || grupoFamiliar.isEnergiaEletrica() == null ||
+                grupoFamiliar.isSaneamentoBasico() == null){
+            selectPage(1);
+            return  false;
+        }
+        if (grupoFamiliar.getDestLixo() == null || grupoFamiliar.isTemAnimais() == null ||
+                grupoFamiliar.getAnimais() == null ){
+            selectPage(2);
+            return  false;
+        }
+        if (grupoFamiliar.getPessoas().isEmpty()){
+            selectPage(3);
+            return  false;
+        }
+
+        return true;
+    }
 
     @Override
     public void onBackPressed() {
@@ -66,7 +94,15 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                 .show();
     }
 
+    public void selectPage(final int page) {
+        mViewPager.postDelayed(new Runnable() {
 
+            @Override
+            public void run() {
+                mViewPager.setCurrentItem(page);
+            }
+        }, 1);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
