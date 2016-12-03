@@ -19,22 +19,25 @@ public class DBHelper extends SQLiteOpenHelper {
                     "    numSUS big int not null primary key," +
                     "    nome text not null," +
                     "    dataNascimento text not null," +
-                    //"    numSUSResponsavel big int not null," +
+                    "    numeroNis big int, " +
                     "    sexo text not null," +
+                    "    etnia text, " +
                     "    nacionalidade text," +
+                    "    paisDeOrigem text, " +
                     "    cidadeNatal text," +
+                    "    estado text, "+
                     "    telefone text not null," +
                     "    email text," +
+                    "    nomeDaMae text, "+
                     "    responsavelFamiliar integer default 0," +
                     "    relacaoParentRF text," +
                     "    profissao text," +
                     "    escolaridade text," +
                     "    situacaoMercado text," +
-                    "    deficiencia integer default 0," +
-                    "    qualDeficiencia text," +
                     "    id_saude big int not null," +
                     "    FOREIGN KEY(id_saude) REFERENCES situacao_saude(id_situacao) ON DELETE RESTRICT ON UPDATE CASCADE" +
                     ");";
+
 
     private static final String TB_CREATE_SITUACAO_SAUDE =
             "create table if not exists situacao_saude (" +
