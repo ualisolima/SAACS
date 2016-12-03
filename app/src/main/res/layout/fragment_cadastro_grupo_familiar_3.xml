@@ -8,19 +8,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="saacs.ufc.com.br.saacs.activity.CadastroGrupoFamiliarActivity$PlaceholderFragment2">
 
-    <TextView
-        android:id="@+id/section_label3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <RadioGroup
-        android:id="@+id/radioGroup1"
-        android:layout_width="wrap_content"
+        android:id="@+id/radioGroupColeta"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/section_label2"
-        android:layout_toEndOf="@+id/section_label2">
+        android:weightSum="1">
 
         <RadioButton
             android:text="Sim"
@@ -29,39 +23,36 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/textView"
             android:layout_toEndOf="@+id/textView"
-            android:id="@+id/radioButton" />
+            android:id="@+id/radioButtonColetaSim"
+            android:layout_weight="0.43" />
 
         <RadioButton
             android:text="Não"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/radioButton"
-            android:layout_toRightOf="@+id/radioButton"
-            android:layout_toEndOf="@+id/radioButton"
+            android:layout_alignBottom="@+id/radioButtonColetaSim"
+            android:layout_toRightOf="@+id/radioButtonColetaSim"
+            android:layout_toEndOf="@+id/radioButtonColetaSim"
             android:id="@+id/radioButton2" />
 
     </RadioGroup>
 
     <TextView
         android:text="Possui coleta de lixo? "
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_toRightOf="@+id/section_label2"
-        android:layout_toEndOf="@+id/section_label2" />
+        android:id="@+id/textView" />
 
     <TextView
         android:text="Possui animais em casa? "
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroup1"
-        android:layout_toRightOf="@+id/section_label2"
-        android:layout_toEndOf="@+id/section_label2"
+        android:layout_below="@+id/radioGroupColeta"
         android:id="@+id/textView6" />
 
     <RadioGroup
         android:id="@+id/radioGroupAnimal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@+id/textView6"
@@ -72,16 +63,17 @@
                 android:text="Sim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioButton6"
-                android:layout_below="@+id/radioButton3"
+                android:id="@+id/radioButtonAnimaisSim"
+                android:layout_below="@+id/radioButtonMorariaPropria"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+            android:layout_weight="0.80" />
 
         <RadioButton
                 android:text="Não"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-            android:id="@+id/radioButton5"
+            android:id="@+id/radioButtonAnimaisNao"
             android:layout_below="@+id/radioGroup6"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
@@ -90,7 +82,7 @@
 
     <TextView
         android:text="Marque os animais:"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
         android:layout_below="@+id/radioGroupAnimal"
@@ -101,16 +93,14 @@
         android:text="Gato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBox"
-        android:layout_toRightOf="@+id/section_label2"
-        android:layout_toEndOf="@+id/section_label2"
-        android:id="@+id/checkBox2" />
+        android:layout_below="@+id/checkBoxAnimaisCachorro"
+        android:id="@+id/checkBoxAnimaisGato" />
 
     <CheckBox
         android:text="Cachorro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBoxAnimaisCachorro"
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -119,9 +109,7 @@
         android:text="Outros"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBox2"
-        android:layout_toRightOf="@+id/section_label2"
-        android:layout_toEndOf="@+id/section_label2"
-        android:id="@+id/checkBox4" />
+        android:layout_below="@+id/checkBoxAnimaisGato"
+        android:id="@+id/checkBoxAnimaisOutro" />
 
 </RelativeLayout>
