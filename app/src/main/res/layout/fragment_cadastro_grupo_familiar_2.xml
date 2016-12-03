@@ -8,15 +8,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="saacs.ufc.com.br.saacs.activity.CadastroGrupoFamiliarActivity$PlaceholderFragment2">
 
+    <TextView
+        android:id="@+id/section_label2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <RadioGroup
-        android:id="@+id/radioGroupLocalizacao"
-        android:layout_width="match_parent"
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@+id/textView"
         android:layout_toRightOf="@+id/section_label2"
-        android:layout_toEndOf="@+id/section_label2"
-        android:weightSum="1">
+        android:layout_toEndOf="@+id/section_label2">
 
         <RadioButton
             android:text="Urbano"
@@ -25,23 +29,22 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/textView"
             android:layout_toEndOf="@+id/textView"
-            android:id="@+id/radioButtonLocalizacaoUrbano"
-            android:layout_weight="0.48" />
+            android:id="@+id/radioButton" />
 
         <RadioButton
             android:text="Rural"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/radioButtonLocalizacaoUrbano"
-            android:layout_toRightOf="@+id/radioButtonLocalizacaoUrbano"
-            android:layout_toEndOf="@+id/radioButtonLocalizacaoUrbano"
-            android:id="@+id/radioButtonLocalizacaoRural" />
+            android:layout_alignBottom="@+id/radioButton"
+            android:layout_toRightOf="@+id/radioButton"
+            android:layout_toEndOf="@+id/radioButton"
+            android:id="@+id/radioButton2" />
 
     </RadioGroup>
 
     <TextView
         android:text="Localização: "
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:layout_toRightOf="@+id/section_label2"
@@ -49,16 +52,16 @@
 
     <TextView
         android:text="Condição Moradia: "
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupLocalizacao"
+        android:layout_below="@+id/radioGroup1"
         android:layout_toRightOf="@+id/section_label2"
         android:layout_toEndOf="@+id/section_label2"
         android:id="@+id/textView6" />
 
     <RadioGroup
-        android:id="@+id/radioGroupMoradia"
-        android:layout_width="match_parent"
+        android:id="@+id/radio"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@+id/textView6"
@@ -69,8 +72,8 @@
                 android:text="Cedido"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/radioButtonMoradiaCedido"
-                android:layout_below="@+id/radioButtonMorariaPropria"
+                android:id="@+id/radioButton6"
+                android:layout_below="@+id/radioButton3"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
@@ -78,25 +81,25 @@
                 android:text="Ocupado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/radioButtonMoradiaCedido"
-                android:layout_alignLeft="@+id/radioButtonMoradiaFinanciado"
-                android:layout_alignStart="@+id/radioButtonMoradiaFinanciado"
-                android:id="@+id/radioButtonMoradiaOcupado" />
+                android:layout_alignTop="@+id/radioButton6"
+                android:layout_alignLeft="@+id/radioButton4"
+                android:layout_alignStart="@+id/radioButton4"
+                android:id="@+id/radioButton7" />
 
         <RadioButton
                 android:text="Outro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/radioButtonMoradiaOcupado"
-                android:layout_alignLeft="@+id/radioButtonMoradiaAlugado"
-                android:layout_alignStart="@+id/radioButtonMoradiaAlugado"
-                android:id="@+id/radioButtonMoradiaOutro" />
+                android:layout_alignTop="@+id/radioButton7"
+                android:layout_alignLeft="@+id/radioButton5"
+                android:layout_alignStart="@+id/radioButton5"
+                android:id="@+id/radioButton8" />
 
         <RadioButton
             android:text="Própria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonMorariaPropria"
+            android:id="@+id/radioButton3"
             android:layout_below="@+id/radioGroup"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -105,7 +108,7 @@
             android:text="Financiado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonMoradiaFinanciado"
+            android:id="@+id/radioButton4"
             android:layout_below="@+id/radioGroup6"
             android:layout_centerHorizontal="true"
             android:layout_weight="1" />
@@ -114,7 +117,7 @@
                 android:text="Alugado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-            android:id="@+id/radioButtonMoradiaAlugado"
+            android:id="@+id/radioButton5"
             android:layout_below="@+id/radioGroup6"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
@@ -123,7 +126,7 @@
 
     <TextView
         android:text="Tipo de Domicílio:"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView6"
         android:layout_toRightOf="@+id/section_label2"
@@ -132,9 +135,9 @@
         android:id="@+id/textView7" />
 
     <RadioGroup
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/radioGroupDomicilio"
+        android:id="@+id/radioGroup3"
         android:orientation="horizontal"
         android:layout_below="@+id/textView7"
         android:layout_alignParentLeft="true"
@@ -147,83 +150,83 @@
             android:layout_below="@+id/textView7"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/radioButtonDomicilioCasa"
+            android:id="@+id/radioButton9"
             android:layout_weight="1" />
 
         <RadioButton
             android:text="Apartamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/radioButtonDomicilioCasa"
+            android:layout_below="@+id/radioButton9"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/radioButtonDomicilioApartamento"
+            android:id="@+id/radioButton10"
             android:layout_weight="1" />
 
         <RadioButton
             android:text="Cômodo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/radioGroupDomicilio"
+            android:layout_below="@+id/radioGroup3"
             android:layout_alignRight="@+id/textView7"
             android:layout_alignEnd="@+id/textView7"
-            android:id="@+id/radioButtonDomicilioComodo"
+            android:id="@+id/radioButton12"
             android:layout_weight="1" />
 
         <RadioButton
             android:text="Outro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonDomicilioOutro"
+            android:id="@+id/radioButton13"
             android:layout_weight="1" />
     </RadioGroup>
 
     <TextView
         android:text="Possui Energia Elétrica?"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroupDomicilio"
+        android:layout_below="@+id/radioGroup3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/textView8" />
 
     <RadioGroup
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView8"
         android:layout_toRightOf="@+id/section_label2"
         android:layout_toEndOf="@+id/section_label2"
         android:orientation="horizontal"
-        android:id="@+id/radioGroupEnergia">
+        android:id="@+id/radioGroup4">
 
         <RadioButton
             android:text="Sim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonEnergiaSim"
+            android:id="@+id/radioButton16"
             android:layout_weight="1" />
 
         <RadioButton
             android:text="Não"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonEnergiaNao"
+            android:id="@+id/radioButton15"
             android:layout_weight="1" />
 
     </RadioGroup>
 
     <TextView
         android:text="Possui Saneamento Básico?"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView13"
-        android:layout_below="@+id/radioGroupEnergia"
+        android:layout_below="@+id/radioGroup4"
         android:layout_weight="1" />
 
     <RadioGroup
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/radioGroupSaneamento"
+        android:id="@+id/radioGroup5"
         android:layout_below="@+id/textView13"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -233,15 +236,15 @@
             android:text="Sim"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButtonSaneamentoSim"
+            android:id="@+id/radioButton18"
             android:layout_weight="1" />
 
         <RadioButton
             android:text="Não"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/radioButtonSaneamentoNao" />
+            android:id="@+id/radioButton17"
+            android:layout_weight="1" />
     </RadioGroup>
 
 </RelativeLayout>
