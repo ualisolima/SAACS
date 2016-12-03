@@ -1151,7 +1151,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     }
                 }
             });
-
+            
             addPessoa.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -1165,6 +1165,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     }
                 }
             });
+            
             return rootView;
         }
     }
