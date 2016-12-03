@@ -7,41 +7,49 @@ package saacs.ufc.com.br.saacs.model;
 public class SituacaoSaude {
 
     private Long id;
-    private boolean gestante;
+    private Boolean gestante;
     private String nivelPeso;
-    private boolean fumante;
-    private boolean alcool;
-    private boolean drogas;
-    private boolean hipertenso;
-    private boolean diabete;
-    private boolean AVC_Derrame;
-    private boolean infarto;
-    private boolean doencaCardiaca;
+    private Boolean fumante;
+    private Boolean alcool;
+    private Boolean drogas;
+    private Boolean hipertenso;
+    private Boolean diabete;
+    private Boolean AVC_Derrame;
+    private Boolean infarto;
+    private Boolean doencaCardiaca;
     private String qualDoencaCardiaca;
-    private boolean problemaRins;
+    private Boolean problemaRins;
     private String qualProblemaRins;
-    private boolean problemaRespiratorio;
+    private Boolean problemaRespiratorio;
     private String qualProblemaRespiratorio;
-    private boolean hanseniase;
-    private boolean tuberculose;
-    private boolean cancer;
-    private boolean internacao;
+    private Boolean hanseniase;
+    private Boolean tuberculose;
+    private Boolean cancer;
+    private Boolean internacao;
     private String motivoInternacao;
-    private boolean problemaMental;
-    private boolean tratamento;
-    private boolean usaPlantas;
+    private Boolean problemaMental;
+    private Boolean tratamento;
+    private Boolean usaPlantas;
     private int nivelSaude;
     private String plantasMedicinais;
+    private Boolean deficiencia;
 
-    public boolean isUsaPlantas() {
+    public Boolean isDeficiencia() {
+        return deficiencia;
+    }
+
+    public void setDeficiencia(Boolean deficiencia) {
+        this.deficiencia = deficiencia;
+    }
+    public Boolean isUsaPlantas() {
         return usaPlantas;
     }
 
-    public boolean isProblemaRespiratorio() {
+    public Boolean isProblemaRespiratorio() {
         return problemaRespiratorio;
     }
 
-    public void setProblemaRespiratorio(boolean problemaRespiratorio) {
+    public void setProblemaRespiratorio(Boolean problemaRespiratorio) {
         this.problemaRespiratorio = problemaRespiratorio;
     }
 
@@ -53,7 +61,7 @@ public class SituacaoSaude {
         this.qualProblemaRespiratorio = qualProblemaRespiratorio;
     }
 
-    public void setUsaPlantas(boolean usaPlantas) {
+    public void setUsaPlantas(Boolean usaPlantas) {
         this.usaPlantas = usaPlantas;
     }
 
@@ -65,11 +73,11 @@ public class SituacaoSaude {
         this.id = id;
     }
 
-    public boolean isGestante() {
+    public Boolean isGestante() {
         return gestante;
     }
 
-    public void setGestante(boolean gestante) {
+    public void setGestante(Boolean gestante) {
         this.gestante = gestante;
     }
 
@@ -81,67 +89,67 @@ public class SituacaoSaude {
         this.nivelPeso = nivelPeso;
     }
 
-    public boolean isFumante() {
+    public Boolean isFumante() {
         return fumante;
     }
 
-    public void setFumante(boolean fumante) {
+    public void setFumante(Boolean fumante) {
         this.fumante = fumante;
     }
 
-    public boolean isAlcool() {
+    public Boolean isAlcool() {
         return alcool;
     }
 
-    public void setAlcool(boolean alcool) {
+    public void setAlcool(Boolean alcool) {
         this.alcool = alcool;
     }
 
-    public boolean isDrogas() {
+    public Boolean isDrogas() {
         return drogas;
     }
 
-    public void setDrogas(boolean drogas) {
+    public void setDrogas(Boolean drogas) {
         this.drogas = drogas;
     }
 
-    public boolean isHipertenso() {
+    public Boolean isHipertenso() {
         return hipertenso;
     }
 
-    public void setHipertenso(boolean hipertenso) {
+    public void setHipertenso(Boolean hipertenso) {
         this.hipertenso = hipertenso;
     }
 
-    public boolean isDiabete() {
+    public Boolean isDiabete() {
         return diabete;
     }
 
-    public void setDiabete(boolean diabete) {
+    public void setDiabete(Boolean diabete) {
         this.diabete = diabete;
     }
 
-    public boolean isAVC_Derrame() {
+    public Boolean isAVC_Derrame() {
         return AVC_Derrame;
     }
 
-    public void setAVC_Derrame(boolean AVC_Derrame) {
+    public void setAVC_Derrame(Boolean AVC_Derrame) {
         this.AVC_Derrame = AVC_Derrame;
     }
 
-    public boolean isInfarto() {
+    public Boolean isInfarto() {
         return infarto;
     }
 
-    public void setInfarto(boolean infarto) {
+    public void setInfarto(Boolean infarto) {
         this.infarto = infarto;
     }
 
-    public boolean isDoencaCardiaca() {
+    public Boolean isDoencaCardiaca() {
         return doencaCardiaca;
     }
 
-    public void setDoencaCardiaca(boolean doencaCardiaca) {
+    public void setDoencaCardiaca(Boolean doencaCardiaca) {
         this.doencaCardiaca = doencaCardiaca;
     }
 
@@ -153,11 +161,11 @@ public class SituacaoSaude {
         qualDoencaCardiaca = qualDoencaCardiaca;
     }
 
-    public boolean isProblemaRins() {
+    public Boolean isProblemaRins() {
         return problemaRins;
     }
 
-    public void setProblemaRins(boolean problemaRins) {
+    public void setProblemaRins(Boolean problemaRins) {
         this.problemaRins = problemaRins;
     }
 
@@ -169,11 +177,11 @@ public class SituacaoSaude {
         qualProblemaRins = qualProblemaRins;
     }
 
-    public boolean isProblemaRespiratorios() {
+    public Boolean isProblemaRespiratorios() {
         return problemaRespiratorio;
     }
 
-    public void setProblemaRespiratorios(boolean problemaRespiratorios) {
+    public void setProblemaRespiratorios(Boolean problemaRespiratorios) {
         this.problemaRespiratorio = problemaRespiratorios;
     }
 
@@ -185,35 +193,35 @@ public class SituacaoSaude {
         qualProblemaRespiratorios = qualProblemaRespiratorios;
     }
 
-    public boolean isHanseniase() {
+    public Boolean isHanseniase() {
         return hanseniase;
     }
 
-    public void setHanseniase(boolean hanseniase) {
+    public void setHanseniase(Boolean hanseniase) {
         this.hanseniase = hanseniase;
     }
 
-    public boolean isTuberculose() {
+    public Boolean isTuberculose() {
         return tuberculose;
     }
 
-    public void setTuberculose(boolean tuberculose) {
+    public void setTuberculose(Boolean tuberculose) {
         this.tuberculose = tuberculose;
     }
 
-    public boolean isCancer() {
+    public Boolean isCancer() {
         return cancer;
     }
 
-    public void setCancer(boolean cancer) {
+    public void setCancer(Boolean cancer) {
         this.cancer = cancer;
     }
 
-    public boolean isInternacao() {
+    public Boolean isInternacao() {
         return internacao;
     }
 
-    public void setInternacao(boolean internacao) {
+    public void setInternacao(Boolean internacao) {
         this.internacao = internacao;
     }
 
@@ -225,19 +233,19 @@ public class SituacaoSaude {
         this.motivoInternacao = motivoInternacao;
     }
 
-    public boolean isProblemaMental() {
+    public Boolean isProblemaMental() {
         return problemaMental;
     }
 
-    public void setProblemaMental(boolean problemaMental) {
+    public void setProblemaMental(Boolean problemaMental) {
         this.problemaMental = problemaMental;
     }
 
-    public boolean isTratamento() {
+    public Boolean isTratamento() {
         return tratamento;
     }
 
-    public void setTratamento(boolean tratamento) {
+    public void setTratamento(Boolean tratamento) {
         this.tratamento = tratamento;
     }
 

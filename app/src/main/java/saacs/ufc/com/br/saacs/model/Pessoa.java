@@ -20,7 +20,7 @@ public class Pessoa {
 
 
     // Informações Sociodemográficas:
-    private boolean responsavelFamiliar;
+    private Boolean responsavelFamiliar;
     private String relacaoParentRF;
     private String profissao;
     private String escolaridade;
@@ -28,7 +28,6 @@ public class Pessoa {
     private String cidadeNatal;
     private String estado;
     private String situacaoMercado;
-    private boolean deficiencia;
     private String qualDeficiencia;
 
     // Situação de Saúde Geral
@@ -149,11 +148,11 @@ public class Pessoa {
         this.email = email;
     }
 
-    public boolean isResponsavelFamiliar() {
+    public Boolean isResponsavelFamiliar() {
         return responsavelFamiliar;
     }
 
-    public void setResponsavelFamiliar(boolean responsavelFamiliar) {
+    public void setResponsavelFamiliar(Boolean responsavelFamiliar) {
         this.responsavelFamiliar = responsavelFamiliar;
     }
 
@@ -187,14 +186,6 @@ public class Pessoa {
 
     public void setSituacaoMercado(String situacaoMercado) {
         this.situacaoMercado = situacaoMercado;
-    }
-
-    public boolean isDeficiencia() {
-        return deficiencia;
-    }
-
-    public void setDeficiencia(boolean deficiencia) {
-        this.deficiencia = deficiencia;
     }
 
     public String getQualDeficiencia() {
