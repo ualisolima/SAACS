@@ -719,7 +719,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     }
                     for (int k = 0; k < radioGroupDeficiencia.getChildCount(); k++)
                         ((RadioButton)radioGroupDeficiencia.getChildAt(k)).setError(null);
-                    cadastroPessoaActivity.pessoa.setDeficiencia(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                    cadastroPessoaActivity.situacaoSaude.setDeficiencia(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
                 }
             });
             checkBoxDeficienciaAuditiva.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -729,7 +729,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         qualDeficiencia[0] += checkBoxDeficienciaAuditiva.getText().toString() + ";";
                     else
                         qualDeficiencia[0] = qualDeficiencia[0].replace(checkBoxDeficienciaAuditiva.getText()+";","");
-                    cadastroPessoaActivity.pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    cadastroPessoaActivity.situacaoSaude.setQualDeficiencia(qualDeficiencia[0]);
                     checkBoxDeficienciaAuditiva.setError(null);
                     checkBoxDeficienciaVisual.setError(null);
                     checkBoxDeficienciaFisica.setError(null);
@@ -744,7 +744,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         qualDeficiencia[0] += checkBoxDeficienciaVisual.getText().toString() + ";";
                     else
                         qualDeficiencia[0] = qualDeficiencia[0].replace(checkBoxDeficienciaVisual.getText()+";","");
-                    cadastroPessoaActivity.pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    cadastroPessoaActivity.situacaoSaude.setQualDeficiencia(qualDeficiencia[0]);
                     checkBoxDeficienciaAuditiva.setError(null);
                     checkBoxDeficienciaVisual.setError(null);
                     checkBoxDeficienciaFisica.setError(null);
@@ -759,7 +759,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         qualDeficiencia[0] += checkBoxDeficienciaFisica.getText().toString() + ";";
                     else
                         qualDeficiencia[0] = qualDeficiencia[0].replace(checkBoxDeficienciaFisica.getText()+";","");
-                    cadastroPessoaActivity.pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    cadastroPessoaActivity.situacaoSaude.setQualDeficiencia(qualDeficiencia[0]);
                     checkBoxDeficienciaAuditiva.setError(null);
                     checkBoxDeficienciaVisual.setError(null);
                     checkBoxDeficienciaFisica.setError(null);
@@ -773,7 +773,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         qualDeficiencia[0] += checkBoxDeficienciaIntelectual.getText().toString() + ";";
                     else
                         qualDeficiencia[0] = qualDeficiencia[0].replace(checkBoxDeficienciaIntelectual.getText()+";","");
-                    cadastroPessoaActivity.pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    cadastroPessoaActivity.situacaoSaude.setQualDeficiencia(qualDeficiencia[0]);
                     checkBoxDeficienciaAuditiva.setError(null);
                     checkBoxDeficienciaVisual.setError(null);
                     checkBoxDeficienciaFisica.setError(null);
