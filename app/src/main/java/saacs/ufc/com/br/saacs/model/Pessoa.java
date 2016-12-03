@@ -12,16 +12,21 @@ public class Pessoa {
 //    private long numSUSResponsavel;
     private String sexo;
     private String nacionalidade;
-    private String cidadeUFNatal;
     private String telefone;
     private String email;
     private String etnia;
+    private String paisDeOrigem;
+    private Long numeroNis;
+
 
     // Informações Sociodemográficas:
     private boolean responsavelFamiliar;
     private String relacaoParentRF;
     private String profissao;
     private String escolaridade;
+    private String nomedaMae;
+    private String cidadeNatal;
+    private String estado;
     private String situacaoMercado;
     private boolean deficiencia;
     private String qualDeficiencia;
@@ -29,12 +34,43 @@ public class Pessoa {
     // Situação de Saúde Geral
     private SituacaoSaude saude;
 
+    public Long getNumeroNis() {
+        return numeroNis;
+    }
+    public String getPaisDeOrigem() {
+        return paisDeOrigem;
+    }
+
+    public void setPaisDeOrigem(String paisDeOrigem) {
+        this.paisDeOrigem = paisDeOrigem;
+    }
+
+    public void setNumeroNis(Long numeroNis) {
+        this.numeroNis = numeroNis;
+    }
+
     public Pessoa() {
         saude = new SituacaoSaude();
     }
 
     public String getEtnia() {
         return etnia;
+    }
+
+    public String getNomedaMae() {
+        return nomedaMae;
+    }
+
+    public void setNomedaMae(String nomedaMae) {
+        this.nomedaMae = nomedaMae;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public void setEtnia(String etnia) {
@@ -89,12 +125,12 @@ public class Pessoa {
         this.nacionalidade = nacionalidade;
     }
 
-    public String getCidadeUFNatal() {
-        return cidadeUFNatal;
+    public String getCidadeNatal() {
+        return cidadeNatal;
     }
 
-    public void setCidadeUFNatal(String cidadeUFNatal) {
-        this.cidadeUFNatal = cidadeUFNatal;
+    public void setCidadeNatal(String cidadeNatal) {
+        this.cidadeNatal = cidadeNatal;
     }
 
     public String getTelefone() {

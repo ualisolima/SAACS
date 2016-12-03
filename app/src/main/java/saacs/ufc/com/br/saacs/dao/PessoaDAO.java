@@ -37,7 +37,7 @@ public class PessoaDAO {
         //values.put("numSUSResponsavel", pessoa.getNumSUSResponsavel());
         values.put("sexo", pessoa.getSexo());
         values.put("nacionalidade", pessoa.getNacionalidade());
-        values.put("cidadeUFNatal", pessoa.getCidadeUFNatal());
+        values.put("cidadeNatal", pessoa.getCidadeNatal());
         values.put("telefone", pessoa.getTelefone());
         values.put("email", pessoa.getEmail());
         values.put("responsavelFamiliar", pessoa.isResponsavelFamiliar());
@@ -73,7 +73,7 @@ public class PessoaDAO {
                 //p.setNumSUSResponsavel(cursor.getLong(cursor.getColumnIndex("numSUSResponsavel")));
                 p.setSexo(cursor.getString(cursor.getColumnIndex("sexo")));
                 p.setNacionalidade(cursor.getString(cursor.getColumnIndex("nacionalidade")));
-                p.setCidadeUFNatal(cursor.getString(cursor.getColumnIndex("cidadeUFNatal")));
+                p.setCidadeNatal(cursor.getString(cursor.getColumnIndex("cidadeNatal")));
                 p.setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
                 p.setEmail(cursor.getString(cursor.getColumnIndex("email")));
 
@@ -130,7 +130,7 @@ public class PessoaDAO {
         //values.put("numSUSResponsavel", pessoa.getNumSUSResponsavel());
         values.put("sexo", pessoa.getSexo());
         values.put("nacionalidade", pessoa.getNacionalidade());
-        values.put("cidadeUFNatal", pessoa.getCidadeUFNatal());
+        values.put("cidadeNatal", pessoa.getCidadeNatal());
         values.put("telefone", pessoa.getTelefone());
         values.put("email", pessoa.getEmail());
         values.put("responsavelFamiliar", pessoa.isResponsavelFamiliar());

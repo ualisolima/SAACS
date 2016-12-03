@@ -22,7 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     //"    numSUSResponsavel big int not null," +
                     "    sexo text not null," +
                     "    nacionalidade text," +
-                    "    cidadeUFNatal text," +
+                    "    cidadeNatal text," +
                     "    telefone text not null," +
                     "    email text," +
                     "    responsavelFamiliar integer default 0," +

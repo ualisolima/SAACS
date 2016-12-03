@@ -3,6 +3,7 @@ package saacs.ufc.com.br.saacs.activity;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -43,6 +44,8 @@ public class CadastroPessoaActivity extends AppCompatActivity {
 
     public Pessoa pessoa;
     public SituacaoSaude situacaoSaude;
+    public boolean valide = false;
+    public int lPage = 0, cPage = 0;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -62,7 +65,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.containerPessoa);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -70,14 +73,17 @@ public class CadastroPessoaActivity extends AppCompatActivity {
 
             }
 
-            int currentPosition = 0;
+            int lastPostition = 0;
 
             @Override
-            public void onPageSelected(int position) {
-                Fragment fa = (Fragment) mSectionsPagerAdapter.getItem(currentPosition);
+            public void onPageSelected(int newPosition) {
+                cPage = newPosition;
+                System.out.println(lastPostition+":"+newPosition);
+                Fragment fa = (Fragment) mSectionsPagerAdapter.getItem(lastPostition);
                 fa.onPause();
-
-                currentPosition = position;
+                Fragment fc = (Fragment) mSectionsPagerAdapter.getItem(newPosition);
+                fc.onResume();
+                lastPostition = newPosition;
             }
 
             @Override
@@ -90,6 +96,15 @@ public class CadastroPessoaActivity extends AppCompatActivity {
 
     }
 
+    public void selectPage(final int page) {
+        mViewPager.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                mViewPager.setCurrentItem(page);
+            }
+        }, 1);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,8 +137,10 @@ public class CadastroPessoaActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        EditText numSusEditText, dtNascimentoEditText, nomeCompletoEditText;
-        RadioGroup radioGroupRaca, radioGroupSex;
+        static EditText numSusEditText, dtNascimentoEditText, nomeCompletoEditText;
+        static RadioGroup radioGroupRaca, radioGroupSex;
+        static CadastroPessoaActivity cadastroPessoaActivity;
+        //static FragmentManager fm;
         public PlaceholderFragment() {
         }
 
@@ -140,9 +157,51 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onResume(){
+            super.onResume();
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.cPage == 0 && cadastroPessoaActivity.lPage != 0) {
+                cadastroPessoaActivity.cPage = cadastroPessoaActivity.lPage;
+                cadastroPessoaActivity.lPage = 0;
+                cadastroPessoaActivity.valide = true;
+                cadastroPessoaActivity.selectPage(cadastroPessoaActivity.cPage);
+            }
+            else if (cadastroPessoaActivity.cPage == 0) {
+                cadastroPessoaActivity.valide = false;
+                cadastroPessoaActivity.lPage = 0;
+            }
+
+        }
+
+        @Override
         public void onPause(){
             super.onPause();
-            System.out.println("pause");
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.lPage == 0) {
+                String numSus = numSusEditText.getText().toString();
+                String dtNascimento = dtNascimentoEditText.getText().toString();
+                String nomeCompleto = nomeCompletoEditText.getText().toString();
+
+                if (numSus.equals("") || dtNascimento.equals("") || nomeCompleto.equals("") || radioGroupSex.getCheckedRadioButtonId() <= 0 || radioGroupRaca.getCheckedRadioButtonId() <= 0) {
+                    if (numSus.equals(""))
+                        numSusEditText.setError("Numero SUS não pode ser vazio");
+                    if (dtNascimento.equals(""))
+                        dtNascimentoEditText.setError("Data nascimento não pode ser vazia");
+                    if (nomeCompleto.equals(""))
+                        nomeCompletoEditText.setError("Nome não pode ser vazio");
+                    if (radioGroupSex.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupSex.getChildCount(); k++)
+                            ((RadioButton)radioGroupSex.getChildAt(k)).setError("Selecione o sexo");
+                    if (radioGroupRaca.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupRaca.getChildCount(); k++)
+                            ((RadioButton)radioGroupRaca.getChildAt(k)).setError("Selecione a Etnia");
+                }
+                else {
+                    cadastroPessoaActivity.pessoa.setNumSUS(Long.parseLong(numSus));
+                    cadastroPessoaActivity.pessoa.setDataNascimento(dtNascimento);
+                    cadastroPessoaActivity.pessoa.setNome(nomeCompleto);
+                    cadastroPessoaActivity.valide = true;
+                    System.out.println("validou");
+                }
+            }
         }
 
         @Override
@@ -154,17 +213,22 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             numSusEditText = (EditText) rootView.findViewById(R.id.numSusEditText);
             dtNascimentoEditText = (EditText) rootView.findViewById(R.id.dtNascimentoEditText);
             nomeCompletoEditText = (EditText) rootView.findViewById(R.id.nomeCompletoEditText);
-
+            cadastroPessoaActivity = (CadastroPessoaActivity)getActivity();
+            //fm = getActivity().getSupportFragmentManager();
             radioGroupSex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    ((CadastroPessoaActivity)getActivity()).pessoa.setSexo(((RadioButton)rootView.findViewById(i)).getText().toString());
+                    ((RadioButton)radioGroupSex.getChildAt(0)).setError(null);
+                    ((RadioButton)radioGroupSex.getChildAt(1)).setError(null);
+                   cadastroPessoaActivity.pessoa.setSexo(((RadioButton)rootView.findViewById(i)).getText().toString());
                 }
             });
             radioGroupRaca.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    ((CadastroPessoaActivity) getActivity()).pessoa.setEtnia(((RadioButton)rootView.findViewById(i)).getText().toString());
+                    for (int k = 0; k < radioGroupRaca.getChildCount(); k++)
+                        ((RadioButton)radioGroupRaca.getChildAt(k)).setError(null);
+                    cadastroPessoaActivity.pessoa.setEtnia(((RadioButton)rootView.findViewById(i)).getText().toString());
                 }
             });
             return rootView;
@@ -177,7 +241,9 @@ public class CadastroPessoaActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-
+        static RadioGroup nacionalidadeGroup;
+        static EditText paisDeOrigemEditText, numeroNisEditText, nomeDaMaeEditText,cidadeNatalEditText,estadoEditText,telefoneEditText,emailEditText;
+        static CadastroPessoaActivity cadastroPessoaActivity;
         public PlaceholderFragment2() {
         }
 
@@ -194,25 +260,92 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onResume(){
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.cPage == 1 && cadastroPessoaActivity.lPage != 1 ) {
+                cadastroPessoaActivity.cPage = cadastroPessoaActivity.lPage;
+                cadastroPessoaActivity.lPage = 1;
+                cadastroPessoaActivity.valide = true;
+                cadastroPessoaActivity.selectPage(cadastroPessoaActivity.cPage);
+                System.out.println("Entrou aqui");
+            }
+            else if (cadastroPessoaActivity.cPage == 1){
+                System.out.println("Nao Entrou aqui");
+                cadastroPessoaActivity.lPage = 1;
+                cadastroPessoaActivity.valide = false;
+            }
+            super.onResume();
+
+        }
+
+        @Override
+        public void onPause(){
+            super.onPause();
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.lPage == 1) {
+                String numeroNis = numeroNisEditText.getText().toString();
+                String nomeDaMae = nomeDaMaeEditText.getText().toString();
+                String cidadeNatal = cidadeNatalEditText.getText().toString();
+                String estado = estadoEditText.getText().toString();
+                String email = emailEditText.getText().toString();
+                String telefone = telefoneEditText.getText().toString();
+                String paisDeOrigem = paisDeOrigemEditText.getText().toString();
+                if (numeroNis.equals("") || nomeDaMae.equals("") || cidadeNatal.equals("") || paisDeOrigem.equals("") || estado.equals("")) {
+                    if (numeroNis.equals(""))
+                        numeroNisEditText.setError("Numero NIS não pode ser vazio");
+                    if (nomeDaMae.equals(""))
+                        nomeDaMaeEditText.setError("Nome da mãe não pode ser vazio");
+                    if (cidadeNatal.equals(""))
+                        cidadeNatalEditText.setError("Cidade natal não pode ser vazio");
+                    if (paisDeOrigem.equals(""))
+                        paisDeOrigemEditText.setError("País de origem não pode ser vazio");
+                    if (estado.equals(""))
+                        estadoEditText.setError("Estado não pode ser vazio");
+                }
+                else {
+                    cadastroPessoaActivity.pessoa.setNumeroNis(Long.parseLong(numeroNis));
+                    cadastroPessoaActivity.pessoa.setCidadeNatal(cidadeNatal);
+                    cadastroPessoaActivity.pessoa.setNomedaMae(nomeDaMae);
+                    cadastroPessoaActivity.pessoa.setEstado(estado);
+                    cadastroPessoaActivity.pessoa.setEmail(email);
+                    cadastroPessoaActivity.pessoa.setPaisDeOrigem(paisDeOrigem);
+                    cadastroPessoaActivity.pessoa.setTelefone(telefone);
+                    cadastroPessoaActivity.valide = true;
+                    System.out.println("validou");
+                }
+            }
+
+
+        }
+
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_cadastro_pessoa_2, container, false);
-            RadioGroup nacionalidadeGroup = (RadioGroup) rootView.findViewById(R.id.radioGroupNacionalidade);
-            final EditText paisOrigemEditText = (EditText) rootView.findViewById(R.id.paisDeOrigemEditText);
+            nacionalidadeGroup = (RadioGroup) rootView.findViewById(R.id.radioGroupNacionalidade);
+            numeroNisEditText = (EditText) rootView.findViewById(R.id.numeroNisEditText);
+            nomeDaMaeEditText = (EditText) rootView.findViewById(R.id.nomeDaMaeEditText);
+            paisDeOrigemEditText = (EditText) rootView.findViewById(R.id.paisDeOrigemEditText);
+            cidadeNatalEditText = (EditText) rootView.findViewById(R.id.cidadeNatalEditText);
+            estadoEditText = (EditText) rootView.findViewById(R.id.estadoEditText);
+            telefoneEditText = (EditText) rootView.findViewById(R.id.telefoneEditText);
+            emailEditText = (EditText) rootView.findViewById(R.id.emailEditText);
+            cadastroPessoaActivity = (CadastroPessoaActivity)getActivity();
             nacionalidadeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     if (i != R.id.radioButtonNacionalidadeBrasileiro) {
-                        paisOrigemEditText.setEnabled(true);
-                        paisOrigemEditText.setText("");
+                        paisDeOrigemEditText.setEnabled(true);
+                        paisDeOrigemEditText.setText("");
                     }
                     else {
-                        paisOrigemEditText.setEnabled(false);
-                        paisOrigemEditText.setText("Brasileiro");
+                        paisDeOrigemEditText.setEnabled(false);
+                        paisDeOrigemEditText.setText("Brasileiro");
                     }
-                    ((CadastroPessoaActivity)getActivity()).pessoa.setNacionalidade(paisOrigemEditText.getText().toString());
+                    paisDeOrigemEditText.setError(null);
+                    cadastroPessoaActivity.pessoa.setNacionalidade(paisDeOrigemEditText.getText().toString());
                 }
             });
+            RadioButton brasileiroButton = (RadioButton) rootView.findViewById(R.id.radioButtonNacionalidadeBrasileiro);
+            brasileiroButton.setChecked(true);
             return rootView;
         }
     }
@@ -223,6 +356,9 @@ public class CadastroPessoaActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+
+        static CadastroPessoaActivity cadastroPessoaActivity;
+        static RadioGroup radioGroupResponsavel, radioGroupParentesco;
 
         public PlaceholderFragment3() {
         }
@@ -240,38 +376,77 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onResume(){
+            super.onResume();
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.cPage == 2 && cadastroPessoaActivity.lPage != 2) {
+                cadastroPessoaActivity.cPage = cadastroPessoaActivity.lPage;
+                cadastroPessoaActivity.lPage = 2;
+                cadastroPessoaActivity.valide = true;
+                cadastroPessoaActivity.selectPage(cadastroPessoaActivity.cPage);
+                System.out.println("Entrou aqui 3");
+            }
+            else if ( cadastroPessoaActivity.cPage == 2) {
+                cadastroPessoaActivity.lPage = 2;
+                cadastroPessoaActivity.valide = false;
+            }
+
+        }
+
+        @Override
+        public void onPause(){
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.lPage == 2){
+                if (radioGroupResponsavel.getCheckedRadioButtonId() <=0 || (radioGroupResponsavel.getCheckedRadioButtonId() == R.id.radioButtonResponsavelNao && radioGroupParentesco.getCheckedRadioButtonId() <= 0 )){
+                    if (radioGroupResponsavel.getCheckedRadioButtonId() <=0)
+                        for (int k = 0; k < radioGroupResponsavel.getChildCount(); k++)
+                            ((RadioButton)radioGroupResponsavel.getChildAt(k)).setError("Selecione um item");
+                    else if (radioGroupResponsavel.getCheckedRadioButtonId() == R.id.radioButtonResponsavelNao && radioGroupParentesco.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupParentesco.getChildCount(); k++)
+                            ((RadioButton)radioGroupParentesco.getChildAt(k)).setError("Selecione parentesco");
+                }
+                else
+                    cadastroPessoaActivity.valide = true;
+            }
+            super.onPause();
+        }
+
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_cadastro_pessoa_3, container, false);
-            RadioGroup responsavelGroup = (RadioGroup) rootView.findViewById(R.id.radioGroupResponsavel);
-
-            final RadioGroup relacaoGroup = (RadioGroup) rootView.findViewById(R.id.RadioGroupParentesco);
-            relacaoGroup.setEnabled(false);
-            for (int k = 0; k < relacaoGroup.getChildCount(); k++)
-                relacaoGroup.getChildAt(k).setEnabled(false);
-            responsavelGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            radioGroupResponsavel = (RadioGroup) rootView.findViewById(R.id.radioGroupResponsavel);
+            cadastroPessoaActivity = (CadastroPessoaActivity)getActivity();
+            radioGroupParentesco = (RadioGroup) rootView.findViewById(R.id.RadioGroupParentesco);
+            radioGroupParentesco.setEnabled(false);
+            for (int k = 0; k < radioGroupParentesco.getChildCount(); k++)
+                radioGroupParentesco.getChildAt(k).setEnabled(false);
+            radioGroupResponsavel.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     if (i == R.id.radioButtonResponsavelSim) {
-                        relacaoGroup.setEnabled(false);
-                        for (int k = 0; k < relacaoGroup.getChildCount(); k++)
-                            relacaoGroup.getChildAt(k).setEnabled(false);
-                        relacaoGroup.clearCheck();
+                        radioGroupParentesco.setEnabled(false);
+                        for (int k = 0; k < radioGroupParentesco.getChildCount(); k++)
+                            radioGroupParentesco.getChildAt(k).setEnabled(false);
+                        radioGroupParentesco.clearCheck();
                         ((CadastroPessoaActivity)getActivity()).pessoa.setRelacaoParentRF(null);
                     }
                     else {
-                        relacaoGroup.setEnabled(true);
-                        for (int k = 0; k < relacaoGroup.getChildCount(); k++)
-                            relacaoGroup.getChildAt(k).setEnabled(true);
+                        radioGroupParentesco.setEnabled(true);
+                        for (int k = 0; k < radioGroupParentesco.getChildCount(); k++)
+                            radioGroupParentesco.getChildAt(k).setEnabled(true);
                     }
+                    for (int k = 0; k < radioGroupResponsavel.getChildCount(); k++)
+                        ((RadioButton)radioGroupResponsavel.getChildAt(k)).setError(null);
                     ((CadastroPessoaActivity)getActivity()).pessoa.setResponsavelFamiliar(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
                 }
             });
-            relacaoGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            radioGroupParentesco.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    if (rootView.findViewById(i) != null)
+                    if (rootView.findViewById(i) != null) {
                         ((CadastroPessoaActivity)getActivity()).pessoa.setRelacaoParentRF(((RadioButton)rootView.findViewById(i)).getText().toString());
+                        for (int k = 0; k < radioGroupParentesco.getChildCount(); k++)
+                            ((RadioButton)radioGroupParentesco.getChildAt(k)).setError(null);
+                    }
                 }
             });
             return rootView;
@@ -299,13 +474,48 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             fragment.setArguments(args);
             return fragment;
         }
-        RadioGroup radioGroupEscolaridade;
-        RadioGroup radioGroupTrabalho;
-        EditText profissaoEditText;
+        static RadioGroup radioGroupEscolaridade, radioGroupTrabalho;
+        static EditText profissaoEditText;
+        static CadastroPessoaActivity cadastroPessoaActivity;
 
         @Override
         public void onResume(){
             super.onResume();
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.cPage == 3 && cadastroPessoaActivity.lPage != 3) {
+                cadastroPessoaActivity.cPage = cadastroPessoaActivity.lPage;
+                cadastroPessoaActivity.lPage = 3;
+                cadastroPessoaActivity.valide = true;
+                cadastroPessoaActivity.selectPage(cadastroPessoaActivity.cPage);
+                System.out.println("Entrou aqui 4");
+            }
+            else if ( cadastroPessoaActivity.cPage == 3) {
+                cadastroPessoaActivity.lPage = 3;
+                cadastroPessoaActivity.valide = false;
+            }
+        }
+
+        @Override
+        public void onPause(){
+            super.onPause();
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.lPage == 3){
+                String profissao = profissaoEditText.getText().toString();
+                if (profissao.equals("") || radioGroupEscolaridade.getCheckedRadioButtonId() <= 0 || radioGroupTrabalho.getCheckedRadioButtonId() <= 0) {
+                    if (profissao.equals(""))
+                        profissaoEditText.setError("Profissão não pode ser vazio");
+                    if (radioGroupEscolaridade.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupEscolaridade.getChildCount(); k++)
+                            ((RadioButton)radioGroupEscolaridade.getChildAt(k)).setError("Selecione um Item");
+                    if (radioGroupTrabalho.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupTrabalho.getChildCount(); k++)
+                            ((RadioButton)radioGroupTrabalho.getChildAt(k)).setError("Selecione um Item");
+
+
+                }
+                else {
+                    cadastroPessoaActivity.pessoa.setProfissao(profissao);
+                    cadastroPessoaActivity.valide = true;
+                }
+            }
         }
 
         @Override
@@ -315,18 +525,25 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             radioGroupEscolaridade = (RadioGroup) rootView.findViewById(R.id.radioGroupEscolaridade);
             radioGroupTrabalho = (RadioGroup) rootView.findViewById(R.id.radioGroupTrabalho);
             profissaoEditText = (EditText) rootView.findViewById(R.id.profissaoEditText);
+            cadastroPessoaActivity = (CadastroPessoaActivity)getActivity();
             radioGroupEscolaridade.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    if (rootView.findViewById(i) != null)
-                        ((CadastroPessoaActivity)getActivity()).pessoa.setEscolaridade(((RadioButton)rootView.findViewById(i)).getText().toString());
+                    if (rootView.findViewById(i) != null) {
+                        for (int k = 0; k < radioGroupEscolaridade.getChildCount(); k++)
+                            ((RadioButton)radioGroupEscolaridade.getChildAt(k)).setError(null);
+                        ((CadastroPessoaActivity) getActivity()).pessoa.setEscolaridade(((RadioButton) rootView.findViewById(i)).getText().toString());
+                    }
                 }
             });
             radioGroupTrabalho.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    if (rootView.findViewById(i) != null)
-                        ((CadastroPessoaActivity)getActivity()).pessoa.setSituacaoMercado(((RadioButton)rootView.findViewById(i)).getText().toString());
+                    if (rootView.findViewById(i) != null) {
+                        ((CadastroPessoaActivity) getActivity()).pessoa.setSituacaoMercado(((RadioButton) rootView.findViewById(i)).getText().toString());
+                        for (int k = 0; k < radioGroupTrabalho.getChildCount(); k++)
+                            ((RadioButton) radioGroupTrabalho.getChildAt(k)).setError(null);
+                    }
                 }
             });
             return rootView;
@@ -340,26 +557,55 @@ public class CadastroPessoaActivity extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        RadioGroup radioGroupGestante;
-
         public PlaceholderFragment5() {
         }
 
         @Override
         public void onResume() {
             super.onResume();
-            System.out.println(((CadastroPessoaActivity)getActivity()).pessoa.getSexo());
-            if (((CadastroPessoaActivity)getActivity()).pessoa.getSexo() != null  && ((CadastroPessoaActivity)getActivity()).pessoa.getSexo().equals("Masculino")) {
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.cPage == 4 && cadastroPessoaActivity.lPage != 4) {
+                cadastroPessoaActivity.cPage = cadastroPessoaActivity.lPage;
+                cadastroPessoaActivity.lPage = 4;
+                cadastroPessoaActivity.valide = true;
+                cadastroPessoaActivity.selectPage(cadastroPessoaActivity.cPage);
+                System.out.println("Entrou aqui 5");
+            }
+            else if ( cadastroPessoaActivity.cPage == 4) {
+                cadastroPessoaActivity.lPage = 4;
+                cadastroPessoaActivity.valide = false;
+            }
+
+            System.out.println(cadastroPessoaActivity.pessoa.getSexo());
+            if (cadastroPessoaActivity.pessoa.getSexo() != null  && cadastroPessoaActivity.pessoa.getSexo().equals("Masculino")) {
                 radioGroupGestante.setEnabled(false);
                 for (int k = 0; k < radioGroupGestante.getChildCount(); k++)
                     radioGroupGestante.getChildAt(k).setEnabled(false);
                 radioGroupGestante.clearCheck();
-                ((CadastroPessoaActivity)getActivity()).situacaoSaude.setGestante(false);
+                cadastroPessoaActivity.situacaoSaude.setGestante(false);
             }
-            else if (((CadastroPessoaActivity)getActivity()).pessoa.getSexo() != null){
+            else if (cadastroPessoaActivity.pessoa.getSexo() != null){
                 radioGroupGestante.setEnabled(true);
                 for (int k = 0; k < radioGroupGestante.getChildCount(); k++)
                     radioGroupGestante.getChildAt(k).setEnabled(true);
+            }
+        }
+
+        @Override
+        public void onPause(){
+            super.onPause();
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.lPage == 4){
+                if (radioGroupDeficiencia.getCheckedRadioButtonId() <= 0)
+                    for (int k = 0; k < radioGroupDeficiencia.getChildCount(); k++)
+                        ((RadioButton)radioGroupDeficiencia.getChildAt(k)).setError("Selecione Item");
+                else if (radioGroupDeficiencia.getCheckedRadioButtonId() == R.id.radioButtonDeficienciaSim && !checkBoxDeficienciaAuditiva.isChecked() && !checkBoxDeficienciaVisual.isChecked() && !checkBoxDeficienciaFisica.isChecked() && ! checkBoxDeficienciaIntelectual.isChecked()){
+                    checkBoxDeficienciaAuditiva.setError("Selecione um item");
+                    checkBoxDeficienciaVisual.setError("Selecione um item");
+                    checkBoxDeficienciaFisica.setError("Selecione um item");
+                    checkBoxDeficienciaIntelectual.setError("Selecione um item");
+                }
+                else {
+                    cadastroPessoaActivity.valide = true;
+                }
             }
         }
 
@@ -375,23 +621,27 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             return fragment;
         }
 
+        static RadioGroup radioGroupGestante, radioGroupDeficiencia,radioGroupPeso,radioGroupFumante,radioGroupBebidas,radioGroupDroga,ragioGroupHipertenção;
+        static CadastroPessoaActivity cadastroPessoaActivity;
+        static CheckBox checkBoxDeficienciaAuditiva, checkBoxDeficienciaVisual,checkBoxDeficienciaFisica,checkBoxDeficienciaIntelectual;
+        static String[] qualDeficiencia = {""};
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             System.out.println(container.getChildCount());
             final View rootView = inflater.inflate(R.layout.fragment_cadastro_pessoa_5, container, false);
-            RadioGroup radioGroupDeficiencia = (RadioGroup) rootView.findViewById(R.id.radioGroupDeficiencia);
-            final CheckBox checkBoxDeficienciaAuditiva = (CheckBox) rootView.findViewById(R.id.checkBoxDeficienciaAuditiva);
-            final CheckBox checkBoxDeficienciaVisual = (CheckBox) rootView.findViewById(R.id.checkBoxDeficienciaVisual);
-            final CheckBox checkBoxDeficienciaFisica = (CheckBox) rootView.findViewById(R.id.checkBoxDeficienciaFisica);
-            final CheckBox checkBoxDeficienciaIntelectual = (CheckBox) rootView.findViewById(R.id.checkBoxDeficienciaIntelectual);
+            radioGroupDeficiencia = (RadioGroup) rootView.findViewById(R.id.radioGroupDeficiencia);
+            checkBoxDeficienciaAuditiva = (CheckBox) rootView.findViewById(R.id.checkBoxDeficienciaAuditiva);
+            checkBoxDeficienciaVisual = (CheckBox) rootView.findViewById(R.id.checkBoxDeficienciaVisual);
+            checkBoxDeficienciaFisica = (CheckBox) rootView.findViewById(R.id.checkBoxDeficienciaFisica);
+            checkBoxDeficienciaIntelectual = (CheckBox) rootView.findViewById(R.id.checkBoxDeficienciaIntelectual);
             radioGroupGestante = (RadioGroup) rootView.findViewById(R.id.radioGroupGestante);
-            RadioGroup radioGroupPeso = (RadioGroup) rootView.findViewById(R.id.radioGroupPeso);
-            RadioGroup radioGroupFumante = (RadioGroup) rootView.findViewById(R.id.radioGroupFumante);
-            RadioGroup radioGroupBebidas = (RadioGroup) rootView.findViewById(R.id.radioGroupBebidas);
-            RadioGroup radioGroupDroga = (RadioGroup) rootView.findViewById(R.id.radioGroupDroga);
-            RadioGroup ragioGroupHipertenção = (RadioGroup) rootView.findViewById(R.id.ragioGroupHipertenção);
-            final String[] qualDeficiencia = {""};
+            radioGroupPeso = (RadioGroup) rootView.findViewById(R.id.radioGroupPeso);
+            radioGroupFumante = (RadioGroup) rootView.findViewById(R.id.radioGroupFumante);
+            radioGroupBebidas = (RadioGroup) rootView.findViewById(R.id.radioGroupBebidas);
+            radioGroupDroga = (RadioGroup) rootView.findViewById(R.id.radioGroupDroga);
+            ragioGroupHipertenção = (RadioGroup) rootView.findViewById(R.id.ragioGroupHipertenção);
+            cadastroPessoaActivity = (CadastroPessoaActivity)getActivity();
             radioGroupDeficiencia.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -400,21 +650,31 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         checkBoxDeficienciaVisual.setEnabled(true);
                         checkBoxDeficienciaFisica.setEnabled(true);
                         checkBoxDeficienciaIntelectual.setEnabled(true);
+                        checkBoxDeficienciaAuditiva.setError(null);
+                        checkBoxDeficienciaVisual.setError(null);
+                        checkBoxDeficienciaFisica.setError(null);
+                        checkBoxDeficienciaIntelectual.setError(null);
                     }
                     else {
                         checkBoxDeficienciaAuditiva.setEnabled(false);
                         checkBoxDeficienciaVisual.setEnabled(false);
                         checkBoxDeficienciaFisica.setEnabled(false);
                         checkBoxDeficienciaIntelectual.setEnabled(false);
-                        checkBoxDeficienciaAuditiva.setSelected(false);
-                        checkBoxDeficienciaVisual.setSelected(false);
-                        checkBoxDeficienciaFisica.setSelected(false);
-                        checkBoxDeficienciaIntelectual.setSelected(false);
+                        checkBoxDeficienciaAuditiva.setChecked(false);
+                        checkBoxDeficienciaVisual.setChecked(false);
+                        checkBoxDeficienciaFisica.setChecked(false);
+                        checkBoxDeficienciaIntelectual.setChecked(false);
+                        checkBoxDeficienciaAuditiva.setError(null);
+                        checkBoxDeficienciaVisual.setError(null);
+                        checkBoxDeficienciaFisica.setError(null);
+                        checkBoxDeficienciaIntelectual.setError(null);
                         qualDeficiencia[0] = "";
 
 
                     }
-                    ((CadastroPessoaActivity)getActivity()).pessoa.setDeficiencia(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                    for (int k = 0; k < radioGroupDeficiencia.getChildCount(); k++)
+                        ((RadioButton)radioGroupDeficiencia.getChildAt(k)).setError(null);
+                    cadastroPessoaActivity.pessoa.setDeficiencia(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
                 }
             });
             checkBoxDeficienciaAuditiva.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -424,7 +684,11 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         qualDeficiencia[0] += checkBoxDeficienciaAuditiva.getText().toString() + ";";
                     else
                         qualDeficiencia[0] = qualDeficiencia[0].replace(checkBoxDeficienciaAuditiva.getText()+";","");
-                    ((CadastroPessoaActivity)getActivity()).pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    cadastroPessoaActivity.pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    checkBoxDeficienciaAuditiva.setError(null);
+                    checkBoxDeficienciaVisual.setError(null);
+                    checkBoxDeficienciaFisica.setError(null);
+                    checkBoxDeficienciaIntelectual.setError(null);
                 }
             });
 
@@ -435,7 +699,11 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         qualDeficiencia[0] += checkBoxDeficienciaVisual.getText().toString() + ";";
                     else
                         qualDeficiencia[0] = qualDeficiencia[0].replace(checkBoxDeficienciaVisual.getText()+";","");
-                    ((CadastroPessoaActivity)getActivity()).pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    cadastroPessoaActivity.pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    checkBoxDeficienciaAuditiva.setError(null);
+                    checkBoxDeficienciaVisual.setError(null);
+                    checkBoxDeficienciaFisica.setError(null);
+                    checkBoxDeficienciaIntelectual.setError(null);
                 }
             });
 
@@ -446,7 +714,11 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         qualDeficiencia[0] += checkBoxDeficienciaFisica.getText().toString() + ";";
                     else
                         qualDeficiencia[0] = qualDeficiencia[0].replace(checkBoxDeficienciaFisica.getText()+";","");
-                    ((CadastroPessoaActivity)getActivity()).pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    cadastroPessoaActivity.pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    checkBoxDeficienciaAuditiva.setError(null);
+                    checkBoxDeficienciaVisual.setError(null);
+                    checkBoxDeficienciaFisica.setError(null);
+                    checkBoxDeficienciaIntelectual.setError(null);
                 }
             });
             checkBoxDeficienciaIntelectual.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -456,44 +728,48 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         qualDeficiencia[0] += checkBoxDeficienciaIntelectual.getText().toString() + ";";
                     else
                         qualDeficiencia[0] = qualDeficiencia[0].replace(checkBoxDeficienciaIntelectual.getText()+";","");
-                    ((CadastroPessoaActivity)getActivity()).pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    cadastroPessoaActivity.pessoa.setQualDeficiencia(qualDeficiencia[0]);
+                    checkBoxDeficienciaAuditiva.setError(null);
+                    checkBoxDeficienciaVisual.setError(null);
+                    checkBoxDeficienciaFisica.setError(null);
+                    checkBoxDeficienciaIntelectual.setError(null);
                 }
             });
             radioGroupGestante.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     if (((RadioButton)rootView.findViewById(i)) != null)
-                        ((CadastroPessoaActivity)getActivity()).situacaoSaude.setGestante(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                        cadastroPessoaActivity.situacaoSaude.setGestante(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
                 }
             });
             radioGroupPeso.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    ((CadastroPessoaActivity)getActivity()).situacaoSaude.setNivelPeso(((RadioButton)rootView.findViewById(i)).getText().toString());
+                    cadastroPessoaActivity.situacaoSaude.setNivelPeso(((RadioButton)rootView.findViewById(i)).getText().toString());
                 }
             });
             radioGroupFumante.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    ((CadastroPessoaActivity)getActivity()).situacaoSaude.setFumante(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                    cadastroPessoaActivity.situacaoSaude.setFumante(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
                 }
             });
             radioGroupBebidas.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    ((CadastroPessoaActivity)getActivity()).situacaoSaude.setAlcool(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                    cadastroPessoaActivity.situacaoSaude.setAlcool(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
                 }
             });
             radioGroupDroga.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    ((CadastroPessoaActivity)getActivity()).situacaoSaude.setDrogas(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                    cadastroPessoaActivity.situacaoSaude.setDrogas(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
                 }
             });
             ragioGroupHipertenção.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                    ((CadastroPessoaActivity)getActivity()).situacaoSaude.setHipertenso(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                    cadastroPessoaActivity.situacaoSaude.setHipertenso(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
                 }
             });
             return rootView;
@@ -522,23 +798,96 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             return fragment;
         }
 
+        static RadioGroup radioGroupDiabetes, radioGroupAvc, radioGroupInfarto, radioGroupCardiaca, radioGroupRins, radioGroupRespiratorio, radioGroupHanseniase, ragioGroupTuberculose;
+        static EditText qualCardiacaEditText, qualRinsEditText;
+        static CadastroPessoaActivity cadastroPessoaActivity;
+
+        @Override
+        public void onResume(){
+            super.onResume();
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.cPage == 5 && cadastroPessoaActivity.lPage != 5) {
+                cadastroPessoaActivity.cPage = cadastroPessoaActivity.lPage;
+                cadastroPessoaActivity.lPage = 5;
+                cadastroPessoaActivity.valide = true;
+                cadastroPessoaActivity.selectPage(cadastroPessoaActivity.cPage);
+                System.out.println("Entrou aqui 6");
+            }
+            else if ( cadastroPessoaActivity.cPage == 5) {
+                cadastroPessoaActivity.lPage = 5;
+                cadastroPessoaActivity.valide = false;
+            }
+        }
+
+        @Override
+        public void onPause(){
+            super.onPause();
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.lPage == 5){
+                String qualCardiaca =  qualCardiacaEditText.getText().toString();
+                String qualRins = qualRinsEditText.getText().toString();
+                if (radioGroupDiabetes.getCheckedRadioButtonId() <= 0 || radioGroupAvc.getCheckedRadioButtonId()<=0
+                        || radioGroupInfarto.getCheckedRadioButtonId() <=0 || radioGroupCardiaca.getCheckedRadioButtonId()<=0
+                        || radioGroupRins.getCheckedRadioButtonId()<=0 || radioGroupRespiratorio.getCheckedRadioButtonId()<=0
+                        || radioGroupHanseniase.getCheckedRadioButtonId()<=0 || ragioGroupTuberculose.getCheckedRadioButtonId()<=0
+                        || (radioGroupCardiaca.getCheckedRadioButtonId() == R.id.radioButtonCardiacaSim && qualCardiaca.equals(""))
+                        || (radioGroupRins.getCheckedRadioButtonId() == R.id.radioButtonRinsSim && qualRins.equals(""))) {
+
+                    if (radioGroupDiabetes.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupDiabetes.getChildCount(); k++)
+                            ((RadioButton) radioGroupDiabetes.getChildAt(k)).setError("Selecione Item");
+                    if (radioGroupAvc.getCheckedRadioButtonId()<=0)
+                        for (int k = 0; k < radioGroupAvc.getChildCount(); k++)
+                            ((RadioButton) radioGroupAvc.getChildAt(k)).setError("Selecione Item");
+                    if (radioGroupInfarto.getCheckedRadioButtonId() <=0)
+                        for (int k = 0; k < radioGroupInfarto.getChildCount(); k++)
+                            ((RadioButton) radioGroupInfarto.getChildAt(k)).setError("Selecione Item");
+                    if (radioGroupCardiaca.getCheckedRadioButtonId()<=0)
+                        for (int k = 0; k < radioGroupCardiaca.getChildCount(); k++)
+                            ((RadioButton) radioGroupCardiaca.getChildAt(k)).setError("Selecione Item");
+                    if (radioGroupCardiaca.getCheckedRadioButtonId() == R.id.radioButtonCardiacaSim && qualCardiaca.equals(""))
+                        qualCardiacaEditText.setError("Diga o motivo");
+                    if (radioGroupRins.getCheckedRadioButtonId()<=0)
+                        for (int k = 0; k < radioGroupRins.getChildCount(); k++)
+                            ((RadioButton) radioGroupRins.getChildAt(k)).setError("Selecione Item");
+                    if (radioGroupRins.getCheckedRadioButtonId() == R.id.radioButtonRinsSim && qualRins.equals(""))
+                        qualRinsEditText.setError("Diga o problema");
+                    if (radioGroupRespiratorio.getCheckedRadioButtonId()<=0)
+                        for (int k = 0; k < radioGroupRespiratorio.getChildCount(); k++)
+                            ((RadioButton) radioGroupRespiratorio.getChildAt(k)).setError("Selecione Item");
+                    if (radioGroupHanseniase.getCheckedRadioButtonId()<=0)
+                        for (int k = 0; k < radioGroupHanseniase.getChildCount(); k++)
+                            ((RadioButton) radioGroupHanseniase.getChildAt(k)).setError("Selecione Item");
+                    if (ragioGroupTuberculose.getCheckedRadioButtonId()<=0)
+                        for (int k = 0; k < ragioGroupTuberculose.getChildCount(); k++)
+                            ((RadioButton) ragioGroupTuberculose.getChildAt(k)).setError("Selecione Item");
+                }
+                else {
+                    cadastroPessoaActivity.situacaoSaude.setQualDoencaCardiaca(qualCardiaca);
+                    cadastroPessoaActivity.situacaoSaude.setQualProblemaRins(qualRins);
+                    cadastroPessoaActivity.valide = true;
+                }
+            }
+        }
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_cadastro_pessoa_6, container, false);
-            RadioGroup radioGroupDiabetes = (RadioGroup) rootView.findViewById(R.id.radioGroupDiabetes);
-            RadioGroup radioGroupAvc = (RadioGroup) rootView.findViewById(R.id.radioGroupAvc);
-            RadioGroup radioGroupInfarto = (RadioGroup) rootView.findViewById(R.id.radioGroupInfarto);
-            RadioGroup radioGroupCardiaca = (RadioGroup) rootView.findViewById(R.id.radioGroupCardiaca);
-            RadioGroup radioGroupRins = (RadioGroup) rootView.findViewById(R.id.radioGroupRins);
-            RadioGroup radioGroupRespiratorio = (RadioGroup) rootView.findViewById(R.id.radioGroupRespiratorio);
-            RadioGroup radioGroupHanseniase = (RadioGroup) rootView.findViewById(R.id.radioGroupHanseniase);
-            RadioGroup ragioGroupTuberculose = (RadioGroup) rootView.findViewById(R.id.ragioGroupTuberculose);
-            final EditText qualCardiacaEditText = (EditText) rootView.findViewById(R.id.qualCardiacaEditText);
-            final EditText qualRinsEditText = (EditText) rootView.findViewById(R.id.qualRinsEditText);
+            radioGroupDiabetes = (RadioGroup) rootView.findViewById(R.id.radioGroupDiabetes);
+            radioGroupAvc = (RadioGroup) rootView.findViewById(R.id.radioGroupAvc);
+            radioGroupInfarto = (RadioGroup) rootView.findViewById(R.id.radioGroupInfarto);
+            radioGroupCardiaca = (RadioGroup) rootView.findViewById(R.id.radioGroupCardiaca);
+            radioGroupRins = (RadioGroup) rootView.findViewById(R.id.radioGroupRins);
+            radioGroupRespiratorio = (RadioGroup) rootView.findViewById(R.id.radioGroupRespiratorio);
+            radioGroupHanseniase = (RadioGroup) rootView.findViewById(R.id.radioGroupHanseniase);
+            ragioGroupTuberculose = (RadioGroup) rootView.findViewById(R.id.ragioGroupTuberculose);
+            qualCardiacaEditText = (EditText) rootView.findViewById(R.id.qualCardiacaEditText);
+            qualRinsEditText = (EditText) rootView.findViewById(R.id.qualRinsEditText);
+            cadastroPessoaActivity = (CadastroPessoaActivity)getActivity();
             radioGroupDiabetes.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    for (int k = 0; k < radioGroupDiabetes.getChildCount(); k++)
+                        ((RadioButton)radioGroupDiabetes.getChildAt(k)).setError(null);
                     ((CadastroPessoaActivity)getActivity()).situacaoSaude.setDiabete(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
                 }
             });
@@ -546,12 +895,16 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     ((CadastroPessoaActivity)getActivity()).situacaoSaude.setAVC_Derrame(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                    for (int k = 0; k < radioGroupAvc.getChildCount(); k++)
+                        ((RadioButton) radioGroupAvc.getChildAt(k)).setError(null);
                 }
             });
             radioGroupInfarto.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     ((CadastroPessoaActivity)getActivity()).situacaoSaude.setInfarto(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                    for (int k = 0; k < radioGroupInfarto.getChildCount(); k++)
+                        ((RadioButton) radioGroupInfarto.getChildAt(k)).setError(null);
                 }
             });
             radioGroupCardiaca.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -563,7 +916,10 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     else {
                         qualCardiacaEditText.setEnabled(false);
                         qualCardiacaEditText.setText("");
+                        qualCardiacaEditText.setError(null);
                     }
+                    for (int k = 0; k < radioGroupCardiaca.getChildCount(); k++)
+                        ((RadioButton) radioGroupCardiaca.getChildAt(k)).setError(null);
                 }
             });
             radioGroupRins.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -575,25 +931,35 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     else {
                         qualRinsEditText.setEnabled(false);
                         qualRinsEditText.setText("");
+                        qualRinsEditText.setError(null);
                     }
+                    for (int k = 0; k < radioGroupRins.getChildCount(); k++)
+                        ((RadioButton) radioGroupRins.getChildAt(k)).setError(null);
+
                 }
             });
             radioGroupRespiratorio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     ((CadastroPessoaActivity)getActivity()).situacaoSaude.setProblemaRespiratorios(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                    for (int k = 0; k < radioGroupRespiratorio.getChildCount(); k++)
+                        ((RadioButton) radioGroupRespiratorio.getChildAt(k)).setError(null);
                 }
             });
             radioGroupHanseniase.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     ((CadastroPessoaActivity)getActivity()).situacaoSaude.setHanseniase(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                    for (int k = 0; k < radioGroupHanseniase.getChildCount(); k++)
+                        ((RadioButton) radioGroupHanseniase.getChildAt(k)).setError(null);
                 }
             });
             ragioGroupTuberculose.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     ((CadastroPessoaActivity)getActivity()).situacaoSaude.setTuberculose(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
+                    for (int k = 0; k < ragioGroupTuberculose.getChildCount(); k++)
+                        ((RadioButton) ragioGroupTuberculose.getChildAt(k)).setError(null);
                 }
             });
             return rootView;
@@ -620,36 +986,26 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             fragment.setArguments(args);
             return fragment;
         }
+        static Button addPessoa;
+        static RadioGroup radioGroupInternacao, radioGroupMental, radioGroupPsiquiatra, radioGroupSaude, radioGroupPlantas;
+        static EditText motivoInternacaoEditText, qualPlantaEditText;
+        static CadastroPessoaActivity cadastroPessoaActivity;
+
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_cadastro_pessoa_7, container, false);
-            Button addPessoa = (Button) rootView.findViewById(R.id.buttonAddPessoaFinalizar);
-            //1
-            //2
-            EditText numeroNisEditText = (EditText) rootView.findViewById(R.id.numeroNisEditText);
-            EditText nomeDaMaeEditText = (EditText) rootView.findViewById(R.id.nomeDaMaeEditText);
-            EditText paisDeOrigemEditText = (EditText) rootView.findViewById(R.id.paisDeOrigemEditText);
-            EditText cidadeNatalEditText = (EditText) rootView.findViewById(R.id.cidadeNatalEditText);
-            EditText estadoEditText = (EditText) rootView.findViewById(R.id.estadoEditText);
-            EditText telefoneEditText = (EditText) rootView.findViewById(R.id.telefoneEditText);
-            EditText emailEditText = (EditText) rootView.findViewById(R.id.emailEditText);
-            //3
-            //4
-            //5
-            //6
-            EditText qualCardiacaEditText = (EditText) rootView.findViewById(R.id.qualCardiacaEditText);
-            EditText qualRinsEditText = (EditText) rootView.findViewById(R.id.qualRinsEditText);
+            addPessoa = (Button) rootView.findViewById(R.id.buttonAddPessoaFinalizar);
             //7
-            RadioGroup radioGroupInternacao = (RadioGroup) rootView.findViewById(R.id.radioGroupInternacao);
-            final EditText motivoInternacaoEditText = (EditText) rootView.findViewById(R.id.motivoInternacaoEditText);
-            RadioGroup radioGroupMental = (RadioGroup) rootView.findViewById(R.id.radioGroupMental);
-            final RadioGroup radioGroupPsiquiatra = (RadioGroup) rootView.findViewById(R.id.radioGroupPsiquiatra);
-            RadioGroup radioGroupSaude = (RadioGroup) rootView.findViewById(R.id.radioGroupSaude);
-            RadioGroup radioGroupPlantas = (RadioGroup) rootView.findViewById(R.id.radioGroupPlantas);
-            final EditText qualPlantaEditText = (EditText) rootView.findViewById(R.id.qualPlantaEditText);
-
+            radioGroupInternacao = (RadioGroup) rootView.findViewById(R.id.radioGroupInternacao);
+            motivoInternacaoEditText = (EditText) rootView.findViewById(R.id.motivoInternacaoEditText);
+            radioGroupMental = (RadioGroup) rootView.findViewById(R.id.radioGroupMental);
+            radioGroupPsiquiatra = (RadioGroup) rootView.findViewById(R.id.radioGroupPsiquiatra);
+            radioGroupSaude = (RadioGroup) rootView.findViewById(R.id.radioGroupSaude);
+            radioGroupPlantas = (RadioGroup) rootView.findViewById(R.id.radioGroupPlantas);
+            qualPlantaEditText = (EditText) rootView.findViewById(R.id.qualPlantaEditText);
+            cadastroPessoaActivity = (CadastroPessoaActivity)getActivity();
             radioGroupInternacao.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
