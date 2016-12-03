@@ -28,8 +28,6 @@ public class Pessoa {
     private String cidadeNatal;
     private String estado;
     private String situacaoMercado;
-    private String qualDeficiencia;
-
     // Situação de Saúde Geral
     private SituacaoSaude saude;
 
@@ -186,14 +184,6 @@ public class Pessoa {
 
     public void setSituacaoMercado(String situacaoMercado) {
         this.situacaoMercado = situacaoMercado;
-    }
-
-    public String getQualDeficiencia() {
-        return qualDeficiencia;
-    }
-
-    public void setQualDeficiencia(String qualDeficiencia) {
-        this.qualDeficiencia = qualDeficiencia;
     }
 
     public SituacaoSaude getSaude() {

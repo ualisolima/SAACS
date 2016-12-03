@@ -52,6 +52,26 @@ public class CadastroPessoaActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    public boolean validarAtributos(){
+        if ( pessoa.getNome() == null || pessoa.getNumSUS() == null || pessoa.getDataNascimento() == null ||
+                pessoa.getSexo() == null || pessoa.getEtnia() == null){
+            selectPage(0);
+            return false;
+        }
+        if ( pessoa.getNumeroNis() == null || pessoa.getNomedaMae() == null ||  pessoa.getNacionalidade() == null ||
+                pessoa.getCidadeNatal() == null || pessoa.getEstado() == null || pessoa.getTelefone() == null ||
+                pessoa.getEmail() == null || pessoa.getPaisDeOrigem() == null){
+            selectPage(1);
+            return false;
+        }
+        if (pessoa.getRelacaoParentRF() == null || pessoa.isResponsavelFamiliar() == null){
+            selectPage(2);
+            return false;
+        }
+
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

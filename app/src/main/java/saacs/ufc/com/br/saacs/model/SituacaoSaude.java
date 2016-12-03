@@ -33,6 +33,7 @@ public class SituacaoSaude {
     private int nivelSaude;
     private String plantasMedicinais;
     private Boolean deficiencia;
+    private String qualDeficiencia;
 
     public Boolean isDeficiencia() {
         return deficiencia;
@@ -43,6 +44,14 @@ public class SituacaoSaude {
     }
     public Boolean isUsaPlantas() {
         return usaPlantas;
+    }
+
+    public String getQualDeficiencia() {
+        return qualDeficiencia;
+    }
+
+    public void setQualDeficiencia(String qualDeficiencia) {
+        this.qualDeficiencia = qualDeficiencia;
     }
 
     public Boolean isProblemaRespiratorio() {
