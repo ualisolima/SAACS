@@ -30,7 +30,7 @@ public class SituacaoSaude {
     private Boolean problemaMental;
     private Boolean tratamento;
     private Boolean usaPlantas;
-    private int nivelSaude;
+    private Integer nivelSaude;
     private String plantasMedicinais;
     private Boolean deficiencia;
     private String qualDeficiencia;
@@ -258,11 +258,11 @@ public class SituacaoSaude {
         this.tratamento = tratamento;
     }
 
-    public int getNivelSaude() {
+    public Integer getNivelSaude() {
         return nivelSaude;
     }
 
-    public void setNivelSaude(int nivelSaude) {
+    public void setNivelSaude(Integer nivelSaude) {
         this.nivelSaude = nivelSaude;
     }
 
