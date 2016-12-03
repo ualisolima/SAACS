@@ -17,7 +17,7 @@
         android:text="ADD Pessoa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/gridViewPessoa"
+        android:layout_below="@+id/gridViewPessoas"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
@@ -32,7 +32,7 @@
         android:layout_toEndOf="@+id/section_label4"
         android:scrollbars="horizontal"
         android:numColumns="3"
-        android:id="@+id/gridViewPessoa"
+        android:id="@+id/gridViewPessoas"
         android:layout_height="450dp" />
 
     <Button
