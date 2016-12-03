@@ -965,6 +965,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             return rootView;
         }
     }
+
     public static class PlaceholderFragment7 extends Fragment {
         /**
          * The fragment argument representing the section number for this
@@ -991,6 +992,46 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         static EditText motivoInternacaoEditText, qualPlantaEditText;
         static CadastroPessoaActivity cadastroPessoaActivity;
 
+        @Override
+        public void onResume(){
+            super.onResume();
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.cPage == 6 && cadastroPessoaActivity.lPage != 6) {
+                cadastroPessoaActivity.cPage = cadastroPessoaActivity.lPage;
+                cadastroPessoaActivity.lPage = 6;
+                cadastroPessoaActivity.valide = true;
+                cadastroPessoaActivity.selectPage(cadastroPessoaActivity.cPage);
+                System.out.println("Entrou aqui 7");
+            }
+            else if ( cadastroPessoaActivity.cPage == 6) {
+                cadastroPessoaActivity.lPage = 6;
+                cadastroPessoaActivity.valide = false;
+            }
+
+        }
+
+        @Override
+        public void onPause(){
+            String motivoInternacao = motivoInternacaoEditText.getText().toString();
+            String qualPlanta = qualPlantaEditText.getText().toString();
+            if (!cadastroPessoaActivity.valide && cadastroPessoaActivity.lPage == 6){
+                if (radioGroupInternacao.getCheckedRadioButtonId() <=0 || (radioGroupInternacao.getCheckedRadioButtonId() == R.id.radioButtonInternacaoSim && motivoInternacao.equals(""))
+                        || radioGroupMental.getCheckedRadioButtonId() <=0 || (radioGroupMental.getCheckedRadioButtonId() == R.id.radioButtonMentalSim && radioGroupPsiquiatra.getCheckedRadioButtonId() <= 0)
+                        || radioGroupSaude.getCheckedRadioButtonId() <= 0 || radioGroupPlantas.getCheckedRadioButtonId() <= 0
+                        || (radioGroupPlantas.getCheckedRadioButtonId() == R.id.radioButtonPlantaSim && qualPlanta.equals(""))){
+                    if (radioGroupInternacao.getCheckedRadioButtonId() <=0)
+                        for (int k = 0; k < radioGroupInternacao.getChildCount(); k++)
+                            ((RadioButton)radioGroupInternacao.getChildAt(k)).setError("Selecione um item");
+                    else if (radioGroupInternacao.getCheckedRadioButtonId() == R.id.radioButtonInternacaoSim && motivoInternacao.equals(""))
+                        motivoInternacaoEditText.setError("Campo não pode estar vazio");
+                }
+                else {
+                    cadastroPessoaActivity.situacaoSaude.setMotivoInternacao(motivoInternacao);
+                    cadastroPessoaActivity.situacaoSaude.setPlantasMedicinais(qualPlanta);
+                    cadastroPessoaActivity.valide = true;
+                }
+            }
+            super.onPause();
+        }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
