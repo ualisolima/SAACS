@@ -6,7 +6,7 @@ package saacs.ufc.com.br.saacs.model;
 
 public class SituacaoSaude {
 
-    private long id;
+    private Long id;
     private boolean gestante;
     private String nivelPeso;
     private boolean fumante;
@@ -57,11 +57,11 @@ public class SituacaoSaude {
         this.usaPlantas = usaPlantas;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -9,8 +9,8 @@ import java.util.List;
 
 public class GrupoFamiliar {
 
-    private long id;
-    private long id_agente;
+    private Long id;
+    private Long id_agente;
     private List<Pessoa> pessoas;
     private String contato;
     //private String endereco;
@@ -107,11 +107,11 @@ public class GrupoFamiliar {
         this.phone = phone;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -139,11 +139,11 @@ public class GrupoFamiliar {
    //     this.endereco = endereco;
    // }
 
-    public long getId_agente() {
+    public Long getId_agente() {
         return id_agente;
     }
 
-    public void setId_agente(long id_agente) {
+    public void setId_agente(Long id_agente) {
         this.id_agente = id_agente;
     }
 

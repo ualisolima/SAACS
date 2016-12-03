@@ -7,16 +7,16 @@ import java.util.ArrayList;
  */
 
 public class Acs {
-    private long susNumber;
+    private Long susNumber;
     private String password;
     private ArrayList<GrupoFamiliar> grupos;
     private String nome;
 
-    public long getSusNumber() {
+    public Long getSusNumber() {
         return susNumber;
     }
 
-    public void setSusNumber(long susNumber) {
+    public void setSusNumber(Long susNumber) {
         this.susNumber = susNumber;
     }
 

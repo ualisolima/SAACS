@@ -7,9 +7,9 @@ package saacs.ufc.com.br.saacs.model;
 public class Pessoa {
     // Identificação
     private String nome;
-    private long NumSUS;
+    private Long NumSUS;
     private String dataNascimento;
-//    private long numSUSResponsavel;
+//    private Long numSUSResponsavel;
     private String sexo;
     private String nacionalidade;
     private String telefone;
@@ -85,11 +85,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public long getNumSUS() {
+    public Long getNumSUS() {
         return NumSUS;
     }
 
-    public void setNumSUS(long numSUS) {
+    public void setNumSUS(Long numSUS) {
         NumSUS = numSUS;
     }
 
@@ -101,11 +101,11 @@ public class Pessoa {
         this.dataNascimento = dataNascimento;
     }
 
-//    public long getNumSUSResponsavel() {
+//    public Long getNumSUSResponsavel() {
 //        return numSUSResponsavel;
 //    }
 
-//    public void setNumSUSResponsavel(long numSUSResponsavel) {
+//    public void setNumSUSResponsavel(Long numSUSResponsavel) {
 //        numSUSResponsavel = numSUSResponsavel;
 //    }
 
