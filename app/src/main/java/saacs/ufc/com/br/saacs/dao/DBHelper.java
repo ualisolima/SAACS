@@ -42,6 +42,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TB_CREATE_SITUACAO_SAUDE =
             "create table if not exists situacao_saude (" +
                     "    id_situacao big int not null primary key," +
+                    "    deficiencia integer default 0," +
+                    "    qualDeficiencia text," +
                     "    gestante integer default 0," +
                     "    nivelPeso text," +
                     "    fumante integer default 0," +
@@ -52,13 +54,12 @@ public class DBHelper extends SQLiteOpenHelper {
                     "    AVC_Derrame integer default 0," +
                     "    infarto integer default 0," +
                     "    doencaCardiaca integer default 0," +
+                    "    qualDoencaCardiaca text, " +
                     "    problemaRins integer default 0," +
                     "    qualProblemaRins text," +
                     "    problemaRespiratorio integer default 0," +
-                    "    qualProblemaRespiratorio text," +
                     "    hanseniase integer default 0," +
                     "    tuberculose integer default 0," +
-                    "    cancer integer default 0," +
                     "    internacao integer default 0," +
                     "    motivoInternacao text," +
                     "    problemaMental integer default 0," +
@@ -66,7 +67,6 @@ public class DBHelper extends SQLiteOpenHelper {
                     "    nivelSaude integer," +
                     "    plantasMedicinais text" +
                     ");";
-
 
     private static final String TB_CREATE_GRUPO_FAMILIAR =
             "create table if not exists grupo_familiar ("+

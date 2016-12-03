@@ -21,10 +21,8 @@ public class SituacaoSaude {
     private Boolean problemaRins;
     private String qualProblemaRins;
     private Boolean problemaRespiratorio;
-    private String qualProblemaRespiratorio;
     private Boolean hanseniase;
     private Boolean tuberculose;
-    private Boolean cancer;
     private Boolean internacao;
     private String motivoInternacao;
     private Boolean problemaMental;
@@ -60,14 +58,6 @@ public class SituacaoSaude {
 
     public void setProblemaRespiratorio(Boolean problemaRespiratorio) {
         this.problemaRespiratorio = problemaRespiratorio;
-    }
-
-    public String getQualProblemaRespiratorio() {
-        return qualProblemaRespiratorio;
-    }
-
-    public void setQualProblemaRespiratorio(String qualProblemaRespiratorio) {
-        this.qualProblemaRespiratorio = qualProblemaRespiratorio;
     }
 
     public void setUsaPlantas(Boolean usaPlantas) {
@@ -194,10 +184,6 @@ public class SituacaoSaude {
         this.problemaRespiratorio = problemaRespiratorios;
     }
 
-    public String getQualProblemaRespiratorios() {
-        return qualProblemaRespiratorio;
-    }
-
     public void setQualProblemaRespiratorios(String qualProblemaRespiratorios) {
         qualProblemaRespiratorios = qualProblemaRespiratorios;
     }
@@ -216,14 +202,6 @@ public class SituacaoSaude {
 
     public void setTuberculose(Boolean tuberculose) {
         this.tuberculose = tuberculose;
-    }
-
-    public Boolean isCancer() {
-        return cancer;
-    }
-
-    public void setCancer(Boolean cancer) {
-        this.cancer = cancer;
     }
 
     public Boolean isInternacao() {
