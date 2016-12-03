@@ -23,8 +23,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +35,9 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import saacs.ufc.com.br.saacs.R;
 import saacs.ufc.com.br.saacs.model.GrupoFamiliar;
@@ -108,7 +113,8 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_grupo_familiar);
-
+        grupoFamiliar = new GrupoFamiliar();
+        grupoFamiliar.setPessoas(new ArrayList<Pessoa>());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -228,6 +234,9 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        static CadastroGrupoFamiliarActivity cadastroGrupoFamiliarActivity;
+        static GridView gridViewPessoas;
+
         public PlaceholderFragment4() {
         }
 
@@ -243,6 +252,8 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_cadastro_grupo_familiar_4, container, false);
+            cadastroGrupoFamiliarActivity = (CadastroGrupoFamiliarActivity) getActivity();
+            gridViewPessoas = (GridView) rootView.findViewById(R.id.gridViewPessoas);
             Button addPessoaButton = (Button) rootView.findViewById(R.id.addPessoaButton);
             addPessoaButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -259,6 +270,15 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
             if( requestCode == 999 ) {
                 Pessoa pessoa = (Pessoa) data.getExtras().get("pessoa");
                 SituacaoSaude situacaoSaude = (SituacaoSaude) data.getExtras().get("situacaoSaude");
+                pessoa.setSaude(situacaoSaude);
+                cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas().add(pessoa);
+                List<String> items = new ArrayList<String>();
+                for (Pessoa p: cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas()){
+                    items.add(p.getNome());
+                    items.add("Editar");
+                    items.add("Remover");
+                }
+                gridViewPessoas.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items) );
             }
         }
     }
