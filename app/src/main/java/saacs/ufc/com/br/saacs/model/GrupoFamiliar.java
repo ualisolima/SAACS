@@ -9,8 +9,8 @@ import java.util.List;
 
 public class GrupoFamiliar {
 
-    private long id;
-    private long id_agente;
+    private Long id;
+    private Long id_agente;
     private List<Pessoa> pessoas;
     private String contato;
     //private String endereco;
@@ -25,10 +25,10 @@ public class GrupoFamiliar {
     private String localizacao;
     private String condsMoradia;
     private String tipoDomicilio;
-    private boolean energiaEletrica;
-    private boolean saneamentoBasico;
+    private Boolean energiaEletrica;
+    private Boolean saneamentoBasico;
     private String destLixo;
-    private boolean temAnimais;
+    private Boolean temAnimais;
     private String animais;
 
     public GrupoFamiliar() {
@@ -107,11 +107,11 @@ public class GrupoFamiliar {
         this.phone = phone;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -139,11 +139,11 @@ public class GrupoFamiliar {
    //     this.endereco = endereco;
    // }
 
-    public long getId_agente() {
+    public Long getId_agente() {
         return id_agente;
     }
 
-    public void setId_agente(long id_agente) {
+    public void setId_agente(Long id_agente) {
         this.id_agente = id_agente;
     }
 
@@ -171,19 +171,19 @@ public class GrupoFamiliar {
         this.tipoDomicilio = tipoDomicilio;
     }
 
-    public boolean isEnergiaEletrica() {
+    public Boolean isEnergiaEletrica() {
         return energiaEletrica;
     }
 
-    public void setEnergiaEletrica(boolean energiaEletrica) {
+    public void setEnergiaEletrica(Boolean energiaEletrica) {
         this.energiaEletrica = energiaEletrica;
     }
 
-    public boolean isSaneamentoBasico() {
+    public Boolean isSaneamentoBasico() {
         return saneamentoBasico;
     }
 
-    public void setSaneamentoBasico(boolean saneamentoBasico) {
+    public void setSaneamentoBasico(Boolean saneamentoBasico) {
         this.saneamentoBasico = saneamentoBasico;
     }
 
@@ -195,11 +195,11 @@ public class GrupoFamiliar {
         this.destLixo = destLixo;
     }
 
-    public boolean isTemAnimais() {
+    public Boolean isTemAnimais() {
         return temAnimais;
     }
 
-    public void setTemAnimais(boolean temAnimais) {
+    public void setTemAnimais(Boolean temAnimais) {
         this.temAnimais = temAnimais;
     }
 
