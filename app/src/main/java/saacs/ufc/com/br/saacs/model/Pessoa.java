@@ -177,7 +177,7 @@ public class Pessoa implements Serializable{
     }
 
     public void setEscolaridade(String escolaridade) {
-        escolaridade = escolaridade;
+        this.escolaridade = escolaridade;
     }
 
     public String getSituacaoMercado() {

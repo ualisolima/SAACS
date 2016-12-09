@@ -38,24 +38,15 @@ import saacs.ufc.com.br.saacs.model.SituacaoSaude;
 
 public class CadastroPessoaActivity extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     public Pessoa pessoa;
     public SituacaoSaude situacaoSaude;
     public boolean valide = false;
     public int lPage = 0, cPage = 0;
+    public Boolean isUpdate = false;
+    public int id = 0;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
 
     @Override
@@ -69,6 +60,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getBaseContext(), "As mudanças foram descartadas", Toast.LENGTH_LONG).show();
+                        valide = true;
                         finish();
                     }
 
@@ -79,42 +71,32 @@ public class CadastroPessoaActivity extends AppCompatActivity {
 
     public boolean validarAtributos(){
         valide = true;
-        if ( pessoa.getNome() == null || pessoa.getNumSUS() == null || pessoa.getDataNascimento() == null ||
-                pessoa.getSexo() == null || pessoa.getEtnia() == null){
+        if ( pessoa.getNumSUS() == null){
             selectPage(0);
             return false;
         }
-        if ( pessoa.getNumeroNis() == null || pessoa.getNomedaMae() == null ||  pessoa.getNacionalidade() == null ||
-                pessoa.getCidadeNatal() == null || pessoa.getEstado() == null || pessoa.getTelefone() == null ||
-                pessoa.getEmail() == null || pessoa.getPaisDeOrigem() == null){
+        if ( pessoa.getNumeroNis() == null){
             selectPage(1);
             return false;
         }
-        if (pessoa.getRelacaoParentRF() == null || pessoa.isResponsavelFamiliar() == null){
+        if (pessoa.isResponsavelFamiliar() == null){
             selectPage(2);
             return false;
         }
-        if (pessoa.getProfissao() == null || pessoa.getEscolaridade() == null || pessoa.getSituacaoMercado() == null){
+        if (pessoa.getProfissao() == null ){
             selectPage(3);
             return false;
         }
-        if (situacaoSaude.isDeficiencia() == null || situacaoSaude.getQualDeficiencia() == null || situacaoSaude.isGestante() == null ||
-                situacaoSaude.getNivelPeso() == null || situacaoSaude.isFumante() == null || situacaoSaude.isAlcool() == null ||
-                situacaoSaude.isDrogas() == null || situacaoSaude.isHipertenso()){
+        if (situacaoSaude.isDeficiencia() == null ){
             selectPage(4);
             return false;
         }
-        if (situacaoSaude.isDiabete() == null || situacaoSaude.isAVC_Derrame() == null || situacaoSaude.isInfarto() == null ||
-                situacaoSaude.isDoencaCardiaca() == null || situacaoSaude.getQualDoencaCardiaca() == null || situacaoSaude.isProblemaRins()== null ||
-                situacaoSaude.getQualProblemaRins() == null || situacaoSaude.isProblemaRespiratorio() == null || situacaoSaude.isHanseniase() == null ||
-                situacaoSaude.isTuberculose() == null){
+        if (situacaoSaude.isDiabete() == null){
             selectPage(5);
             return false;
         }
 
-        if (situacaoSaude.isInternacao() == null || situacaoSaude.getMotivoInternacao() == null || situacaoSaude.isProblemaMental() == null ||
-                situacaoSaude.isTratamento() == null || situacaoSaude.getNivelSaude() == null || situacaoSaude.isUsaPlantas() == null ||
-                situacaoSaude.getPlantasMedicinais() == null){
+        if (situacaoSaude.isInternacao() == null){
             selectPage(6);
             return true;
         }
@@ -164,6 +146,13 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         });
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        isUpdate = getIntent().getBooleanExtra("isUpdate", false);
+        id = getIntent().getIntExtra("id", 0);
+        if (isUpdate){
+            pessoa = (Pessoa) getIntent().getSerializableExtra("pessoa");
+            situacaoSaude = (SituacaoSaude) getIntent().getSerializableExtra("situacaoSaude");
+        }
 
     }
 
@@ -604,6 +593,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         for (int k = 0; k < radioGroupEscolaridade.getChildCount(); k++)
                             ((RadioButton)radioGroupEscolaridade.getChildAt(k)).setError(null);
                         cadastroPessoaActivity.pessoa.setEscolaridade(((RadioButton) rootView.findViewById(i)).getText().toString());
+                        System.out.println(cadastroPessoaActivity.pessoa.getEscolaridade());
                         //cadastroPessoaActivity.valide = true;
                     }
                 }
@@ -1183,10 +1173,19 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     if (cadastroPessoaActivity.validarAtributos()){
                         cadastroPessoaActivity.pessoa.setSaude(cadastroPessoaActivity.situacaoSaude);
                         Intent intent = new Intent();
-                        intent.putExtra("pessoa",  cadastroPessoaActivity.pessoa);
-                        intent.putExtra("situacaoSaude",  cadastroPessoaActivity.situacaoSaude);
-                        getActivity().setResult(999, intent);
-                        getActivity().finish();
+                        intent.putExtra("pessoa", cadastroPessoaActivity.pessoa);
+                        intent.putExtra("situacaoSaude", cadastroPessoaActivity.situacaoSaude);
+                        intent.putExtra("isUpdate", cadastroPessoaActivity.isUpdate);
+                        if (!cadastroPessoaActivity.isUpdate) {
+                            //insert aqui
+                            getActivity().setResult(999, intent);
+                            getActivity().finish();
+                        } else {
+                            //updtate aqui
+                            intent.putExtra("id", cadastroPessoaActivity.id);
+                            getActivity().setResult(888, intent);
+                            getActivity().finish();
+                        }
                     }
                 }
             });

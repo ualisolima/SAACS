@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -262,23 +263,67 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                     startActivityForResult(i,999);
                 }
             });
+            gridViewPessoas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    TextView t = (TextView) view;
+                    System.out.println(t.getText() + " : " + l);
+                    switch (t.getText().toString()){
+                        case "Editar":
+                            Intent intent = new Intent(getContext(), CadastroPessoaActivity.class);
+                            intent.putExtra("isUpdate",true);
+                            intent.putExtra("id", i);
+                            intent.putExtra("pessoa", cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas().get(i/3));
+                            intent.putExtra("situacaoSaude", cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas().get(i/3).getSaude());
+                            startActivityForResult(intent,888);
+                            break;
+                        case "Remover":
+                            cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas().remove(i/3);
+                            List<String> items = new ArrayList<String>();
+                            for (Pessoa p : cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas()) {
+                                items.add(p.getNome());
+                                items.add("Editar");
+                                items.add("Remover");
+                            }
+                            gridViewPessoas.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items));
+                            break;
+                        default:
+                            return;
+                    }
+                }
+            });
             return rootView;
         }
 
         @Override
         public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            if( requestCode == 999 ) {
+            if( requestCode == 999 && resultCode == 999) {
                 Pessoa pessoa = (Pessoa) data.getExtras().get("pessoa");
                 SituacaoSaude situacaoSaude = (SituacaoSaude) data.getExtras().get("situacaoSaude");
                 pessoa.setSaude(situacaoSaude);
                 cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas().add(pessoa);
                 List<String> items = new ArrayList<String>();
-                for (Pessoa p: cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas()){
+                for (Pessoa p : cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas()) {
                     items.add(p.getNome());
                     items.add("Editar");
                     items.add("Remover");
                 }
-                gridViewPessoas.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items) );
+                gridViewPessoas.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items));
+            }
+            if ( requestCode == 888 && resultCode == 888 ) {
+                Pessoa pessoa = (Pessoa) data.getExtras().get("pessoa");
+                SituacaoSaude situacaoSaude = (SituacaoSaude) data.getExtras().get("situacaoSaude");
+                int id = data.getIntExtra("id", 0);
+                cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas().remove(id);
+                pessoa.setSaude(situacaoSaude);
+                cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas().add(id, pessoa);
+                List<String> items = new ArrayList<String>();
+                for (Pessoa p : cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas()) {
+                    items.add(p.getNome());
+                    items.add("Editar");
+                    items.add("Remover");
+                }
+                gridViewPessoas.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items));
             }
         }
     }

@@ -22,7 +22,6 @@ public class SituacaoSaude implements Serializable{
     private String qualDoencaCardiaca;
     private Boolean problemaRins;
     private String qualProblemaRins;
-    private Boolean problemaRespiratorio;
     private Boolean hanseniase;
     private Boolean tuberculose;
     private Boolean internacao;
@@ -34,7 +33,8 @@ public class SituacaoSaude implements Serializable{
     private String plantasMedicinais;
     private Boolean deficiencia;
     private String qualDeficiencia;
-
+    private Boolean problemaRespiratorios;
+    private String qualProblemaRespiratorios;
     public Boolean isDeficiencia() {
         return deficiencia;
     }
@@ -52,14 +52,6 @@ public class SituacaoSaude implements Serializable{
 
     public void setQualDeficiencia(String qualDeficiencia) {
         this.qualDeficiencia = qualDeficiencia;
-    }
-
-    public Boolean isProblemaRespiratorio() {
-        return problemaRespiratorio;
-    }
-
-    public void setProblemaRespiratorio(Boolean problemaRespiratorio) {
-        this.problemaRespiratorio = problemaRespiratorio;
     }
 
     public void setUsaPlantas(Boolean usaPlantas) {
@@ -159,7 +151,7 @@ public class SituacaoSaude implements Serializable{
     }
 
     public void setQualDoencaCardiaca(String qualDoencaCardiaca) {
-        qualDoencaCardiaca = qualDoencaCardiaca;
+        this.qualDoencaCardiaca = qualDoencaCardiaca;
     }
 
     public Boolean isProblemaRins() {
@@ -175,19 +167,19 @@ public class SituacaoSaude implements Serializable{
     }
 
     public void setQualProblemaRins(String qualProblemaRins) {
-        qualProblemaRins = qualProblemaRins;
+        this.qualProblemaRins = qualProblemaRins;
     }
 
     public Boolean isProblemaRespiratorios() {
-        return problemaRespiratorio;
+        return problemaRespiratorios;
     }
 
     public void setProblemaRespiratorios(Boolean problemaRespiratorios) {
-        this.problemaRespiratorio = problemaRespiratorios;
+        this.problemaRespiratorios = problemaRespiratorios;
     }
 
     public void setQualProblemaRespiratorios(String qualProblemaRespiratorios) {
-        qualProblemaRespiratorios = qualProblemaRespiratorios;
+        this.qualProblemaRespiratorios = qualProblemaRespiratorios;
     }
 
     public Boolean isHanseniase() {
