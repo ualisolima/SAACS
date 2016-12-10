@@ -536,6 +536,17 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     }
                 }
             });
+
+            if (cadastroPessoaActivity.isUpdate){
+                for (int k = 0; k < radioGroupResponsavel.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupResponsavel.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.isResponsavelFamiliar()))
+                        ((RadioButton) radioGroupResponsavel.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupParentesco.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupParentesco.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getRelacaoParentRF()))
+                        ((RadioButton) radioGroupParentesco.getChildAt(k)).setChecked(true);
+            }
+
             return rootView;
         }
     }
@@ -637,6 +648,19 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     }
                 }
             });
+
+            if (cadastroPessoaActivity.isUpdate){
+                for (int k = 0; k < radioGroupEscolaridade.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupEscolaridade.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getEscolaridade()))
+                        ((RadioButton) radioGroupEscolaridade.getChildAt(k)).setChecked(true);
+                for (int k = 0; k < radioGroupTrabalho.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupTrabalho.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSituacaoMercado()))
+                        ((RadioButton) radioGroupTrabalho.getChildAt(k)).setChecked(true);
+
+                profissaoEditText.setText(cadastroPessoaActivity.pessoa.getProfissao());
+
+            }
+
             return rootView;
         }
     }
