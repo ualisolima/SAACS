@@ -1,5 +1,6 @@
 package saacs.ufc.com.br.saacs.activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 import java.io.Serializable;
 
 import saacs.ufc.com.br.saacs.R;
+import saacs.ufc.com.br.saacs.dao.PessoaDAO;
 import saacs.ufc.com.br.saacs.model.Pessoa;
 import saacs.ufc.com.br.saacs.model.SituacaoSaude;
 
@@ -1311,6 +1313,12 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         intent.putExtra("isUpdate", cadastroPessoaActivity.isUpdate);
                         if (!cadastroPessoaActivity.isUpdate) {
                             //insert aqui
+                            PessoaDAO pDAO = new PessoaDAO(cadastroPessoaActivity.getApplicationContext());
+                            if (pDAO.recuperar(cadastroPessoaActivity.pessoa.getNumSUS()) == null)
+                                pDAO.inserir(cadastroPessoaActivity.pessoa);
+                            else
+                                Toast.makeText(cadastroPessoaActivity.getBaseContext(), "Número do SUS já Cadastrado !!", Toast.LENGTH_LONG).show();
+
                             getActivity().setResult(999, intent);
                             getActivity().finish();
                         } else {
