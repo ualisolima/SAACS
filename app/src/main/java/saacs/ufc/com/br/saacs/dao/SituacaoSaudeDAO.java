@@ -52,6 +52,7 @@ public class SituacaoSaudeDAO {
         values.put("problemaMental", saude.isProblemaMental());
         values.put("tratamento", saude.isTratamento());
         values.put("nivelSaude", saude.getNivelSaude());
+        values.put("usaPlantas", saude.isUsaPlantas());
         values.put("plantasMedicinais", saude.getPlantasMedicinais());
 
         db.insert("situacao_saude", null, values);
@@ -93,7 +94,8 @@ public class SituacaoSaudeDAO {
             saude.setProblemaMental(cursor.getInt(21) == 1);
             saude.setTratamento(cursor.getInt(22) == 1);
             saude.setNivelSaude(cursor.getInt(23));
-            saude.setPlantasMedicinais(cursor.getString(24));
+            saude.setUsaPlantas(cursor.getInt(24) == 1);
+            saude.setPlantasMedicinais(cursor.getString(25));
         }
         db.close();
         return saude;
@@ -137,6 +139,7 @@ public class SituacaoSaudeDAO {
         values.put("problemaMental", saude.isProblemaMental());
         values.put("tratamento", saude.isTratamento());
         values.put("nivelSaude", saude.getNivelSaude());
+        values.put("usaPlantas", saude.isUsaPlantas());
         values.put("plantasMedicinais", saude.getPlantasMedicinais());
 
         db.update("situacao_saude", values, "id_situacao = ?", new String[]{String.valueOf(saude.getId())});

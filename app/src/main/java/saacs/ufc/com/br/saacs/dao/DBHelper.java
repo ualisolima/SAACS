@@ -65,8 +65,10 @@ public class DBHelper extends SQLiteOpenHelper {
                     "    problemaMental integer default 0," +
                     "    tratamento integer default 0," +
                     "    nivelSaude integer," +
+                    "    usaPlantas integer default 0," +
                     "    plantasMedicinais text" +
                     ");";
+
 
     private static final String TB_CREATE_GRUPO_FAMILIAR =
             "create table if not exists grupo_familiar ("+

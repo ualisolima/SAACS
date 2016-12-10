@@ -34,7 +34,8 @@ public class SituacaoSaude implements Serializable{
     private Boolean deficiencia;
     private String qualDeficiencia;
     private Boolean problemaRespiratorios;
-    private String qualProblemaRespiratorios;
+//    private String qualProblemaRespiratorios;
+
     public Boolean isDeficiencia() {
         return deficiencia;
     }
@@ -178,9 +179,9 @@ public class SituacaoSaude implements Serializable{
         this.problemaRespiratorios = problemaRespiratorios;
     }
 
-    public void setQualProblemaRespiratorios(String qualProblemaRespiratorios) {
-        this.qualProblemaRespiratorios = qualProblemaRespiratorios;
-    }
+//    public void setQualProblemaRespiratorios(String qualProblemaRespiratorios) {
+//        this.qualProblemaRespiratorios = qualProblemaRespiratorios;
+//    }
 
     public Boolean isHanseniase() {
         return hanseniase;

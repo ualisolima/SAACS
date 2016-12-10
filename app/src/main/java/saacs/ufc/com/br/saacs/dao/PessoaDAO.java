@@ -59,6 +59,7 @@ public class PessoaDAO {
         db.close();
     }
 
+
     public List<Pessoa> buscarTodos(){
 
         List<Pessoa> pessoas = new ArrayList<Pessoa>();
