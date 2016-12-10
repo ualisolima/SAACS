@@ -955,7 +955,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             return fragment;
         }
 
-        static RadioGroup radioGroupDiabetes, radioGroupAvc, radioGroupInfarto, radioGroupCardiaca, radioGroupRins, radioGroupRespiratorio, radioGroupHanseniase, ragioGroupTuberculose;
+        static RadioGroup radioGroupDiabetes, radioGroupAvc, radioGroupInfarto, radioGroupCardiaca, radioGroupRins, radioGroupRespiratorio, radioGroupHanseniase, radioGroupTuberculose;
         static EditText qualCardiacaEditText, qualRinsEditText;
         static CadastroPessoaActivity cadastroPessoaActivity;
 
@@ -984,7 +984,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                 if (radioGroupDiabetes.getCheckedRadioButtonId() <= 0 || radioGroupAvc.getCheckedRadioButtonId()<=0
                         || radioGroupInfarto.getCheckedRadioButtonId() <=0 || radioGroupCardiaca.getCheckedRadioButtonId()<=0
                         || radioGroupRins.getCheckedRadioButtonId()<=0 || radioGroupRespiratorio.getCheckedRadioButtonId()<=0
-                        || radioGroupHanseniase.getCheckedRadioButtonId()<=0 || ragioGroupTuberculose.getCheckedRadioButtonId()<=0
+                        || radioGroupHanseniase.getCheckedRadioButtonId()<=0 || radioGroupTuberculose.getCheckedRadioButtonId()<=0
                         || (radioGroupCardiaca.getCheckedRadioButtonId() == R.id.radioButtonCardiacaSim && qualCardiaca.equals(""))
                         || (radioGroupRins.getCheckedRadioButtonId() == R.id.radioButtonRinsSim && qualRins.equals(""))) {
 
@@ -1013,9 +1013,9 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     if (radioGroupHanseniase.getCheckedRadioButtonId()<=0)
                         for (int k = 0; k < radioGroupHanseniase.getChildCount(); k++)
                             ((RadioButton) radioGroupHanseniase.getChildAt(k)).setError("Selecione Item");
-                    if (ragioGroupTuberculose.getCheckedRadioButtonId()<=0)
-                        for (int k = 0; k < ragioGroupTuberculose.getChildCount(); k++)
-                            ((RadioButton) ragioGroupTuberculose.getChildAt(k)).setError("Selecione Item");
+                    if (radioGroupTuberculose.getCheckedRadioButtonId()<=0)
+                        for (int k = 0; k < radioGroupTuberculose.getChildCount(); k++)
+                            ((RadioButton) radioGroupTuberculose.getChildAt(k)).setError("Selecione Item");
                 }
                 else {
                     cadastroPessoaActivity.situacaoSaude.setQualDoencaCardiaca(qualCardiaca);
@@ -1036,7 +1036,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             radioGroupRins = (RadioGroup) rootView.findViewById(R.id.radioGroupRins);
             radioGroupRespiratorio = (RadioGroup) rootView.findViewById(R.id.radioGroupRespiratorio);
             radioGroupHanseniase = (RadioGroup) rootView.findViewById(R.id.radioGroupHanseniase);
-            ragioGroupTuberculose = (RadioGroup) rootView.findViewById(R.id.ragioGroupTuberculose);
+            radioGroupTuberculose = (RadioGroup) rootView.findViewById(R.id.ragioGroupTuberculose);
             qualCardiacaEditText = (EditText) rootView.findViewById(R.id.qualCardiacaEditText);
             qualRinsEditText = (EditText) rootView.findViewById(R.id.qualRinsEditText);
             cadastroPessoaActivity = (CadastroPessoaActivity)getActivity();
@@ -1111,14 +1111,53 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         ((RadioButton) radioGroupHanseniase.getChildAt(k)).setError(null);
                 }
             });
-            ragioGroupTuberculose.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            radioGroupTuberculose.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     cadastroPessoaActivity.situacaoSaude.setTuberculose(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
-                    for (int k = 0; k < ragioGroupTuberculose.getChildCount(); k++)
-                        ((RadioButton) ragioGroupTuberculose.getChildAt(k)).setError(null);
+                    for (int k = 0; k < radioGroupTuberculose.getChildCount(); k++)
+                        ((RadioButton) radioGroupTuberculose.getChildAt(k)).setError(null);
                 }
             });
+
+            if (cadastroPessoaActivity.isUpdate) {
+                for (int k = 0; k < radioGroupDiabetes.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupDiabetes.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isDiabete() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupDiabetes.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupAvc.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupAvc.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isAVC_Derrame() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupAvc.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupInfarto.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupInfarto.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isInfarto() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupInfarto.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupCardiaca.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupCardiaca.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isDoencaCardiaca() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupCardiaca.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupRins.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupRins.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isProblemaRins() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupRins.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupRespiratorio.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupRespiratorio.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isProblemaRespiratorios() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupRespiratorio.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupHanseniase.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupHanseniase.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isHanseniase() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupHanseniase.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupTuberculose.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupTuberculose.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isTuberculose() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupTuberculose.getChildAt(k)).setChecked(true);
+
+                qualCardiacaEditText.setText(cadastroPessoaActivity.pessoa.getSaude().getQualDoencaCardiaca());
+                qualRinsEditText.setText(cadastroPessoaActivity.pessoa.getSaude().getQualProblemaRins());
+
+            }
+
             return rootView;
         }
     }
