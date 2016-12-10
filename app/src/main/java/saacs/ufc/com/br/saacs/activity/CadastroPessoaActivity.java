@@ -1314,10 +1314,11 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         if (!cadastroPessoaActivity.isUpdate) {
                             //insert aqui
                             PessoaDAO pDAO = new PessoaDAO(cadastroPessoaActivity.getApplicationContext());
-                            if (pDAO.recuperar(cadastroPessoaActivity.pessoa.getNumSUS()) == null)
+                            if (pDAO.recuperar(cadastroPessoaActivity.pessoa.getNumSUS()) == null) {
                                 pDAO.inserir(cadastroPessoaActivity.pessoa);
                                 getActivity().setResult(999, intent);
                                 getActivity().finish();
+                            }
                             else
                                 Toast.makeText(cadastroPessoaActivity.getBaseContext(), "Número do SUS já Cadastrado !!", Toast.LENGTH_LONG).show();
                                 cadastroPessoaActivity.selectPage(0);
@@ -1327,7 +1328,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                             //updtate aqui
                             PessoaDAO pDAO = new PessoaDAO(cadastroPessoaActivity.getApplicationContext());
                             pDAO.atualizar(cadastroPessoaActivity.pessoa);
-                            
+
                             intent.putExtra("id", cadastroPessoaActivity.id);
                             getActivity().setResult(888, intent);
                             getActivity().finish();
