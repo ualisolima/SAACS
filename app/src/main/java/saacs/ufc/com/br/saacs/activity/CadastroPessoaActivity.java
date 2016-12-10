@@ -1323,6 +1323,13 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                             getActivity().finish();
                         } else {
                             //updtate aqui
+                            PessoaDAO pDAO = new PessoaDAO(cadastroPessoaActivity.getApplicationContext());
+                            if (pDAO.recuperar(cadastroPessoaActivity.pessoa.getNumSUS()) != null)
+                                pDAO.atualizar(cadastroPessoaActivity.pessoa);
+                            else
+                                Toast.makeText(cadastroPessoaActivity.getBaseContext(), "Número do SUS não Cadastrado !!", Toast.LENGTH_LONG).show();
+
+
                             intent.putExtra("id", cadastroPessoaActivity.id);
                             getActivity().setResult(888, intent);
                             getActivity().finish();
