@@ -124,6 +124,9 @@ public class PessoaDAO {
 
         db = dbHelper.getWritableDatabase();
 
+        SituacaoSaudeDAO saudeDAO  = new SituacaoSaudeDAO(this.context);
+        saudeDAO.alterar(pessoa.getSaude());
+
         ContentValues values = new ContentValues();
 
         values.put("numSUS", pessoa.getNumSUS());
