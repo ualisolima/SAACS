@@ -152,6 +152,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
         if (isUpdate){
             pessoa = (Pessoa) getIntent().getSerializableExtra("pessoa");
             situacaoSaude = (SituacaoSaude) getIntent().getSerializableExtra("situacaoSaude");
+            pessoa.setSaude(situacaoSaude);
         }
 
     }

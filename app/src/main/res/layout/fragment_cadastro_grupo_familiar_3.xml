@@ -94,7 +94,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/checkBoxAnimaisCachorro"
-        android:id="@+id/checkBoxAnimaisGato" />
+        android:id="@+id/checkBoxAnimaisGato"
+        android:enabled="false" />
 
     <CheckBox
         android:text="Cachorro"
@@ -103,13 +104,15 @@
         android:id="@+id/checkBoxAnimaisCachorro"
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:enabled="false" />
 
     <CheckBox
         android:text="Outros"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/checkBoxAnimaisGato"
-        android:id="@+id/checkBoxAnimaisOutro" />
+        android:id="@+id/checkBoxAnimaisOutro"
+        android:enabled="false" />
 
 </RelativeLayout>

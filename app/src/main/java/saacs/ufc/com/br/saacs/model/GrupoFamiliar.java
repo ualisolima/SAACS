@@ -1,5 +1,6 @@
 package saacs.ufc.com.br.saacs.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,13 +8,12 @@ import java.util.List;
  * Created by pc on 15/11/16.
  */
 
-public class GrupoFamiliar {
+public class GrupoFamiliar implements Serializable{
 
     private Long id;
     private Long id_agente;
     private List<Pessoa> pessoas;
     private String contato;
-    //private String endereco;
     private String tipoLogradouro;
     private String logradouro;
     private String numCasa;
@@ -30,6 +30,23 @@ public class GrupoFamiliar {
     private String destLixo;
     private Boolean temAnimais;
     private String animais;
+    private Boolean coletaLixo;
+
+    public Boolean getEnergiaEletrica() {
+        return energiaEletrica;
+    }
+
+    public Boolean getSaneamentoBasico() {
+        return saneamentoBasico;
+    }
+
+    public Boolean getColetaLixo() {
+        return coletaLixo;
+    }
+
+    public void setColetaLixo(Boolean coletaLixo) {
+        this.coletaLixo = coletaLixo;
+    }
 
     public GrupoFamiliar() {
         pessoas = new ArrayList<Pessoa>();
@@ -130,14 +147,6 @@ public class GrupoFamiliar {
     public void setContatos(String contato) {
         this.contato = contato;
     }
-
-    //public String getEndereco() {
-   //     return endereco;
-   // }
-
-   // public void setEndereco(String endereco) {
-   //     this.endereco = endereco;
-   // }
 
     public Long getId_agente() {
         return id_agente;

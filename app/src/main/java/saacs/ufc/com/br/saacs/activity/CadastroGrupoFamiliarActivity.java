@@ -26,8 +26,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,24 +56,22 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private GoogleApiClient client;
+    public boolean valide = false;
+    public int lPage = 0, cPage = 0;
+    public Boolean isUpdate = false;
+    public int id = 0;
 
     public boolean validarAtributos(){
 
-        if (grupoFamiliar.getTipoLogradouro() == null || grupoFamiliar.getLogradouro() == null ||
-                grupoFamiliar.getNumCasa() == null || grupoFamiliar.getBairro() == null ||
-                grupoFamiliar.getCep() == null || grupoFamiliar.getPhone() == null ||
-                grupoFamiliar.getuF() == null || grupoFamiliar.getMunicipio() == null){
+        if (grupoFamiliar.getTipoLogradouro() == null ){
             selectPage(0);
             return  false;
         }
-        if (grupoFamiliar.getLocalizacao() == null || grupoFamiliar.getCondsMoradia() == null ||
-                grupoFamiliar.getTipoDomicilio() == null || grupoFamiliar.isEnergiaEletrica() == null ||
-                grupoFamiliar.isSaneamentoBasico() == null){
+        if (grupoFamiliar.getLocalizacao() == null ){
             selectPage(1);
             return  false;
         }
-        if (grupoFamiliar.getDestLixo() == null || grupoFamiliar.isTemAnimais() == null ||
-                grupoFamiliar.getAnimais() == null ){
+        if (grupoFamiliar.getDestLixo() == null  ){
             selectPage(2);
             return  false;
         }
@@ -121,6 +123,30 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            int lastPostition = 0;
+
+            @Override
+            public void onPageSelected(int newPosition) {
+                cPage = newPosition;
+                System.out.println(lastPostition+":"+newPosition);
+                Fragment fa = (Fragment) mSectionsPagerAdapter.getItem(lastPostition);
+                fa.onPause();
+                Fragment fc = (Fragment) mSectionsPagerAdapter.getItem(newPosition);
+                fc.onResume();
+                lastPostition = newPosition;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs2);
@@ -172,6 +198,12 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
     }
     public static class PlaceholderFragment extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
+
+        static EditText tipoLogradouroEditText, logradouroEditText, numeroCasaEditText, bairroEditText,
+                cepEditText, phoneEditText, municipioEditText;
+        static Spinner ufSpinnerText;
+        static CadastroGrupoFamiliarActivity cadastroGrupoFamiliarActivity;
+
         public PlaceholderFragment() {
         }
         public static PlaceholderFragment newInstance(int sectionNumber) {
@@ -183,15 +215,89 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onResume(){
+            super.onResume();
+            if (!cadastroGrupoFamiliarActivity.valide && cadastroGrupoFamiliarActivity.cPage == 0 && cadastroGrupoFamiliarActivity.lPage != 0) {
+                cadastroGrupoFamiliarActivity.cPage = cadastroGrupoFamiliarActivity.lPage;
+                cadastroGrupoFamiliarActivity.lPage = 0;
+                cadastroGrupoFamiliarActivity.valide = true;
+                cadastroGrupoFamiliarActivity.selectPage(cadastroGrupoFamiliarActivity.cPage);
+            }
+            else if (cadastroGrupoFamiliarActivity.cPage == 0) {
+                cadastroGrupoFamiliarActivity.valide = false;
+                cadastroGrupoFamiliarActivity.lPage = 0;
+            }
+        }
+
+        @Override
+        public void onPause(){
+            super.onPause();
+            if (!cadastroGrupoFamiliarActivity.valide && cadastroGrupoFamiliarActivity.lPage == 0) {
+                String tipoLogradouro = tipoLogradouroEditText.getText().toString();
+                String logradouro = logradouroEditText.getText().toString();
+                String numeroCasa = numeroCasaEditText.getText().toString();
+                String bairro = bairroEditText.getText().toString();
+                String cep = cepEditText.getText().toString();
+                String phone = phoneEditText.getText().toString();
+                String municipio = municipioEditText.getText().toString();
+                String uf = ufSpinnerText.getSelectedItem().toString();
+
+                if (tipoLogradouro.equals("") || logradouro.equals("") ||
+                        numeroCasa.equals("") || bairro.equals("") ||
+                        cep.equals("") || phone.equals("") || municipio.equals("")
+                        || uf.equals("Selecione")) {
+                    if (tipoLogradouro.equals(""))
+                        tipoLogradouroEditText.setError("Tipo logradouro não pode ser vazio");
+                    if (logradouro.equals(""))
+                        logradouroEditText.setError("Logradouro não pode ser vazia");
+                    if (numeroCasa.equals(""))
+                        numeroCasaEditText.setError("Numero da casa pode ser vazio");
+                    if (bairro.equals(""))
+                        bairroEditText.setError("Bairro não pode ser vazio");
+                    if (cep.equals(""))
+                        cepEditText.setError("Data nascimento não pode ser vazia");
+                    if (phone.equals(""))
+                        phoneEditText.setError("Nome não pode ser vazio");
+                    if (municipio.equals(""))
+                        municipioEditText.setError("Município não pode ser vazio");
+
+                }
+                else {
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setTipoLogradouro(tipoLogradouro);
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setLogradouro(logradouro);
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setNumCasa(numeroCasa);
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setBairro(bairro);
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setPhone(phone);
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setCep(cep);
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setMunicipio(municipio);
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setuF(uf);
+                    cadastroGrupoFamiliarActivity.valide = true;
+                    System.out.println("validou1");
+                }
+            }
+        }
+
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            CadastroGrupoFamiliarActivity cadastroGrupoFamiliarActivity = (CadastroGrupoFamiliarActivity) getActivity();
             View rootView = inflater.inflate(R.layout.fragment_cadastro_grupo_familiar, container, false);
+            cadastroGrupoFamiliarActivity = (CadastroGrupoFamiliarActivity) getActivity();
+            tipoLogradouroEditText = (EditText) rootView.findViewById(R.id.tipoLogradouroEditText);
+            logradouroEditText = (EditText) rootView.findViewById(R.id.logradouroEditText);
+            numeroCasaEditText = (EditText) rootView.findViewById(R.id.numeroCasaEditText);
+            bairroEditText = (EditText) rootView.findViewById(R.id.bairroEditText);
+            cepEditText =  (EditText) rootView.findViewById(R.id.cepEditText);
+            phoneEditText = (EditText) rootView.findViewById(R.id.phoneEditText);
+            municipioEditText = (EditText) rootView.findViewById(R.id.municipioEditText);
+            ufSpinnerText = (Spinner) rootView.findViewById(R.id.ufSpinnerText);
+
             return rootView;
         }
     }
     public static class PlaceholderFragment2 extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
+        static RadioGroup radioGroupLocalizacao, radioGroupMoradia, radioGroupDomicilio, radioGroupEnergia, radioGroupSaneamento;
+        static CadastroGrupoFamiliarActivity cadastroGrupoFamiliarActivity;
         public PlaceholderFragment2() {
         }
         public static PlaceholderFragment2 newInstance(int sectionNumber) {
@@ -203,15 +309,128 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onResume(){
+            super.onResume();
+            if (!cadastroGrupoFamiliarActivity.valide && cadastroGrupoFamiliarActivity.cPage == 1 && cadastroGrupoFamiliarActivity.lPage != 1) {
+                cadastroGrupoFamiliarActivity.cPage = cadastroGrupoFamiliarActivity.lPage;
+                cadastroGrupoFamiliarActivity.lPage = 1;
+                cadastroGrupoFamiliarActivity.valide = true;
+                cadastroGrupoFamiliarActivity.selectPage(cadastroGrupoFamiliarActivity.cPage);
+            }
+            else if (cadastroGrupoFamiliarActivity.cPage == 1) {
+                cadastroGrupoFamiliarActivity.valide = false;
+                cadastroGrupoFamiliarActivity.lPage = 1;
+            }
+        }
+
+        @Override
+        public void onPause(){
+            super.onPause();
+            if (!cadastroGrupoFamiliarActivity.valide && cadastroGrupoFamiliarActivity.lPage == 1) {
+
+                if (radioGroupLocalizacao.getCheckedRadioButtonId() <= 0 ||
+                    radioGroupMoradia.getCheckedRadioButtonId() <= 0 ||
+                    radioGroupDomicilio.getCheckedRadioButtonId() <= 0 ||
+                    radioGroupEnergia.getCheckedRadioButtonId() <=0 ||
+                    radioGroupSaneamento.getCheckedRadioButtonId() <=0){
+
+                    if (radioGroupLocalizacao.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupLocalizacao.getChildCount(); k++)
+                            ((RadioButton)radioGroupLocalizacao.getChildAt(k)).setError("Selecione Localização");
+
+                    if (radioGroupMoradia.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupMoradia.getChildCount(); k++)
+                            ((RadioButton)radioGroupMoradia.getChildAt(k)).setError("Selecione Moradia");
+
+                    if (radioGroupDomicilio.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupDomicilio.getChildCount(); k++)
+                            ((RadioButton)radioGroupDomicilio.getChildAt(k)).setError("Selecione Domicilio");
+
+                    if (radioGroupEnergia.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupEnergia.getChildCount(); k++)
+                            ((RadioButton)radioGroupEnergia.getChildAt(k)).setError("Selecione Energia");
+
+                    if (radioGroupSaneamento.getCheckedRadioButtonId() <=0)
+                        for (int k = 0; k < radioGroupSaneamento.getChildCount(); k++)
+                            ((RadioButton)radioGroupSaneamento.getChildAt(k)).setError("Selecione Saneamento");
+                }
+                else {
+                    cadastroGrupoFamiliarActivity.valide =  true;
+                    System.out.println("validou2");
+                }
+            }
+
+        }
+
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_cadastro_grupo_familiar_2, container, false);
+            final View rootView = inflater.inflate(R.layout.fragment_cadastro_grupo_familiar_2, container, false);
+            cadastroGrupoFamiliarActivity = (CadastroGrupoFamiliarActivity) getActivity();
+            radioGroupLocalizacao = (RadioGroup) rootView.findViewById(R.id.radioGroupLocalizacao);
+            radioGroupMoradia = (RadioGroup) rootView.findViewById(R.id.radioGroupMoradia);
+            radioGroupDomicilio = (RadioGroup) rootView.findViewById(R.id.radioGroupDomicilio);
+            radioGroupEnergia = (RadioGroup) rootView.findViewById(R.id.radioGroupEnergia);
+            radioGroupSaneamento = (RadioGroup) rootView.findViewById(R.id.radioGroupSaneamento);
+            radioGroupLocalizacao.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    if (rootView.findViewById(i)!= null) {
+                        cadastroGrupoFamiliarActivity.grupoFamiliar.setLocalizacao(((RadioButton) rootView.findViewById(i)).getText().toString());
+                        for (int k = 0; k < radioGroupLocalizacao.getChildCount(); k++)
+                            ((RadioButton) radioGroupLocalizacao.getChildAt(k)).setError(null);
+                    }
+                }
+            });
+            radioGroupMoradia.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    if (rootView.findViewById(i) != null) {
+                        cadastroGrupoFamiliarActivity.grupoFamiliar.setCondsMoradia(((RadioButton) rootView.findViewById(i)).getText().toString());
+                        for (int k = 0; k < radioGroupMoradia.getChildCount(); k++)
+                            ((RadioButton) radioGroupMoradia.getChildAt(k)).setError(null);
+                    }
+                }
+            });
+            radioGroupDomicilio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    if (rootView.findViewById(i) != null) {
+                        cadastroGrupoFamiliarActivity.grupoFamiliar.setTipoDomicilio(((RadioButton) rootView.findViewById(i)).getText().toString());
+                        for (int k = 0; k < radioGroupDomicilio.getChildCount(); k++)
+                            ((RadioButton) radioGroupDomicilio.getChildAt(k)).setError(null);
+                    }
+                }
+            });
+            radioGroupEnergia.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    if (rootView.findViewById(i) != null) {
+                        cadastroGrupoFamiliarActivity.grupoFamiliar.setEnergiaEletrica(((RadioButton) rootView.findViewById(i)).getText().toString().equals("Sim"));
+                        for (int k = 0; k < radioGroupEnergia.getChildCount(); k++)
+                            ((RadioButton) radioGroupEnergia.getChildAt(k)).setError(null);
+                    }
+                }
+            });
+            radioGroupSaneamento.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    if (rootView.findViewById(i) != null) {
+                        cadastroGrupoFamiliarActivity.grupoFamiliar.setSaneamentoBasico(((RadioButton) rootView.findViewById(i)).getText().toString().equals("Sim"));
+                        for (int k = 0; k < radioGroupSaneamento.getChildCount(); k++)
+                            ((RadioButton) radioGroupSaneamento.getChildAt(k)).setError(null);
+                    }
+                }
+            });
             return rootView;
         }
     }
 
     public static class PlaceholderFragment3 extends Fragment {
         private static final String ARG_SECTION_NUMBER = "section_number";
+        static CadastroGrupoFamiliarActivity cadastroGrupoFamiliarActivity;
+        static RadioGroup radioGroupColeta, radioGroupAnimal;
+        static CheckBox checkBoxAnimaisCachorro, checkBoxAnimaisGato, checkBoxAnimaisOutro;
 
         public PlaceholderFragment3() {
         }
@@ -224,9 +443,144 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onResume() {
+            super.onResume();
+            if (!cadastroGrupoFamiliarActivity.valide && cadastroGrupoFamiliarActivity.cPage == 2 && cadastroGrupoFamiliarActivity.lPage != 2) {
+                cadastroGrupoFamiliarActivity.cPage = cadastroGrupoFamiliarActivity.lPage;
+                cadastroGrupoFamiliarActivity.lPage = 2;
+                cadastroGrupoFamiliarActivity.valide = true;
+                cadastroGrupoFamiliarActivity.selectPage(cadastroGrupoFamiliarActivity.cPage);
+            }
+            else if (cadastroGrupoFamiliarActivity.cPage == 2) {
+                cadastroGrupoFamiliarActivity.valide = false;
+                cadastroGrupoFamiliarActivity.lPage = 2;
+            }
+
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            if (!cadastroGrupoFamiliarActivity.valide && cadastroGrupoFamiliarActivity.lPage == 2) {
+
+                if (radioGroupColeta.getCheckedRadioButtonId() <= 0 ||
+                        radioGroupAnimal.getCheckedRadioButtonId() <= 0 ||
+                        (radioGroupAnimal.getCheckedRadioButtonId() == R.id.radioButtonAnimaisSim &&
+                        !checkBoxAnimaisCachorro.isChecked() && !checkBoxAnimaisGato.isChecked()
+                        && !checkBoxAnimaisOutro.isChecked())){
+
+                    if (radioGroupColeta.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupColeta.getChildCount(); k++)
+                            ((RadioButton)radioGroupColeta.getChildAt(k)).setError("Selecione coleta");
+
+                    if (radioGroupAnimal.getCheckedRadioButtonId() <= 0)
+                        for (int k = 0; k < radioGroupAnimal.getChildCount(); k++)
+                            ((RadioButton)radioGroupAnimal.getChildAt(k)).setError("Selecione animal");
+
+                    if (radioGroupAnimal.getCheckedRadioButtonId() == R.id.radioButtonAnimaisSim &&
+                            !checkBoxAnimaisCachorro.isChecked() && !checkBoxAnimaisGato.isChecked()
+                            && !checkBoxAnimaisOutro.isChecked() ) {
+                        checkBoxAnimaisCachorro.setError("Selecione");
+                        checkBoxAnimaisGato.setError("Selecione");
+                        checkBoxAnimaisOutro.setError("Selecione");
+                    }
+                }
+                else {
+                    cadastroGrupoFamiliarActivity.valide =  true;
+                    System.out.println("validou2");
+                }
+            }
+        }
+
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_cadastro_grupo_familiar_3, container, false);
+            final View rootView = inflater.inflate(R.layout.fragment_cadastro_grupo_familiar_3, container, false);
+            cadastroGrupoFamiliarActivity = (CadastroGrupoFamiliarActivity) getActivity();
+            radioGroupColeta = (RadioGroup) rootView.findViewById(R.id.radioGroupColeta);
+            radioGroupAnimal = (RadioGroup) rootView.findViewById(R.id.radioGroupAnimal);
+            checkBoxAnimaisCachorro = (CheckBox) rootView.findViewById(R.id.checkBoxAnimaisCachorro);
+            checkBoxAnimaisGato = (CheckBox) rootView.findViewById(R.id.checkBoxAnimaisGato);
+            checkBoxAnimaisOutro = (CheckBox) rootView.findViewById(R.id.checkBoxAnimaisOutro);
+            radioGroupColeta.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    if (rootView.findViewById(i) != null) {
+                        cadastroGrupoFamiliarActivity.grupoFamiliar.setColetaLixo(((RadioButton) rootView.findViewById(i)).getText().toString().equals("Sim"));
+                        for (int k = 0; k < radioGroupColeta.getChildCount(); k++)
+                            ((RadioButton) radioGroupColeta.getChildAt(k)).setError(null);
+                    }
+                }
+            });
+            final String[] qualAnimais = {""};
+            radioGroupAnimal.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                    if (rootView.findViewById(i) != null) {
+                        cadastroGrupoFamiliarActivity.grupoFamiliar.setTemAnimais(((RadioButton) rootView.findViewById(i)).getText().toString().equals("Sim"));
+                        System.out.println("aqui");
+                        for (int k = 0; k < radioGroupAnimal.getChildCount(); k++)
+                            ((RadioButton) radioGroupAnimal.getChildAt(k)).setError(null);
+                        if (!cadastroGrupoFamiliarActivity.grupoFamiliar.isTemAnimais()) {
+                            qualAnimais[0] = "";
+                            checkBoxAnimaisCachorro.setChecked(false);
+                            checkBoxAnimaisGato.setChecked(false);
+                            checkBoxAnimaisOutro.setChecked(false);
+                            checkBoxAnimaisCachorro.setEnabled(false);
+                            checkBoxAnimaisGato.setEnabled(false);
+                            checkBoxAnimaisOutro.setEnabled(false);
+                            checkBoxAnimaisCachorro.setError(null);
+                            checkBoxAnimaisGato.setError(null);
+                            checkBoxAnimaisOutro.setError(null);
+                            cadastroGrupoFamiliarActivity.grupoFamiliar.setAnimais(qualAnimais[0]);
+                        } else {
+                            checkBoxAnimaisCachorro.setEnabled(true);
+                            checkBoxAnimaisGato.setEnabled(true);
+                            checkBoxAnimaisOutro.setEnabled(true);
+                        }
+                    }
+                }
+            });
+            checkBoxAnimaisCachorro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if(b) {
+                        checkBoxAnimaisCachorro.setError(null);
+                        checkBoxAnimaisGato.setError(null);
+                        checkBoxAnimaisOutro.setError(null);
+                        qualAnimais[0] += checkBoxAnimaisCachorro.getText().toString() + ";";
+
+                    } else
+                        qualAnimais[0].replace(checkBoxAnimaisCachorro.getText().toString()+";", "");
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setAnimais(qualAnimais[0]);
+                }
+            });
+            checkBoxAnimaisGato.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if(b) {
+                        checkBoxAnimaisCachorro.setError(null);
+                        checkBoxAnimaisGato.setError(null);
+                        checkBoxAnimaisOutro.setError(null);
+                        qualAnimais[0] += checkBoxAnimaisGato.getText().toString() + ";";
+                    } else
+                        qualAnimais[0].replace(checkBoxAnimaisGato.getText().toString()+";", "");
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setAnimais(qualAnimais[0]);
+                }
+            });
+            checkBoxAnimaisOutro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if(b) {
+                        checkBoxAnimaisCachorro.setError(null);
+                        checkBoxAnimaisGato.setError(null);
+                        checkBoxAnimaisOutro.setError(null);
+                        qualAnimais[0] += checkBoxAnimaisOutro.getText().toString() + ";";
+                    } else
+                        qualAnimais[0].replace(checkBoxAnimaisOutro.getText().toString()+";", "");
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setAnimais(qualAnimais[0]);
+                }
+            });
             return rootView;
         }
     }
@@ -272,7 +626,7 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                         case "Editar":
                             Intent intent = new Intent(getContext(), CadastroPessoaActivity.class);
                             intent.putExtra("isUpdate",true);
-                            intent.putExtra("id", i);
+                            intent.putExtra("id", i/3);
                             intent.putExtra("pessoa", cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas().get(i/3));
                             intent.putExtra("situacaoSaude", cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas().get(i/3).getSaude());
                             startActivityForResult(intent,888);
