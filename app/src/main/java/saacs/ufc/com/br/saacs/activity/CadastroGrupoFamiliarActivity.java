@@ -604,6 +604,21 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onResume(){
+            super.onResume();
+            if (!cadastroGrupoFamiliarActivity.valide && cadastroGrupoFamiliarActivity.cPage == 3 && cadastroGrupoFamiliarActivity.lPage != 3) {
+                cadastroGrupoFamiliarActivity.cPage = cadastroGrupoFamiliarActivity.lPage;
+                cadastroGrupoFamiliarActivity.lPage = 3;
+                cadastroGrupoFamiliarActivity.valide = true;
+                cadastroGrupoFamiliarActivity.selectPage(cadastroGrupoFamiliarActivity.cPage);
+            }
+            else if (cadastroGrupoFamiliarActivity.cPage == 3) {
+                cadastroGrupoFamiliarActivity.valide = false;
+                cadastroGrupoFamiliarActivity.lPage = 3;
+            }
+        }
+
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_cadastro_grupo_familiar_4, container, false);

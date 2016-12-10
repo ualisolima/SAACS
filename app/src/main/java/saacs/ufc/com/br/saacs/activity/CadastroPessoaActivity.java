@@ -1319,10 +1319,10 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                                 getActivity().setResult(999, intent);
                                 getActivity().finish();
                             }
-                            else
+                            else {
                                 Toast.makeText(cadastroPessoaActivity.getBaseContext(), "Número do SUS já Cadastrado !!", Toast.LENGTH_LONG).show();
                                 cadastroPessoaActivity.selectPage(0);
-
+                            }
 
                         } else {
                             //updtate aqui
