@@ -291,6 +291,19 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     cadastroPessoaActivity.pessoa.setEtnia(((RadioButton)rootView.findViewById(i)).getText().toString());
                 }
             });
+            if (cadastroPessoaActivity.isUpdate) {
+                numSusEditText.setText(cadastroPessoaActivity.pessoa.getNumSUS().toString());
+                dtNascimentoEditText.setText(cadastroPessoaActivity.pessoa.getDataNascimento());
+                nomeCompletoEditText.setText(cadastroPessoaActivity.pessoa.getNome());
+                System.out.println(cadastroPessoaActivity.pessoa.getEtnia());
+                for (int k = 0; k < radioGroupRaca.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupRaca.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getEtnia()))
+                        ((RadioButton) radioGroupRaca.getChildAt(k)).setChecked(true);
+                for (int k = 0; k < radioGroupSex.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupSex.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSexo()))
+                        ((RadioButton) radioGroupSex.getChildAt(k)).setChecked(true);
+
+            }
             return rootView;
         }
     }
