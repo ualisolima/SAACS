@@ -1321,6 +1321,33 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     }
                 }
             });
+
+            if (cadastroPessoaActivity.isUpdate) {
+                for (int k = 0; k < radioGroupInternacao.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupInternacao.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isInternacao() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupInternacao.getChildAt(k)).setChecked(true);
+
+                motivoInternacaoEditText.setText(cadastroPessoaActivity.pessoa.getSaude().getMotivoInternacao());
+
+                for (int k = 0; k < radioGroupMental.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupMental.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isProblemaMental() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupMental.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupPsiquiatra.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupPsiquiatra.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isTratamento() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupPsiquiatra.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupSaude.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupSaude.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().getNivelSaude()))
+                        ((RadioButton) radioGroupSaude.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupPlantas.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupPlantas.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isUsaPlantas() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupPlantas.getChildAt(k)).setChecked(true);
+
+                qualPlantaEditText.setText(cadastroPessoaActivity.pessoa.getSaude().getPlantasMedicinais());
+
+            }
             
             return rootView;
         }
