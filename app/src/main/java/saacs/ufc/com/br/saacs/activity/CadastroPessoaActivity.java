@@ -419,6 +419,20 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             });
             RadioButton brasileiroButton = (RadioButton) rootView.findViewById(R.id.radioButtonNacionalidadeBrasileiro);
             brasileiroButton.setChecked(true);
+
+            if (cadastroPessoaActivity.isUpdate){
+                for (int k = 0; k < nacionalidadeGroup.getChildCount(); k++)
+                    if (( (RadioButton) nacionalidadeGroup.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getNacionalidade()))
+                        ((RadioButton) nacionalidadeGroup.getChildAt(k)).setChecked(true);
+                numeroNisEditText.setText(cadastroPessoaActivity.pessoa.getNumeroNis().toString());
+                nomeDaMaeEditText.setText(cadastroPessoaActivity.pessoa.getNomedaMae());
+                paisDeOrigemEditText.setText(cadastroPessoaActivity.pessoa.getPaisDeOrigem());
+                cidadeNatalEditText.setText(cadastroPessoaActivity.pessoa.getCidadeNatal());
+                estadoEditText.setText(cadastroPessoaActivity.pessoa.getEstado());
+                telefoneEditText.setText(cadastroPessoaActivity.pessoa.getTelefone());
+                emailEditText.setText(cadastroPessoaActivity.pessoa.getEmail());
+            }
+
             return rootView;
         }
     }
