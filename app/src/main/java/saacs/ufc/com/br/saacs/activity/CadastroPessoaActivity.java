@@ -539,7 +539,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
 
             if (cadastroPessoaActivity.isUpdate){
                 for (int k = 0; k < radioGroupResponsavel.getChildCount(); k++)
-                    if (( (RadioButton) radioGroupResponsavel.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.isResponsavelFamiliar()))
+                    if (( (RadioButton) radioGroupResponsavel.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.isResponsavelFamiliar() ? "Sim" : "Não"))
                         ((RadioButton) radioGroupResponsavel.getChildAt(k)).setChecked(true);
 
                 for (int k = 0; k < radioGroupParentesco.getChildCount(); k++)
@@ -736,7 +736,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             return fragment;
         }
 
-        static RadioGroup radioGroupGestante, radioGroupDeficiencia,radioGroupPeso,radioGroupFumante,radioGroupBebidas,radioGroupDroga,ragioGroupHipertenção;
+        static RadioGroup radioGroupGestante, radioGroupDeficiencia,radioGroupPeso,radioGroupFumante,radioGroupBebidas,radioGroupDroga,ragioGroupHipertensao;
         static CadastroPessoaActivity cadastroPessoaActivity;
         static CheckBox checkBoxDeficienciaAuditiva, checkBoxDeficienciaVisual,checkBoxDeficienciaFisica,checkBoxDeficienciaIntelectual;
         static String[] qualDeficiencia = {""};
@@ -755,7 +755,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
             radioGroupFumante = (RadioGroup) rootView.findViewById(R.id.radioGroupFumante);
             radioGroupBebidas = (RadioGroup) rootView.findViewById(R.id.radioGroupBebidas);
             radioGroupDroga = (RadioGroup) rootView.findViewById(R.id.radioGroupDroga);
-            ragioGroupHipertenção = (RadioGroup) rootView.findViewById(R.id.ragioGroupHipertenção);
+            ragioGroupHipertensao = (RadioGroup) rootView.findViewById(R.id.ragioGroupHipertensao);
             cadastroPessoaActivity = (CadastroPessoaActivity)getActivity();
             radioGroupDeficiencia.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
@@ -881,12 +881,54 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     cadastroPessoaActivity.situacaoSaude.setDrogas(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
                 }
             });
-            ragioGroupHipertenção.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            ragioGroupHipertensao.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int i) {
                     cadastroPessoaActivity.situacaoSaude.setHipertenso(((RadioButton)rootView.findViewById(i)).getText().toString().equals("Sim"));
                 }
             });
+
+            if (cadastroPessoaActivity.isUpdate) {
+                for (int k = 0; k < radioGroupDeficiencia.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupDeficiencia.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isDeficiencia() ? "Sim" : "Não" ))
+                        ((RadioButton) radioGroupDeficiencia.getChildAt(k)).setChecked(true);
+
+                if (cadastroPessoaActivity.pessoa.getSaude().getQualDeficiencia().contains(checkBoxDeficienciaVisual.getText()))
+                    checkBoxDeficienciaVisual.setChecked(true);
+
+                if (cadastroPessoaActivity.pessoa.getSaude().getQualDeficiencia().contains(checkBoxDeficienciaAuditiva.getText()))
+                    checkBoxDeficienciaAuditiva.setChecked(true);
+
+                if (cadastroPessoaActivity.pessoa.getSaude().getQualDeficiencia().contains(checkBoxDeficienciaFisica.getText()))
+                    checkBoxDeficienciaFisica.setChecked(true);
+
+                if (cadastroPessoaActivity.pessoa.getSaude().getQualDeficiencia().contains(checkBoxDeficienciaIntelectual.getText()))
+                    checkBoxDeficienciaIntelectual.setChecked(true);
+
+                for (int k = 0; k < radioGroupGestante.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupGestante.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isGestante() ? "Sim" : "Não" ))
+                        ((RadioButton) radioGroupGestante.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupPeso.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupPeso.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().getNivelPeso()))
+                        ((RadioButton) radioGroupPeso.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupFumante.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupFumante.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isFumante() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupFumante.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupBebidas.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupBebidas.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isAlcool() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupBebidas.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupDroga.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupDroga.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isDrogas() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupDroga.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < ragioGroupHipertensao.getChildCount(); k++)
+                    if (( (RadioButton) ragioGroupHipertensao.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isHipertenso() ? "Sim" : "Não"))
+                        ((RadioButton) ragioGroupHipertensao.getChildAt(k)).setChecked(true);
+            }
             return rootView;
         }
     }
