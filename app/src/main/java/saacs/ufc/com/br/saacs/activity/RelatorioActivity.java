@@ -19,7 +19,10 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 
 import saacs.ufc.com.br.saacs.R;
+import saacs.ufc.com.br.saacs.dao.AcsDAO;
+import saacs.ufc.com.br.saacs.dao.ConsultasRelatorio;
 import saacs.ufc.com.br.saacs.dao.PessoaDAO;
+import saacs.ufc.com.br.saacs.model.Acs;
 import saacs.ufc.com.br.saacs.other.SessionManager;
 
 public class RelatorioActivity extends AppCompatActivity
@@ -43,12 +46,29 @@ public class RelatorioActivity extends AppCompatActivity
         textViewCardiaca = (TextView) findViewById(R.id.textViewCardiaca);
         textViewRins = (TextView) findViewById(R.id.textViewRins);
         textViewRespiratorio = (TextView) findViewById(R.id.textViewRespiratorio);
-        
+        ConsultasRelatorio cr = new ConsultasRelatorio(RelatorioActivity.this);
+        int qtH = cr.qtdPessoaPorSexo("Masculino");
+        int qtM = cr.qtdPessoaPorSexo("Feminino");
+        int qtG = cr.qtdPessoaSituacao("gestante");
+        int qtHiper = cr.qtdPessoaSituacao("hipertenso");
+        int qtD = cr.qtdPessoaSituacao("diabetes");
+        int qtC = cr.qtdPessoaSituacao("doencaCardiaca");
+        int qtR = cr.qtdPessoaSituacao("problemaRins");
+        int qtResp = cr.qtdPessoaSituacao("problemaRespiratorio");
+        textViewHomens.setText(textViewHomens.getText() + " " + qtH);
+        textViewMulheres.setText(textViewMulheres.getText() + " " + qtM);
+        textViewGestantes.setText(textViewGestantes.getText() + " " + qtG);
+        textViewHipertensos.setText(textViewHipertensos.getText() + " " + qtHiper);
+        textViewDiabtes.setText(textViewDiabtes.getText() + " " + qtD);
+        textViewCardiaca.setText(textViewCardiaca.getText() + " " + qtC);
+        textViewRins.setText(textViewRins.getText() + " " + qtR);
+        textViewRespiratorio.setText(textViewRespiratorio.getText() + " " + qtResp);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         PessoaDAO pDAO = new PessoaDAO(RelatorioActivity.this);
         pDAO.cleanDB();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabRelatorio);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabRelatorio);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +82,7 @@ public class RelatorioActivity extends AppCompatActivity
                             }
                         }).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -72,6 +92,15 @@ public class RelatorioActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View nav = navigationView.getHeaderView(0);
+        TextView nomeAcsTextView = (TextView) nav.findViewById(R.id.textViewNomeAcs);
+        TextView numeroSUSTextView = (TextView) nav.findViewById(R.id.textViewSusNumber);
+        String acsNumber = sessionManager.getUserDetails().get("susNumber");
+        Acs a = new AcsDAO(RelatorioActivity.this).recuperar(acsNumber);
+        nomeAcsTextView.setText(a.getNome());
+        numeroSUSTextView.setText(acsNumber);
+
 
     }
 

@@ -16,9 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.TextView;
 
 import saacs.ufc.com.br.saacs.R;
+import saacs.ufc.com.br.saacs.dao.AcsDAO;
 import saacs.ufc.com.br.saacs.dao.PessoaDAO;
+import saacs.ufc.com.br.saacs.model.Acs;
 import saacs.ufc.com.br.saacs.other.SessionManager;
 
 public class MainActivity extends AppCompatActivity
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity
 
     SessionManager sessionManager;
     CalendarView calendarView;
-    Button listarButton;
+    Button listarButton, relatorioButton;
 
 
     @Override
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         PessoaDAO pDAO = new PessoaDAO(MainActivity.this);
         pDAO.cleanDB();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +54,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
+        */
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,12 +63,29 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View nav = navigationView.getHeaderView(0);
+        TextView nomeAcsTextView = (TextView) nav.findViewById(R.id.textViewNomeAcs);
+        TextView numeroSUSTextView = (TextView) nav.findViewById(R.id.textViewSusNumber);
+        String acsNumber = sessionManager.getUserDetails().get("susNumber");
+        Acs a = new AcsDAO(MainActivity.this).recuperar(acsNumber);
+        nomeAcsTextView.setText(a.getNome());
+        numeroSUSTextView.setText(acsNumber);
         listarButton = (Button) findViewById(R.id.listarButton);
         listarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, ListarGrupoActivity.class);
                 startActivity(i);
+                finish();
+            }
+        });
+        relatorioButton = (Button) findViewById(R.id.relatorioButton);
+        relatorioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, RelatorioActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }
@@ -111,10 +131,16 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_addGrupoFamiliar) {
             Intent i = new Intent(MainActivity.this,CadastroGrupoFamiliarActivity.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.nav_pesquisar) {
+            Intent i = new Intent(MainActivity.this, ListarGrupoActivity.class);
+            startActivity(i);
+            finish();
 
         } else if (id == R.id.nav_relatorios) {
-
+            Intent i = new Intent(MainActivity.this, RelatorioActivity.class);
+            startActivity(i);
+            finish();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_logout){

@@ -31,7 +31,7 @@ public class SignUpActivity extends AppCompatActivity {
         nomeText = (EditText) findViewById(R.id.nomeText);
         passwordText = (EditText) findViewById(R.id.passText);
         passwordConfirmText = (EditText) findViewById(R.id.passConfirmText);
-        susNumberText = (EditText) findViewById(R.id.susNumberText);
+        susNumberText = (EditText) findViewById(R.id.textViewSusNumber);
         signUpButton = (Button) findViewById(R.id.signUpButton);
 
         signUpButton.setOnClickListener(new View.OnClickListener() {

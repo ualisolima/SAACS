@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/susNumberText"
+        android:id="@+id/textViewSusNumber"
         android:hint="Numero SUS"
         android:layout_below="@+id/passConfirmText"
         android:layout_alignParentRight="true"
@@ -64,7 +64,7 @@
         android:text="Criar Conta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/susNumberText"
+        android:layout_below="@+id/textViewSusNumber"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/signUpButton" />

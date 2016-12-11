@@ -106,6 +106,8 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getBaseContext(), "As mudanças foram descartadas", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(CadastroGrupoFamiliarActivity.this, ListarGrupoActivity.class);
+                        startActivity(i);
                         finish();
                     }
 

@@ -19,7 +19,7 @@ public class ConsultasRelatorio {
 
     public int qtdPessoaPorSexo(String sexo){
         int qtd = 0;
-        String query = "SELECT COUNT(*) FROM pessoa where sexo = "+sexo;
+        String query = "SELECT COUNT(*) FROM pessoa where sexo = '"+sexo+"'";
         db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst())
