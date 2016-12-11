@@ -29,6 +29,15 @@ public class GrupoFamiliar implements Serializable{
     private Boolean temAnimais;
     private String animais;
     private Boolean coletaLixo;
+    private List<Pessoa> responsaveis;
+
+    public List<Pessoa> getResponsaveis() {
+        return responsaveis;
+    }
+
+    public void setResponsaveis(List<Pessoa> responsaveis) {
+        this.responsaveis = responsaveis;
+    }
 
     public Boolean isColetaLixo() {
         return coletaLixo;
@@ -40,6 +49,7 @@ public class GrupoFamiliar implements Serializable{
 
     public GrupoFamiliar() {
         pessoas = new ArrayList<Pessoa>();
+        responsaveis = new ArrayList<Pessoa>();
     }
 
     public String getContato() {

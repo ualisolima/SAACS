@@ -51,13 +51,33 @@ public class GrupoFamiliarDAO {
         values.put("animais", gf.getAnimais());
 
         Long id = db.insert("grupo_familiar", null, values);
-
+        gf.setId(id);
+        inserirRelacao(gf);
         db.close();
         return id;
     }
 
     public void inserirRelacao(GrupoFamiliar grupofamiliar){
         db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        for (Pessoa p : grupofamiliar.getPessoas()){
+            System.out.println(p.getNome());
+            values.put("id_grupo_familiar", grupofamiliar.getId());
+            values.put("id_pessoa", p.getNumSUS());
+            values.put("is_admin", p.isResponsavelFamiliar()? 1:0);
+            db.insert("grupo_familiar_pessoa", null, values);
+        }
+
+        db.close();
+    }
+
+    public void updateRelacao(GrupoFamiliar grupofamiliar){
+
+        db = dbHelper.getWritableDatabase();
+
+        deletarRelacao(grupofamiliar.getId());
 
         ContentValues values = new ContentValues();
 
@@ -99,11 +119,13 @@ public class GrupoFamiliarDAO {
 
         db.close();
 
+        updateRelacao(gf);
+
     }
 
-    public List<Pessoa> recuperarPessoas(Long idGF){
+    public List<Pessoa> recuperarPessoas(GrupoFamiliar gf){
         List<Pessoa> pessoas = new ArrayList<Pessoa>();
-        String query = "SELECT * FROM grupo_familiar_pessoa where id_grupo_familiar = "+ String.valueOf(idGF);
+        String query = "SELECT * FROM grupo_familiar_pessoa where id_grupo_familiar = "+ String.valueOf(gf.getId());
 
         db = dbHelper.getReadableDatabase();
 
@@ -123,16 +145,63 @@ public class GrupoFamiliarDAO {
         return pessoas;
     }
 
-    public List<GrupoFamiliar> buscarTodos(){
-        List<GrupoFamiliar> gfs = new ArrayList<GrupoFamiliar>();
-        String query = "SELECT * FROM grupo_familiar";
+    public List<Pessoa> recuperarResponsaveis(GrupoFamiliar gf){
+        List<Pessoa> responsaveis = new ArrayList<Pessoa>();
+        String query = "SELECT * FROM grupo_familiar_pessoa where id_grupo_familiar = "+ String.valueOf(gf.getId());
 
         db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            do{
+                PessoaDAO pDAO = new PessoaDAO(this.context);
+                Pessoa p = pDAO.recuperar(cursor.getLong(cursor.getColumnIndex("id_pessoa")));
+                if (p.isResponsavelFamiliar())
+                    responsaveis.add(p);
+            }while(cursor.moveToNext());
+        }
+
+
+        db.close();
+
+        return responsaveis;
+    }
+
+
+    public List<GrupoFamiliar> buscarTodos(String pesq){
+        List<GrupoFamiliar> gfs = new ArrayList<GrupoFamiliar>();
+        String query;
+
+        try {
+            Long p = Long.parseLong(pesq);
+            query = "SELECT DISTINCT gf.id_grupo, gf.id_agente, gf.tipoLogradouro, " +
+                    "gf.logradouro, gf.numeroCasa, gf.municipio, gf.uf, " +
+                    "gf.cep, gf.bairro, gf.contato, gf.localizacao, gf.condsMoradia, " +
+                    "gf.tipoDomicilio, gf.energiaEletrica, gf.saneamentoBasico, gf.coletaLixo, " +
+                    "gf.temAnimais, gf.animais FROM grupo_familiar gf, grupo_familiar_pessoa gfp , pessoa p WHERE " +
+                    "gf.id_grupo = gfp.id_grupo_familiar AND gfp.id_pessoa = p.numSUS AND " +
+                    "gf.id_grupo = " +p+" OR gfp.id_pessoa = "+p;
+
+        }catch (Exception e) {
+            query = "SELECT DISTINCT gf.id_grupo, gf.id_agente, gf.tipoLogradouro, " +
+                    "gf.logradouro, gf.numeroCasa, gf.municipio, gf.uf, " +
+                    "gf.cep, gf.bairro, gf.contato, gf.localizacao, gf.condsMoradia, " +
+                    "gf.tipoDomicilio, gf.energiaEletrica, gf.saneamentoBasico, gf.coletaLixo, " +
+                    "gf.temAnimais, gf.animais FROM grupo_familiar gf, grupo_familiar_pessoa gfp , pessoa p WHERE " +
+                    "gf.id_grupo = gfp.id_grupo_familiar AND gfp.id_pessoa = p.numSUS AND " +
+                    "gf.tipoLogradouro LIKE '%"+pesq+"%' OR gf.logradouro LIKE '%"+pesq+ "%' OR gf.numeroCasa LIKE '%"+pesq+"%' OR" +
+                    " gf.municipio LIKE '%"+pesq+"%' OR gf.cep LIKE '%"+pesq+"%' OR gf.bairro LIKE '%"+pesq+"%' OR " +
+                    "gf.contato LIKE '%"+pesq+"%' OR p.nome LIKE '%"+pesq+"%'";
+        }
+
+        db = dbHelper.getReadableDatabase();
+        System.out.println("Aqui : :(");
+        Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()){
             do{
                 GrupoFamiliar gf = new GrupoFamiliar();
+                gf.setId(cursor.getLong(cursor.getColumnIndex("id_grupo")));
                 gf.setId_agente(cursor.getLong(cursor.getColumnIndex("id_agente")));
                 gf.setTipoLogradouro(cursor.getString(cursor.getColumnIndex("tipoLogradouro")));
                 gf.setLogradouro(cursor.getString(cursor.getColumnIndex("logradouro")));
@@ -151,10 +220,12 @@ public class GrupoFamiliarDAO {
                 gf.setTemAnimais(cursor.getInt(cursor.getColumnIndex("temAnimais")) == 1);
                 gf.setAnimais(cursor.getString(cursor.getColumnIndex("animais")));
 
-                List<Pessoa> pessoas = recuperarPessoas(cursor.getLong(cursor.getColumnIndex("id_responsavel")));
+                List<Pessoa> pessoas = recuperarPessoas(gf);
                 gf.setPessoas(pessoas);
-
+                List<Pessoa> responsaveis = recuperarResponsaveis(gf);
+                gf.setResponsaveis(responsaveis);
                 gfs.add(gf);
+                System.out.println("Aqui : " + gf.getId());
 
             }while(cursor.moveToNext());
         }
@@ -162,6 +233,24 @@ public class GrupoFamiliarDAO {
         db.close();
 
         return gfs;
+    }
+
+    public void deletar( Long id_grupo){
+
+        deletarRelacao(id_grupo);
+
+        db = dbHelper.getWritableDatabase();
+        db.delete("grupo_familiar", "id_grupo = ?", new String[]{String.valueOf(id_grupo)});
+        db.close();
+
+    }
+
+    public void deletarRelacao( Long id_grupo){
+
+        db = dbHelper.getWritableDatabase();
+        db.delete("grupo_familiar_pessoa", "id_grupo_familiar = ?", new String[]{String.valueOf(id_grupo)});
+        db.close();
+
     }
 
 }

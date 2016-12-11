@@ -40,6 +40,10 @@
             android:name=".activity.CadastroPessoaActivity"
             android:label="@string/title_activity_cadastro_pessoa"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.ListarGrupoActivity"
+            android:label="@string/title_activity_cadastro_pessoa"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

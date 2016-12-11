@@ -1,12 +1,10 @@
 package saacs.ufc.com.br.saacs.activity;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,30 +12,42 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.CalendarView;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import saacs.ufc.com.br.saacs.R;
+import saacs.ufc.com.br.saacs.dao.GrupoFamiliarDAO;
+import saacs.ufc.com.br.saacs.model.GrupoFamiliar;
 import saacs.ufc.com.br.saacs.other.SessionManager;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+public class ListarGrupoActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
     SessionManager sessionManager;
-    CalendarView calendarView;
-    Button listarButton;
-
+    GridView gridViewGrupos;
+    List<GrupoFamiliar> grupos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        calendarView = (CalendarView)findViewById(R.id.calendarView);
-        sessionManager = new SessionManager(MainActivity.this);
-
-        sessionManager.checkLogin();
-
-        calendarView.setMinDate(calendarView.getDate());
+        setContentView(R.layout.activity_listar_grupo);
+        sessionManager = new SessionManager(ListarGrupoActivity.this);
+        gridViewGrupos = (GridView) findViewById(R.id.gridVewGrupos);
+        GrupoFamiliarDAO gDAO = new GrupoFamiliarDAO(ListarGrupoActivity.this);
+        grupos = gDAO.buscarTodos("");
+        System.out.println(grupos.size());
+        List<String> items = new ArrayList<>();
+        for (GrupoFamiliar g : grupos){
+            if (!g.getResponsaveis().isEmpty()) {
+                items.add(g.getResponsaveis().get(0).getNome());
+                items.add("Editar");
+                items.add("Remover");
+            }
+        }
+        gridViewGrupos.setAdapter(new ArrayAdapter<String>(ListarGrupoActivity.this, android.R.layout.simple_list_item_1, items));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -58,24 +68,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        listarButton = (Button) findViewById(R.id.listarButton);
-        listarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, ListarGrupoActivity.class);
-                startActivity(i);
-            }
-        });
+
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            moveTaskToBack(true);
-        }
+        Intent intent = new Intent(ListarGrupoActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_addGrupoFamiliar) {
-            Intent i = new Intent(MainActivity.this,CadastroGrupoFamiliarActivity.class);
+            Intent i = new Intent(ListarGrupoActivity.this,CadastroGrupoFamiliarActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_pesquisar) {
 

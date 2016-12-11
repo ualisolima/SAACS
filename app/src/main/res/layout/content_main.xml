@@ -29,8 +29,8 @@
         android:drawableBottom="@drawable/back_up"
         android:id="@+id/button2"
         android:text="BackUp"
-        android:layout_alignBaseline="@+id/button3"
-        android:layout_alignBottom="@+id/button3"
+        android:layout_alignBaseline="@+id/listarButton"
+        android:layout_alignBottom="@+id/listarButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableBottom="@drawable/ic_assignment_black"
-        android:id="@+id/button3"
+        android:id="@+id/listarButton"
         android:text="Listar"
         android:layout_alignBaseline="@+id/button4"
         android:layout_alignBottom="@+id/button4"
