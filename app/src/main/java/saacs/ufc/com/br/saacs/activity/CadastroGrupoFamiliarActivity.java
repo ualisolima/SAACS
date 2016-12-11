@@ -56,6 +56,7 @@ import saacs.ufc.com.br.saacs.other.SessionManager;
 public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
 
     public GrupoFamiliar grupoFamiliar;
+    public List<Pessoa> pessoas;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -175,6 +176,14 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs2);
         tabLayout.setupWithViewPager(mViewPager);
+
+        isUpdate = getIntent().getBooleanExtra("isUpdate", false);
+        id = getIntent().getIntExtra("id", 0);
+        if (isUpdate){
+            grupoFamiliar = (GrupoFamiliar) getIntent().getSerializableExtra("grupoFamiliar");
+            pessoas = (List<Pessoa>) getIntent().getSerializableExtra("pessoas");
+            grupoFamiliar.setPessoas(pessoas);
+        }
     }
 
 
