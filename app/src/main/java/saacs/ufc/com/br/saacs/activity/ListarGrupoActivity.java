@@ -1,5 +1,6 @@
 package saacs.ufc.com.br.saacs.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,13 +21,15 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.SearchManager;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import saacs.ufc.com.br.saacs.R;
 import saacs.ufc.com.br.saacs.dao.GrupoFamiliarDAO;
-import saacs.ufc.com.br.saacs.dao.PessoaDAO;
 import saacs.ufc.com.br.saacs.model.GrupoFamiliar;
 import saacs.ufc.com.br.saacs.model.Pessoa;
 import saacs.ufc.com.br.saacs.other.SessionManager;
@@ -35,14 +38,19 @@ public class ListarGrupoActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
     SessionManager sessionManager;
     GridView gridViewGrupos;
+    SearchView grupoSearchView;
     List<GrupoFamiliar> grupos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_grupo);
+
         sessionManager = new SessionManager(ListarGrupoActivity.this);
         gridViewGrupos = (GridView) findViewById(R.id.gridVewGrupos);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        grupoSearchView = (SearchView) findViewById(R.id.grupoSearchView);
+        grupoSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         GrupoFamiliarDAO gDAO = new GrupoFamiliarDAO(ListarGrupoActivity.this);
         grupos = gDAO.buscarTodos("");
         System.out.println(grupos.size());
@@ -54,6 +62,7 @@ public class ListarGrupoActivity extends AppCompatActivity
                 items.add("Remover");
             }
         }
+        handleIntent(getIntent());
         gridViewGrupos.setAdapter(new ArrayAdapter<String>(ListarGrupoActivity.this, android.R.layout.simple_list_item_1, items));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,6 +99,7 @@ public class ListarGrupoActivity extends AppCompatActivity
                         intent.putExtra("pessoas", (ArrayList<Pessoa>) grupos.get(i/3).getPessoas());
                         intent.putExtra("responsaveis", (ArrayList<Pessoa>) grupos.get(i/3).getResponsaveis());
                         startActivity(intent);
+                        finish();
                         break;
                     case "Remover":
                         new AlertDialog.Builder(ListarGrupoActivity.this)
@@ -123,7 +133,69 @@ public class ListarGrupoActivity extends AppCompatActivity
                 }
             }
         });
+        grupoSearchView.setOnQueryTextListener(new OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                GrupoFamiliarDAO gDAO = new GrupoFamiliarDAO(ListarGrupoActivity.this);
+                grupos = gDAO.buscarTodos(s);
+                System.out.println(grupos.size());
+                List<String> items = new ArrayList<>();
+                for (GrupoFamiliar g : grupos){
+                    if (!g.getResponsaveis().isEmpty()) {
+                        items.add(g.getResponsaveis().get(0).getNome());
+                        items.add("Editar");
+                        items.add("Remover");
+                    }
+                }
+                gridViewGrupos.setAdapter(new ArrayAdapter<String>(ListarGrupoActivity.this, android.R.layout.simple_list_item_1, items));
+                return true;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String s) {
+                GrupoFamiliarDAO gDAO = new GrupoFamiliarDAO(ListarGrupoActivity.this);
+                grupos = gDAO.buscarTodos(s);
+                System.out.println(grupos.size());
+                List<String> items = new ArrayList<>();
+                for (GrupoFamiliar g : grupos){
+                    if (!g.getResponsaveis().isEmpty()) {
+                        items.add(g.getResponsaveis().get(0).getNome());
+                        items.add("Editar");
+                        items.add("Remover");
+                    }
+                }
+                gridViewGrupos.setAdapter(new ArrayAdapter<String>(ListarGrupoActivity.this, android.R.layout.simple_list_item_1, items));
+                return true;
+            }
+        });
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        setIntent(intent);
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            System.out.println(query);
+            GrupoFamiliarDAO gDAO = new GrupoFamiliarDAO(ListarGrupoActivity.this);
+            grupos = gDAO.buscarTodos(query);
+            System.out.println(grupos.size());
+            List<String> items = new ArrayList<>();
+            for (GrupoFamiliar g : grupos){
+                if (!g.getResponsaveis().isEmpty()) {
+                    items.add(g.getResponsaveis().get(0).getNome());
+                    items.add("Editar");
+                    items.add("Remover");
+                }
+            }
+            gridViewGrupos.setAdapter(new ArrayAdapter<String>(ListarGrupoActivity.this, android.R.layout.simple_list_item_1, items));
+
+
+        }
     }
 
     @Override
@@ -169,6 +241,7 @@ public class ListarGrupoActivity extends AppCompatActivity
         if (id == R.id.nav_addGrupoFamiliar) {
             Intent i = new Intent(ListarGrupoActivity.this,CadastroGrupoFamiliarActivity.class);
             startActivity(i);
+            finish();
         } else if (id == R.id.nav_pesquisar) {
 
         } else if (id == R.id.nav_relatorios) {
