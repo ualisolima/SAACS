@@ -1364,7 +1364,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         ((RadioButton) radioGroupPsiquiatra.getChildAt(k)).setChecked(true);
 
                 for (int k = 0; k < radioGroupSaude.getChildCount(); k++)
-                    if (( (RadioButton) radioGroupSaude.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().getNivelSaude()))
+                    if (( (RadioButton) radioGroupSaude.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().getNivelSaude().toString()))
                         ((RadioButton) radioGroupSaude.getChildAt(k)).setChecked(true);
 
                 for (int k = 0; k < radioGroupPlantas.getChildCount(); k++)
