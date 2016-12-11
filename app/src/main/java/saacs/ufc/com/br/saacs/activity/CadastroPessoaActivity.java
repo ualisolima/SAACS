@@ -418,10 +418,10 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     }
                     else {
                         paisDeOrigemEditText.setEnabled(false);
-                        paisDeOrigemEditText.setText("Brasileiro");
+                        paisDeOrigemEditText.setText("Brasil");
                     }
                     paisDeOrigemEditText.setError(null);
-                    cadastroPessoaActivity.pessoa.setNacionalidade(paisDeOrigemEditText.getText().toString());
+                    cadastroPessoaActivity.pessoa.setNacionalidade(((RadioButton)rootView.findViewById(i)).getText().toString());
                 }
             });
             RadioButton brasileiroButton = (RadioButton) rootView.findViewById(R.id.radioButtonNacionalidadeBrasileiro);
