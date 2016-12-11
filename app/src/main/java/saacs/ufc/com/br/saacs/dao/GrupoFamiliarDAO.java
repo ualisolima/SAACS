@@ -75,9 +75,9 @@ public class GrupoFamiliarDAO {
 
     public void updateRelacao(GrupoFamiliar grupofamiliar){
 
-        db = dbHelper.getWritableDatabase();
-
         deletarRelacao(grupofamiliar.getId());
+
+        db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
@@ -117,9 +117,9 @@ public class GrupoFamiliarDAO {
 
         db.update("grupo_familiar", values, "id_grupo = ?", new String[]{String.valueOf(gf.getId())});
 
-        db.close();
-
         updateRelacao(gf);
+
+        db.close();
 
     }
 
@@ -147,7 +147,8 @@ public class GrupoFamiliarDAO {
 
     public List<Pessoa> recuperarResponsaveis(GrupoFamiliar gf){
         List<Pessoa> responsaveis = new ArrayList<Pessoa>();
-        String query = "SELECT * FROM grupo_familiar_pessoa where id_grupo_familiar = "+ String.valueOf(gf.getId());
+        String query = "SELECT * FROM grupo_familiar_pessoa where id_grupo_familiar = "+ String.valueOf(gf.getId() +" AND" +
+                " is_admin = 1");
 
         db = dbHelper.getReadableDatabase();
 

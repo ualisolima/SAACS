@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 
 import saacs.ufc.com.br.saacs.R;
+import saacs.ufc.com.br.saacs.dao.PessoaDAO;
 import saacs.ufc.com.br.saacs.other.SessionManager;
 
 public class MainActivity extends AppCompatActivity
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity
         calendarView.setMinDate(calendarView.getDate());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        PessoaDAO pDAO = new PessoaDAO(MainActivity.this);
+        pDAO.cleanDB();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

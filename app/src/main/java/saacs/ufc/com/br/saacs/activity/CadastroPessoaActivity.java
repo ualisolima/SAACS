@@ -285,6 +285,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     ((RadioButton)radioGroupSex.getChildAt(0)).setError(null);
                     ((RadioButton)radioGroupSex.getChildAt(1)).setError(null);
                    cadastroPessoaActivity.pessoa.setSexo(((RadioButton)rootView.findViewById(i)).getText().toString());
+                    System.out.println(cadastroPessoaActivity.pessoa.getSexo());
                 }
             });
             radioGroupRaca.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -299,6 +300,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                 numSusEditText.setText(cadastroPessoaActivity.pessoa.getNumSUS().toString());
                 dtNascimentoEditText.setText(cadastroPessoaActivity.pessoa.getDataNascimento());
                 nomeCompletoEditText.setText(cadastroPessoaActivity.pessoa.getNome());
+                numSusEditText.setEnabled(false);
                 System.out.println(cadastroPessoaActivity.pessoa.getEtnia());
                 for (int k = 0; k < radioGroupRaca.getChildCount(); k++)
                     if (( (RadioButton) radioGroupRaca.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getEtnia()))
@@ -308,6 +310,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         ((RadioButton) radioGroupSex.getChildAt(k)).setChecked(true);
 
             }
+
             return rootView;
         }
     }

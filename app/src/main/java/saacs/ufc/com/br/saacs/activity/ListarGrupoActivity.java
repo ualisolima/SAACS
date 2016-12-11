@@ -13,8 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
 import saacs.ufc.com.br.saacs.R;
 import saacs.ufc.com.br.saacs.dao.GrupoFamiliarDAO;
 import saacs.ufc.com.br.saacs.model.GrupoFamiliar;
+import saacs.ufc.com.br.saacs.model.Pessoa;
 import saacs.ufc.com.br.saacs.other.SessionManager;
 
 public class ListarGrupoActivity extends AppCompatActivity
@@ -69,13 +72,50 @@ public class ListarGrupoActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        gridViewGrupos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                TextView t = (TextView) view;
+                System.out.println(t.getText() + " : " + l);
+                switch (t.getText().toString()){
+                    case "Editar":
+                        Intent intent = new Intent(ListarGrupoActivity.this, CadastroGrupoFamiliarActivity.class);
+                        intent.putExtra("isUpdate",true);
+                        intent.putExtra("id", i/3);
+                        intent.putExtra("grupoFamiliar", grupos.get(i/3));
+                        intent.putExtra("pessoas", (ArrayList<Pessoa>) grupos.get(i/3).getPessoas());
+                        intent.putExtra("responsaveis", (ArrayList<Pessoa>) grupos.get(i/3).getResponsaveis());
+                        startActivity(intent);
+                        break;
+                    case "Remover":
+                        //ADD VOCE TEM CERTEZA?
+                        grupos.remove(i/3);
+                        List<String> items = new ArrayList<String>();
+                        for (GrupoFamiliar g : grupos) {
+                            items.add(g.getResponsaveis().get(0).getNome());
+                            items.add("Editar");
+                            items.add("Remover");
+                        }
+                        gridViewGrupos.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, items));
+                        break;
+                    default:
+                        return;
+                }
+            }
+        });
+
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ListarGrupoActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            Intent intent = new Intent(ListarGrupoActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override

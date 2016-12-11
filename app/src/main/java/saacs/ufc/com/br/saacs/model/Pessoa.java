@@ -195,4 +195,10 @@ public class Pessoa implements Serializable{
     public void setSaude(SituacaoSaude saude) {
         this.saude = saude;
     }
+
+    @Override
+    public boolean equals(Object p) {
+        return ((Pessoa)p).getNumSUS().equals(NumSUS);
+    }
+
 }

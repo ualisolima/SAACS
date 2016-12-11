@@ -78,15 +78,15 @@ public class PessoaDAO {
                 p.setDataNascimento(cursor.getString(cursor.getColumnIndex("dataNascimento")));
                 p.setNumeroNis(cursor.getLong(cursor.getColumnIndex("numeroNis")));
                 p.setSexo(cursor.getString(cursor.getColumnIndex("sexo")));
-                p.setSexo(cursor.getString(cursor.getColumnIndex("etnia")));
+                p.setEtnia(cursor.getString(cursor.getColumnIndex("etnia")));
                 p.setNacionalidade(cursor.getString(cursor.getColumnIndex("nacionalidade")));
-                p.setSexo(cursor.getString(cursor.getColumnIndex("paisDeOrigem")));
+                p.setPaisDeOrigem(cursor.getString(cursor.getColumnIndex("paisDeOrigem")));
                 p.setCidadeNatal(cursor.getString(cursor.getColumnIndex("cidadeNatal")));
-                p.setCidadeNatal(cursor.getString(cursor.getColumnIndex("estado")));
+                p.setEstado(cursor.getString(cursor.getColumnIndex("estado")));
                 p.setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
                 p.setEmail(cursor.getString(cursor.getColumnIndex("email")));
 
-                p.setEmail(cursor.getString(cursor.getColumnIndex("nomeDaMae")));
+                p.setNomedaMae(cursor.getString(cursor.getColumnIndex("nomeDaMae")));
                 p.setResponsavelFamiliar(cursor.getInt(cursor.getColumnIndex("responsavelFamiliar")) == 1);
                 p.setRelacaoParentRF(cursor.getString(cursor.getColumnIndex("relacaoParentRF")));
                 p.setProfissao(cursor.getString(cursor.getColumnIndex("profissao")));
@@ -111,6 +111,28 @@ public class PessoaDAO {
                 return  p;
         }
         return null;
+    }
+
+    public void cleanDB() {
+        db = dbHelper.getWritableDatabase();
+        String query = "DELETE FROM situacao_saude WHERE id_situacao NOT IN (SELECT id_situacao FROM situacao_saude," +
+                "pessoa, grupo_familiar_pessoa WHERE id_saude = id_situacao AND id_pessoa = numSUS)";
+        db.execSQL(query);
+        query = "DELETE FROM pessoa WHERE numSUS NOT IN (SELECT numSUS FROM " +
+                "pessoa, grupo_familiar_pessoa WHERE id_pessoa = numSUS)";
+        db.execSQL(query);
+        query = "DELETE FROM grupo_familiar_pessoa WHERE id_pessoa NOT IN (SELECT id_pessoa FROM" +
+                " pessoa, grupo_familiar_pessoa WHERE id_pessoa = numSUS)";
+        db.execSQL(query);
+        query = "DELETE FROM grupo_familiar WHERE id_grupo NOT IN (SELECT id_grupo FROM" +
+                " grupo_familiar, grupo_familiar_pessoa WHERE id_grupo = id_grupo_familiar)";
+        db.execSQL(query);
+        query = "DELETE FROM grupo_familiar_pessoa WHERE id_pessoa NOT IN (SELECT id_pessoa FROM" +
+                " pessoa, grupo_familiar_pessoa WHERE id_pessoa = numSUS) AND id_grupo_familiar NOT IN (" +
+                "SELECT id_grupo_familiar FROM grupo_familiar, grupo_familiar_pessoa WHERE id_grupo = id_grupo_familiar)";
+        db.execSQL(query);
+        db.close();
+        return;
     }
 
     public void deletar( long numSUS){
