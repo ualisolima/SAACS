@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="saacs.ufc.com.br.saacs.activity.MainActivity"
+    tools:showIn="@layout/app_bar_relatorio">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical" app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textViewHomens"
+        android:textSize="@dimen/font_size"
+        android:text="Quantidade de Homens: " />
+
+    <TextView
+        android:text="Quantidade de Mulheres: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewHomens"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textViewMulheres"
+        android:textSize="@dimen/font_size"/>
+
+    <TextView
+        android:text="Quantidade de Gestantes:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewMulheres"
+        android:id="@+id/textViewGestante"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/font_size"/>
+
+    <TextView
+        android:text="Quantidade pessoas Hipertensos: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewGestante"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textViewHipertenso"
+        android:textSize="@dimen/font_size"/>
+
+    <TextView
+        android:text="Pessoas com Diabetes:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewHipertenso"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textViewDiabetes"
+        android:textSize="@dimen/font_size"/>
+
+    <TextView
+        android:text="Quantidade de Pessoas com Doença Cardíaca: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDiabetes"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textViewCardiaca"
+        android:textSize="@dimen/font_size"/>
+
+    <TextView
+        android:text="Quantidade de Pessoas Com problemas nos Rins:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewCardiaca"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textViewRins"
+        android:textSize="@dimen/font_size"/>
+
+        <TextView
+            android:text="Quantidade de Pessoas com problemas Respiratórios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewRespiratorio"
+            android:textSize="@dimen/font_size"/>
+
+    </LinearLayout>
+</RelativeLayout>

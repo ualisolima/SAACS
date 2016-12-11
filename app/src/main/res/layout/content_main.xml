@@ -19,9 +19,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="14dp"
-        android:drawableBottom="@drawable/ic_assignment_turned_in_black"
-        android:id="@+id/button4"
-        android:text="Visitas" />
+        android:drawableBottom="@drawable/ic_assessment_black_50dp"
+        android:id="@+id/relatorioButton"
+        android:text="Relatórios" />
 
     <Button
         android:layout_width="wrap_content"
@@ -40,8 +40,8 @@
         android:drawableBottom="@drawable/ic_assignment_black"
         android:id="@+id/listarButton"
         android:text="Listar"
-        android:layout_alignBaseline="@+id/button4"
-        android:layout_alignBottom="@+id/button4"
+        android:layout_alignBaseline="@+id/relatorioButton"
+        android:layout_alignBottom="@+id/relatorioButton"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -51,7 +51,7 @@
         android:layout_marginTop="29dp"
         android:id="@+id/textView2"
         android:textAppearance="@android:style/TextAppearance.Large"
-        android:layout_below="@+id/button4"
+        android:layout_below="@+id/relatorioButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

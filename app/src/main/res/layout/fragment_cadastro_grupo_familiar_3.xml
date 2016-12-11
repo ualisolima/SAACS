@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/textViewRins"
         android:weightSum="1">
 
         <RadioButton
@@ -21,8 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/textView"
-            android:layout_toEndOf="@+id/textView"
+            android:layout_toRightOf="@+id/textViewRins"
+            android:layout_toEndOf="@+id/textViewRins"
             android:id="@+id/radioButtonColetaSim"
             android:layout_weight="0.43" />
 
@@ -41,7 +41,7 @@
         android:text="Possui coleta de lixo? "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView" />
+        android:id="@+id/textViewRins" />
 
     <TextView
         android:text="Possui animais em casa? "

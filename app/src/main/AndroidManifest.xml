@@ -42,7 +42,7 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.ListarGrupoActivity"
-            android:label="@string/title_activity_cadastro_pessoa"
+            android:label="Listar Grupos"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -50,6 +50,13 @@
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
         </activity>
+
+        <activity
+            android:name=".activity.RelatorioActivity"
+            android:label="Relatórios"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
     </application>
 
 </manifest>
