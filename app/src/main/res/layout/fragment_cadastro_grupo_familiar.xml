@@ -12,6 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:id="@+id/tipoLogradouroEditText"
+        android:inputType="textPostalAddress"
+        android:hint="Tipo do Logradouro"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
         android:layout_below="@+id/tipoLogradouroEditText"
         android:id="@+id/logradouroEditText"
         android:inputType="textPostalAddress"
@@ -20,6 +31,17 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/numeroCasaEditText"
+        android:hint="Número da casa"
+        android:layout_below="@+id/logradouroEditText"
+        android:layout_toRightOf="@+id/section_label"
+        android:layout_toEndOf="@+id/section_label" />
 
     <EditText
         android:layout_width="match_parent"
@@ -54,17 +76,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/numeroCasaEditText"
-        android:hint="Número da casa"
-        android:layout_below="@+id/logradouroEditText"
-        android:layout_toRightOf="@+id/section_label"
-        android:layout_toEndOf="@+id/section_label" />
-
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,7 +86,8 @@
         android:hint="UF"
         android:layout_below="@+id/phoneEditText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:focusable="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -87,16 +99,5 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/municipioEditText" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/tipoLogradouroEditText"
-        android:inputType="textPostalAddress"
-        android:hint="Tipo do Logradouro"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

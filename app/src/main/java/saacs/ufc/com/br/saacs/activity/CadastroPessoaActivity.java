@@ -35,6 +35,7 @@ import java.io.Serializable;
 
 import saacs.ufc.com.br.saacs.R;
 import saacs.ufc.com.br.saacs.dao.PessoaDAO;
+import saacs.ufc.com.br.saacs.dao.SituacaoSaudeDAO;
 import saacs.ufc.com.br.saacs.model.Pessoa;
 import saacs.ufc.com.br.saacs.model.SituacaoSaude;
 
@@ -787,6 +788,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         checkBoxDeficienciaFisica.setError(null);
                         checkBoxDeficienciaIntelectual.setError(null);
                         qualDeficiencia[0] = "";
+                        cadastroPessoaActivity.situacaoSaude.setQualDeficiencia("");
 
 
                     }
@@ -896,7 +898,7 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                     if (( (RadioButton) radioGroupDeficiencia.getChildAt(k)).getText().toString().equals(cadastroPessoaActivity.pessoa.getSaude().isDeficiencia() ? "Sim" : "Não" ))
                         ((RadioButton) radioGroupDeficiencia.getChildAt(k)).setChecked(true);
 
-                if (cadastroPessoaActivity.pessoa.getSaude().getQualDeficiencia().contains(checkBoxDeficienciaVisual.getText()))
+                if (cadastroPessoaActivity.pessoa.getSaude().getQualDeficiencia() != null && cadastroPessoaActivity.pessoa.getSaude().getQualDeficiencia().contains(checkBoxDeficienciaVisual.getText()))
                     checkBoxDeficienciaVisual.setChecked(true);
 
                 if (cadastroPessoaActivity.pessoa.getSaude().getQualDeficiencia().contains(checkBoxDeficienciaAuditiva.getText()))
@@ -1314,11 +1316,20 @@ public class CadastroPessoaActivity extends AppCompatActivity {
                         if (!cadastroPessoaActivity.isUpdate) {
                             //insert aqui
                             PessoaDAO pDAO = new PessoaDAO(cadastroPessoaActivity.getApplicationContext());
+                            SituacaoSaudeDAO sDAO = new SituacaoSaudeDAO(cadastroPessoaActivity.getApplicationContext());
                             if (pDAO.recuperar(cadastroPessoaActivity.pessoa.getNumSUS()) == null) {
-                                pDAO.inserir(cadastroPessoaActivity.pessoa);
-                                getActivity().setResult(999, intent);
-                                getActivity().finish();
-                            }
+                                Long id_saude = sDAO.inserir(cadastroPessoaActivity.situacaoSaude);
+                                if (id_saude >= 0) {
+                                    pDAO.inserir(cadastroPessoaActivity.pessoa);
+                                    cadastroPessoaActivity.situacaoSaude.setId(id_saude);
+                                    getActivity().setResult(999, intent);
+                                    getActivity().finish();
+                                }
+                                else {
+                                    Toast.makeText(cadastroPessoaActivity.getBaseContext(), "Ocorreu algum erro no questionário de saúde", Toast.LENGTH_LONG).show();
+                                    cadastroPessoaActivity.selectPage(4);
+                                }
+                                }
                             else {
                                 Toast.makeText(cadastroPessoaActivity.getBaseContext(), "Número do SUS já Cadastrado !!", Toast.LENGTH_LONG).show();
                                 cadastroPessoaActivity.selectPage(0);

@@ -1,5 +1,6 @@
 package saacs.ufc.com.br.saacs.activity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -45,9 +46,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import saacs.ufc.com.br.saacs.R;
+import saacs.ufc.com.br.saacs.dao.GrupoFamiliarDAO;
+import saacs.ufc.com.br.saacs.dao.PessoaDAO;
 import saacs.ufc.com.br.saacs.model.GrupoFamiliar;
 import saacs.ufc.com.br.saacs.model.Pessoa;
 import saacs.ufc.com.br.saacs.model.SituacaoSaude;
+import saacs.ufc.com.br.saacs.other.SessionManager;
 
 public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
 
@@ -59,6 +63,7 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
     public boolean valide = false;
     public int lPage = 0, cPage = 0;
     public Boolean isUpdate = false;
+    public Boolean sucesso = false;
     public int id = 0;
 
     public boolean validarAtributos(){
@@ -71,7 +76,7 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
             selectPage(1);
             return  false;
         }
-        if (grupoFamiliar.getDestLixo() == null  ){
+        if (grupoFamiliar.isColetaLixo() == null  ){
             selectPage(2);
             return  false;
         }
@@ -93,6 +98,9 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        PessoaDAO pDAO = new PessoaDAO(CadastroGrupoFamiliarActivity.this);
+                        for (Pessoa p : grupoFamiliar.getPessoas())
+                            pDAO.deletar(p.getNumSUS());
                         Toast.makeText(getBaseContext(), "As mudanças foram descartadas", Toast.LENGTH_LONG).show();
                         finish();
                     }
@@ -100,6 +108,19 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Não", null)
                 .show();
+    }
+
+    @Override
+    public void onDestroy() {
+        System.out.println("Aqui");
+        if (!sucesso) {
+            PessoaDAO pDAO = new PessoaDAO(CadastroGrupoFamiliarActivity.this);
+            for (Pessoa p : grupoFamiliar.getPessoas())
+                pDAO.deletar(p.getNumSUS());
+            Toast.makeText(getBaseContext(), "As mudanças foram descartadas", Toast.LENGTH_LONG).show();
+        }
+        super.onDestroy();
+
     }
 
     public void selectPage(final int page) {
@@ -118,6 +139,9 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_grupo_familiar);
         grupoFamiliar = new GrupoFamiliar();
         grupoFamiliar.setPessoas(new ArrayList<Pessoa>());
+        SessionManager sessionManager = new SessionManager(CadastroGrupoFamiliarActivity.this);
+        Long numSus = Long.parseLong(sessionManager.getUserDetails().get("susNumber"));
+        grupoFamiliar.setId_agente(numSus);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -192,7 +216,6 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
@@ -267,7 +290,7 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                     cadastroGrupoFamiliarActivity.grupoFamiliar.setLogradouro(logradouro);
                     cadastroGrupoFamiliarActivity.grupoFamiliar.setNumCasa(numeroCasa);
                     cadastroGrupoFamiliarActivity.grupoFamiliar.setBairro(bairro);
-                    cadastroGrupoFamiliarActivity.grupoFamiliar.setPhone(phone);
+                    cadastroGrupoFamiliarActivity.grupoFamiliar.setContato(phone);
                     cadastroGrupoFamiliarActivity.grupoFamiliar.setCep(cep);
                     cadastroGrupoFamiliarActivity.grupoFamiliar.setMunicipio(municipio);
                     cadastroGrupoFamiliarActivity.grupoFamiliar.setuF(uf);
@@ -591,6 +614,8 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
 
         static CadastroGrupoFamiliarActivity cadastroGrupoFamiliarActivity;
         static GridView gridViewPessoas;
+        static Button addPessoaButton, addGrupoButton;
+
 
         public PlaceholderFragment4() {
         }
@@ -615,7 +640,22 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
             else if (cadastroGrupoFamiliarActivity.cPage == 3) {
                 cadastroGrupoFamiliarActivity.valide = false;
                 cadastroGrupoFamiliarActivity.lPage = 3;
+                List<String> items = new ArrayList<String>();
+                for (Pessoa p : cadastroGrupoFamiliarActivity.grupoFamiliar.getPessoas()) {
+                    items.add(p.getNome());
+                    items.add("Editar");
+                    items.add("Remover");
+                }
+                gridViewPessoas.setAdapter(new ArrayAdapter<String>(cadastroGrupoFamiliarActivity, android.R.layout.simple_list_item_1, items));
+
             }
+
+        }
+
+        @Override
+        public void onPause(){
+            super.onPause();
+            cadastroGrupoFamiliarActivity.valide = true;
         }
 
         @Override
@@ -624,7 +664,8 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_cadastro_grupo_familiar_4, container, false);
             cadastroGrupoFamiliarActivity = (CadastroGrupoFamiliarActivity) getActivity();
             gridViewPessoas = (GridView) rootView.findViewById(R.id.gridViewPessoas);
-            Button addPessoaButton = (Button) rootView.findViewById(R.id.addPessoaButton);
+            addPessoaButton = (Button) rootView.findViewById(R.id.addPessoaButton);
+            addGrupoButton = (Button) rootView.findViewById(R.id.addGrupoButton);
             addPessoaButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -654,10 +695,24 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                                 items.add("Editar");
                                 items.add("Remover");
                             }
-                            gridViewPessoas.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items));
+                            gridViewPessoas.setAdapter(new ArrayAdapter<String>(cadastroGrupoFamiliarActivity, android.R.layout.simple_list_item_1, items));
                             break;
                         default:
                             return;
+                    }
+                }
+            });
+            addGrupoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (cadastroGrupoFamiliarActivity.validarAtributos()) {
+                        GrupoFamiliarDAO gDAO = new GrupoFamiliarDAO(cadastroGrupoFamiliarActivity);
+                        Long id = gDAO.inserir(cadastroGrupoFamiliarActivity.grupoFamiliar);
+                        if (id >= 0) {
+                            cadastroGrupoFamiliarActivity.grupoFamiliar.setId(id);
+                            cadastroGrupoFamiliarActivity.sucesso = true;
+                            cadastroGrupoFamiliarActivity.finish();
+                        }
                     }
                 }
             });
@@ -677,7 +732,7 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                     items.add("Editar");
                     items.add("Remover");
                 }
-                gridViewPessoas.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items));
+                gridViewPessoas.setAdapter(new ArrayAdapter<String>(cadastroGrupoFamiliarActivity, android.R.layout.simple_list_item_1, items));
             }
             if ( requestCode == 888 && resultCode == 888 ) {
                 Pessoa pessoa = (Pessoa) data.getExtras().get("pessoa");
@@ -692,7 +747,7 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                     items.add("Editar");
                     items.add("Remover");
                 }
-                gridViewPessoas.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items));
+                gridViewPessoas.setAdapter(new ArrayAdapter<String>(cadastroGrupoFamiliarActivity, android.R.layout.simple_list_item_1, items));
             }
         }
     }
@@ -730,13 +785,13 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "Endereço";
                 case 1:
-                    return "SECTION 2";
+                    return "Moradia 1";
                 case 2:
-                    return "SECTION 3";
+                    return "Moradia 2";
                 case 3:
-                    return "SECTION 4";
+                    return "Pessoas";
             }
             return null;
         }

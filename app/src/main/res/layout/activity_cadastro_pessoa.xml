@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="saacs.ufc.com.br.saacs.activity.CadastroPessoaActivity">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical" app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -32,10 +34,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/containerPessoa"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/containerPessoa"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
+            />
+    </LinearLayout>
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
 </android.support.design.widget.CoordinatorLayout>

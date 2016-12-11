@@ -30,7 +30,7 @@ public class PessoaDAO {
         db = dbHelper.getWritableDatabase();
 
         SituacaoSaudeDAO saudeDAO  = new SituacaoSaudeDAO(this.context);
-        saudeDAO.inserir(pessoa.getSaude());
+        Long id = saudeDAO.inserir(pessoa.getSaude());
 
         ContentValues values = new ContentValues();
 
@@ -52,7 +52,7 @@ public class PessoaDAO {
         values.put("profissao", pessoa.getProfissao());
         values.put("escolaridade", pessoa.getEscolaridade());
         values.put("situacaoMercado", pessoa.getSituacaoMercado());
-        values.put("id_saude", pessoa.getSaude().getId());
+        values.put("id_saude", id);
 
         db.insert("pessoa", null, values);
 
@@ -124,12 +124,10 @@ public class PessoaDAO {
     public void atualizar(Pessoa pessoa){
 
         db = dbHelper.getWritableDatabase();
-
         SituacaoSaudeDAO saudeDAO  = new SituacaoSaudeDAO(this.context);
         saudeDAO.alterar(pessoa.getSaude());
 
         ContentValues values = new ContentValues();
-
         values.put("numSUS", pessoa.getNumSUS());
         values.put("nome", pessoa.getNome());
         values.put("dataNascimento", pessoa.getDataNascimento());

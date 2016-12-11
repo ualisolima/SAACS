@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="saacs.ufc.com.br.saacs.activity.MainActivity"
-    tools:showIn="@layout/app_bar_main_2">
+    tools:showIn="@layout/app_bar_listar">
 
     <SearchView
         android:layout_width="wrap_content"
@@ -22,4 +22,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/grupoSearchView" />
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/grupoSearchView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/gridVewGrupos"
+        android:scrollbars="horizontal"
+        android:numColumns="3"/>
 </RelativeLayout>

@@ -16,19 +16,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewVisitas"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="14dp"
         android:drawableBottom="@drawable/ic_assignment_turned_in_black"
         android:id="@+id/button4"
         android:text="Visitas" />
-
-    <TextView
-        android:id="@id/textViewVisitas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bem vindo!" />
 
     <Button
         android:layout_width="wrap_content"
@@ -66,8 +59,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/calendarView"
+        android:layout_marginTop="16dp"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="33dp" />
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

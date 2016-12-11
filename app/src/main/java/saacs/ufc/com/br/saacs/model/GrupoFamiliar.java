@@ -21,26 +21,16 @@ public class GrupoFamiliar implements Serializable{
     private String municipio;
     private String bairro;
     private String uF;
-    private String phone;
     private String localizacao;
     private String condsMoradia;
     private String tipoDomicilio;
     private Boolean energiaEletrica;
     private Boolean saneamentoBasico;
-    private String destLixo;
     private Boolean temAnimais;
     private String animais;
     private Boolean coletaLixo;
 
-    public Boolean getEnergiaEletrica() {
-        return energiaEletrica;
-    }
-
-    public Boolean getSaneamentoBasico() {
-        return saneamentoBasico;
-    }
-
-    public Boolean getColetaLixo() {
+    public Boolean isColetaLixo() {
         return coletaLixo;
     }
 
@@ -116,14 +106,6 @@ public class GrupoFamiliar implements Serializable{
         this.uF = uF;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public Long getId() {
         return id;
     }
@@ -138,14 +120,6 @@ public class GrupoFamiliar implements Serializable{
 
     public void setPessoas(List<Pessoa> pessoas) {
         this.pessoas = pessoas;
-    }
-
-    public String getContatos() {
-        return contato;
-    }
-
-    public void setContatos(String contato) {
-        this.contato = contato;
     }
 
     public Long getId_agente() {
@@ -196,13 +170,6 @@ public class GrupoFamiliar implements Serializable{
         this.saneamentoBasico = saneamentoBasico;
     }
 
-    public String getDestLixo() {
-        return destLixo;
-    }
-
-    public void setDestLixo(String destLixo) {
-        this.destLixo = destLixo;
-    }
 
     public Boolean isTemAnimais() {
         return temAnimais;

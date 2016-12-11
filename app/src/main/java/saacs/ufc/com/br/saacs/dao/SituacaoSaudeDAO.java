@@ -22,13 +22,12 @@ public class SituacaoSaudeDAO {
 
     }
 
-    public void inserir(SituacaoSaude saude){
+    public Long inserir(SituacaoSaude saude){
 
         db = dbHelper.getWritableDatabase();
 
         ContentValues values =  new ContentValues();
 
-        values.put("id_situacao", saude.getId());
         values.put("deficiencia", saude.isDeficiencia());
         values.put("qualDeficiencia", saude.getQualDeficiencia());
         values.put("gestante", saude.isGestante());
@@ -52,11 +51,12 @@ public class SituacaoSaudeDAO {
         values.put("problemaMental", saude.isProblemaMental());
         values.put("tratamento", saude.isTratamento());
         values.put("nivelSaude", saude.getNivelSaude());
-        values.put("usaPlantas", saude.isUsaPlantas());
+        values.put("usaPlantas", saude.isUsaPlantas()? 1:0);
         values.put("plantasMedicinais", saude.getPlantasMedicinais());
 
-        db.insert("situacao_saude", null, values);
+        Long i = db.insert("situacao_saude", null, values);
         db.close();
+        return i;
 
     }
 
