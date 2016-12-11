@@ -1,6 +1,7 @@
 package saacs.ufc.com.br.saacs.dao;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -16,7 +17,17 @@ public class ConsultasRelatorio {
         this.dbHelper = new DBHelper(context);
     }
 
-    
+    public int qtdPessoaPorSexo(String sexo){
+        int qtd = 0;
+
+        String query = "SELECT COUNT(*) FROM pessoa where sexo = "+sexo;
+        db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst())
+            qtd = cursor.getInt(0);
+        db.close();
+        return qtd;
+    }
 
 
 }
