@@ -1,5 +1,6 @@
 package saacs.ufc.com.br.saacs.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,12 +19,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import saacs.ufc.com.br.saacs.R;
 import saacs.ufc.com.br.saacs.dao.GrupoFamiliarDAO;
+import saacs.ufc.com.br.saacs.dao.PessoaDAO;
 import saacs.ufc.com.br.saacs.model.GrupoFamiliar;
 import saacs.ufc.com.br.saacs.model.Pessoa;
 import saacs.ufc.com.br.saacs.other.SessionManager;
@@ -74,7 +78,7 @@ public class ListarGrupoActivity extends AppCompatActivity
 
         gridViewGrupos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 TextView t = (TextView) view;
                 System.out.println(t.getText() + " : " + l);
                 switch (t.getText().toString()){
@@ -88,15 +92,31 @@ public class ListarGrupoActivity extends AppCompatActivity
                         startActivity(intent);
                         break;
                     case "Remover":
-                        //ADD VOCE TEM CERTEZA?
-                        grupos.remove(i/3);
-                        List<String> items = new ArrayList<String>();
-                        for (GrupoFamiliar g : grupos) {
-                            items.add(g.getResponsaveis().get(0).getNome());
-                            items.add("Editar");
-                            items.add("Remover");
-                        }
-                        gridViewGrupos.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, items));
+                        new AlertDialog.Builder(ListarGrupoActivity.this)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setTitle("Excluir pessoa")
+                                .setMessage("Você tem certeza que deseja excluir o Grupo selecionado?")
+                                .setPositiveButton("Sim", new DialogInterface.OnClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        GrupoFamiliar gg = grupos.get(i/3);
+                                        new GrupoFamiliarDAO(ListarGrupoActivity.this).deletar(gg.getId());
+                                        grupos.remove(i/3);
+                                        List<String> items = new ArrayList<String>();
+                                        for (GrupoFamiliar g : grupos) {
+                                            items.add(g.getResponsaveis().get(0).getNome());
+                                            items.add("Editar");
+                                            items.add("Remover");
+                                        }
+                                        gridViewGrupos.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, items));
+                                        Toast.makeText(getBaseContext(), "As mudanças foram aplicadas", Toast.LENGTH_LONG).show();
+
+                                    }
+
+                                })
+                                .setNegativeButton("Não", null)
+                                .show();
                         break;
                     default:
                         return;
