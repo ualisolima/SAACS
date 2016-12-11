@@ -323,6 +323,17 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
             municipioEditText = (EditText) rootView.findViewById(R.id.municipioEditText);
             ufSpinnerText = (Spinner) rootView.findViewById(R.id.ufSpinnerText);
 
+            if (cadastroGrupoFamiliarActivity.isUpdate){
+                tipoLogradouroEditText.setText(cadastroGrupoFamiliarActivity.grupoFamiliar.getTipoLogradouro());
+                logradouroEditText.setText(cadastroGrupoFamiliarActivity.grupoFamiliar.getLogradouro());
+                numeroCasaEditText.setText(cadastroGrupoFamiliarActivity.grupoFamiliar.getNumCasa());
+                bairroEditText.setText(cadastroGrupoFamiliarActivity.grupoFamiliar.getBairro());
+                cepEditText.setText(cadastroGrupoFamiliarActivity.grupoFamiliar.getCep());
+                phoneEditText.setText(cadastroGrupoFamiliarActivity.grupoFamiliar.getContato());
+                municipioEditText.setText(cadastroGrupoFamiliarActivity.grupoFamiliar.getMunicipio());
+                ufSpinnerText.setPrompt(cadastroGrupoFamiliarActivity.grupoFamiliar.getuF());
+            }
+
             return rootView;
         }
     }
@@ -454,6 +465,29 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                     }
                 }
             });
+
+            if(cadastroGrupoFamiliarActivity.isUpdate){
+                for (int k = 0; k < radioGroupLocalizacao.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupLocalizacao.getChildAt(k)).getText().toString().equals(cadastroGrupoFamiliarActivity.grupoFamiliar.getLocalizacao()))
+                        ((RadioButton) radioGroupLocalizacao.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupMoradia.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupMoradia.getChildAt(k)).getText().toString().equals(cadastroGrupoFamiliarActivity.grupoFamiliar.getCondsMoradia()))
+                        ((RadioButton) radioGroupMoradia.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupDomicilio.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupDomicilio.getChildAt(k)).getText().toString().equals(cadastroGrupoFamiliarActivity.grupoFamiliar.getTipoDomicilio()))
+                        ((RadioButton) radioGroupDomicilio.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupEnergia.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupEnergia.getChildAt(k)).getText().toString().equals(cadastroGrupoFamiliarActivity.grupoFamiliar.isEnergiaEletrica() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupEnergia.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupSaneamento.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupSaneamento.getChildAt(k)).getText().toString().equals(cadastroGrupoFamiliarActivity.grupoFamiliar.isSaneamentoBasico() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupSaneamento.getChildAt(k)).setChecked(true);
+            }
+
             return rootView;
         }
     }
@@ -613,6 +647,28 @@ public class CadastroGrupoFamiliarActivity extends AppCompatActivity {
                     cadastroGrupoFamiliarActivity.grupoFamiliar.setAnimais(qualAnimais[0]);
                 }
             });
+
+            if (cadastroGrupoFamiliarActivity.isUpdate){
+                for (int k = 0; k < radioGroupColeta.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupColeta.getChildAt(k)).getText().toString().equals(cadastroGrupoFamiliarActivity.grupoFamiliar.isColetaLixo() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupColeta.getChildAt(k)).setChecked(true);
+
+                for (int k = 0; k < radioGroupAnimal.getChildCount(); k++)
+                    if (( (RadioButton) radioGroupAnimal.getChildAt(k)).getText().toString().equals(cadastroGrupoFamiliarActivity.grupoFamiliar.isTemAnimais() ? "Sim" : "Não"))
+                        ((RadioButton) radioGroupAnimal.getChildAt(k)).setChecked(true);
+
+                if (cadastroGrupoFamiliarActivity.grupoFamiliar.getAnimais() != null && cadastroGrupoFamiliarActivity.grupoFamiliar.getAnimais().contains(checkBoxAnimaisCachorro.getText()))
+                    checkBoxAnimaisCachorro.setChecked(true);
+
+                if (cadastroGrupoFamiliarActivity.grupoFamiliar.getAnimais() != null && cadastroGrupoFamiliarActivity.grupoFamiliar.getAnimais().contains(checkBoxAnimaisGato.getText()))
+                    checkBoxAnimaisGato.setChecked(true);
+
+                if (cadastroGrupoFamiliarActivity.grupoFamiliar.getAnimais() != null && cadastroGrupoFamiliarActivity.grupoFamiliar.getAnimais().contains(checkBoxAnimaisOutro.getText()))
+                    checkBoxAnimaisOutro.setChecked(true);
+
+
+            }
+
             return rootView;
         }
     }
